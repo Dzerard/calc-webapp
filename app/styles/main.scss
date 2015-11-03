@@ -1,15 +1,104 @@
+//@form-button-acitve-color: rgba(255,255,255, .1);
+//
+//@c-white: #fff;
+//
+//@font-size-medium: 24px;
+//
+//@base: rgba(255,255,255, 1);
+//
+//@import "_settings.less";
+//
+//body {
+//	background: #fcaf47;
+//	width: 100%;
+//	font-family: Roboto, Tahoma, Arial;
+//  > section {
+//    width: 880px;
+//  } 
+//} 
+//.choose-product {
+//  .btn-default {
+//    background: transparent;
+//    border: 1px solid #fff;
+//    width: 100%;
+//    text-align: left;
+//    position: relative;
+//    .caret{
+//      position: absolute;
+//      right: 10px;
+//      top: 15px;
+//    }
+//    .form-horizontal .control-label {
+//      text-align: left;
+//    }
+//  }
+//}
+//#productForm {
+//  .btn {
+//    &.btn-block {
+//      border: 0;
+//      border-radius: 3px;
+//      background-color: @form-button-acitve-color;
+//      font-weight: bold;
+//      color: @c-white;
+//      font-size: @font-size-medium;
+//    }    
+//  }
+//  .input-lg {
+//    border-radius: 3px;
+//    background-color: transparent;
+//    color: @c-white;
+//  }
+//  .input-group {
+//    .input-lg { 
+//      border-right: 0;
+//      box-shadow: none;
+//      border-color: @base;
+//      border-top-right-radius: 0;
+//      border-bottom-right-radius: 0;
+//    }
+//    .input-group-addon {
+//      background-color: transparent;
+//      color: @c-white;
+//      border-left: 0;
+//      font-size: @font-size-medium;
+//      border-color: @base;
+//    }
+//  }
+//}
+//  
+//.parsley-errors-list {
+//  color: red;
+//}
+//
+//::-webkit-input-placeholder {
+//   color: fade(@base, 30%);
+//}
+//
+//:-moz-placeholder { /* Firefox 18- */
+//   color: fade(@base, 30%);
+//}
+//
+//::-moz-placeholder {  /* Firefox 19+ */
+//   color: fade(@base, 30%);
+//}
+//
+//:-ms-input-placeholder {  
+//   color: fade(@base, 30%); 
+//}
+//
+///* all */
+//::-webkit-input-placeholder { color:#f00; }
+//::-moz-placeholder { color:#f00; } /* firefox 19+ */
+//:-ms-input-placeholder { color:#f00; } /* ie */
+//input:-moz-placeholder { color:#f00; }
+
+
 $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
-
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
-}
 
 /* Space out content a bit */
 body {
@@ -17,77 +106,101 @@ body {
   padding-bottom: 20px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
-
   /* Make the masthead heading the same height as the navigation */
   h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
+    
   }
 }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+    
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
+body {
+  background: #fcaf47;
+  width: 100%;
+  font-family: Roboto, Tahoma, Arial;
 }
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
+body > section {
+  width: 880px;
 }
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-  p + h4 {
-    margin-top: 28px;
-  }
+.choose-product .btn-default {
+  background: transparent;
+  border: 1px solid white;
+  width: 100%;
+  text-align: left;
+  position: relative;
 }
+.choose-product .btn-default .caret {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+}
+.choose-product .btn-default .form-horizontal .control-label {
+  text-align: left;
+}
+#productForm .btn.btn-block {
+  border: 0;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: bold;
+  color: white;
+  font-size: 24px;
+}
+#productForm .input-lg {
+  border-radius: 3px;
+  background-color: transparent;
+  color: white;
+}
+#productForm .input-group .input-lg {
+  border-right: 0;
+  box-shadow: none;
+  border-color: white;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+#productForm .input-group .input-group-addon {
+  background-color: transparent;
+  color: white;
+  border-left: 0;
+  font-size: 24px;
+  border-color: white;
+}
+.parsley-errors-list {
+  color: red;
+}
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgba(255, 255, 255, 0.3);
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgba(255, 255, 255, 0.3);
+}
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+/* all */
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+::-webkit-input-placeholder {
+  color: red;
+}
+::-moz-placeholder {
+  color: red;
+}
+/* firefox 19+ */
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
+:-ms-input-placeholder {
+  color: red;
+}
+/* ie */
 
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+input:-moz-placeholder {
+  color: red;
 }

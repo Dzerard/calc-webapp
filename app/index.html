@@ -16,56 +16,180 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-    <!-- build:js scripts/vendor/modernizr.js -->
-    <script src="bower_components/modernizr/modernizr.js"></script>
-    <!-- endbuild -->
+    <!-- endbuild -->  
     
   </head>
-  <body>
-    <!--[if lt IE 10]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <body>            
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+              <img alt="Brand" src="C:\xampp\htdocs\calc\public\img\logo_calc.png">
+            </a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+      <section id="topPrice" class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="topPriceRabate" class="top-price-rabate text-right">
+              <span>-5% Rabat</span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div id="topPriceSum" class="top-price-sum text-right">
+              154,25zł
+            </div>
+          </div>
+        </div>      
+      </section>
 
     
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">calc webapp</h3>
-      </div>
+      <section id="productList" class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="product-item">
+              <div class="row">
+                <div class="col-md-4 product-name">
+                  Roleta Ścienna
+                </div>
+                <div class="col-md-4 product-dimensions">
+                  68 x 150cm
+                </div>
+                <div class="col-md-4 product-amount">
+                  12szt
+                </div>
+              </div>
 
-      <div class="jumbotron">
-        <h1>'Allo, 'Allo!</h1>
-        <p class="lead">Always a pleasure scaffolding your apps.</p>
-        <p><a class="btn btn-lg btn-success" href="#">Splendid! <span class="glyphicon glyphicon-ok"></span></a></p>
-      </div>
+            </div>
+          </div>
+        </div>      
+      </section>
 
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4><a href="https://html5boilerplate.com/">HTML5 Boilerplate</a></h4>
-          <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
+      <section id="productForm" class="container-fluid">
 
-          <h4><a href="http://libsass.org/">Sass</a></h4>
-          <p>Sass is a mature, stable, and powerful professional grade CSS extension language.</p>
-          
+        <div class="form-container">
 
-          <h4><a href="http://getbootstrap.com/">Bootstrap</a></h4>
-          <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p>
 
-          <h4><a href="http://modernizr.com/">Modernizr</a></h4>
-          <p>Modernizr is an open-source JavaScript library that helps you build the next generation of HTML5 and CSS3-powered websites.</p>
-          
+        <div class="row">
+          <div class="col-md-12">
+            <div class="final-price"></div>
+
+          </div>
         </div>
+
+
+          <form class="form-horizontal"  data-parsley-form-config>
+            <div class="form-group">
+
+              <div class="col-sm-6">
+                <div class="row choose-product">
+                  <label for="product" class="col-sm-2 control-label text-left">Produkt</label>  
+                  <div class="col-md-12"> 
+                    <div class="dropdown">
+                      <button data-tooltip class="btn btn-default dropdown-toggle input-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" data-item-set="false">
+                        Wybierz produkt
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"  data-product-id="001">Roleta Dzień i Noc</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="002">Roleta Ścienna</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="003">Roleta Mini</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="004">Roleta TERMO</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="005">Karnisz Kwadro</a></li>
+                      </ul>                      
+                    </div> 
+                  </div>
+                  <select class="form-control hidden" id="product" placeholder="Produkt">
+                    <option value="100">opcja 1</option>
+                    <option value="200">opcja 2</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-xs-12 col-md-3">
+                <div>
+                  <label for="countItems" class="control-label">Ilość</label>          
+                </div>
+                <div class="input-group">
+                  <input type="number" min="1" max="99999" value="1" class="form-control input-lg" placeholder="Ile sztuk?" aria-describedby="basic-addon-units" id="countItems" required>
+                  <span class="input-group-addon" id="basic-addon-units">szt</span>                  
+                </div>
+                <div class="custom-error"></div>
+              </div>
+
+              <div class="col-sm-6 col-xs-12 col-md-3">
+                <div>
+                  <label for="rabateInput" class="control-label">Rabat</label>          
+                </div>
+                <div class="input-group">
+                  <input type="number" min="0" max="100" id="rabateInput" class="form-control input-lg" placeholder="Jaki rabat?" aria-describedby="basic-addon-proc" required value="0" readonly>
+                  <span class="input-group-addon" id="basic-addon-proc">%</span>
+                </div>
+                <div class="custom-error"></div>
+              </div>
+
+            </div> 
+            <div class="form-group">
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <div>
+                  <label for="itemWidth" class="control-label">Szerokość</label>          
+                </div>
+                <div class="input-group">
+                  <input type="number"  id="itemWidth" min="1" max="99999" class="form-control input-lg" placeholder="Jak szerokie?" aria-describedby="basic-addon-units" required>
+                  <span class="input-group-addon" id="basic-addon-units">cm</span>
+                </div>
+                <div class="custom-error"></div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+                <div>
+                  <label for="itemHeight" class="control-label">Długość</label>          
+                </div>
+                <div class="input-group">
+                  <input type="number" id="itemHeight" min="1" max="99999" class="form-control input-lg" placeholder="Jak wysokie?" aria-describedby="basic-addon-units" required>
+                  <span class="input-group-addon" id="basic-addon-units">cm</span>
+                </div>
+                <div class="custom-error"></div>
+              </div>
+              
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <label for="comment">Dodatkowe info:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+              </div>
+
+              <div class="col-sm-12 col-xs-12 col-md-12">
+                <button class="btn btn-default btn-block btn-lg" type="button">+</button>
+              </div>
+            </div>             
+            <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="button" id="countPriceButton" class="btn btn-success">Przelicz</button>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <div class="footer">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
-    </div>
+    </section>
+
+<!--
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>    
+    <script src="bower_components/parsleyjs/dist/parsley.min.js"></script>       
+    <script src="bower_components/parsleyjs/src/i18n/pl.js"></script>    
+    <script src="public/js/app.js"></script>  
+-->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->  
     
 
     <!-- build:js(.) scripts/vendor.js -->
@@ -73,6 +197,8 @@
     <script src="/bower_components/modernizr/modernizr.js"></script>
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <!-- endbower -->
+    <script src="/bower_components/parsleyjs/dist/parsley.min.js"></script>
+    <script src="/bower_components/parsleyjs/src/i18n/pl.js"></script>
     <!-- endbuild -->
 
     
@@ -94,16 +220,6 @@
 
     <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
-    <!-- endbuild -->
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='https://www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
+    <!-- endbuild -->   
   </body>
 </html>
