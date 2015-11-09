@@ -205,3 +205,34 @@ body > section {
 input:-moz-placeholder {
   color: red;
 }
+
+.dropdown-menu{
+  width: 100%;
+}
+
+.btn-success{
+  background: #ffae00;
+  background: -moz-linear-gradient(top,  #ffae00 0%, #ff9501 90%, #ff7b11 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffae00), color-stop(90%,#ff9501), color-stop(100%,#ff7b11));
+  background: -webkit-linear-gradient(top,  #ffae00 0%,#ff9501 90%,#ff7b11 100%);
+  background: -o-linear-gradient(top,  #ffae00 0%,#ff9501 90%,#ff7b11 100%);
+  background: -ms-linear-gradient(top,  #ffae00 0%,#ff9501 90%,#ff7b11 100%);
+  background: linear-gradient(to bottom,  #ffae00 0%,#ff9501 90%,#ff7b11 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffae00', endColorstr='#ff7b11',GradientType=0 );
+
+  border: 1px solid #cc6922;
+
+  -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
+  -moz-box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
+  box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active{
+  background: #ff9501;
+
+  border: 1px solid #cc6922;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
