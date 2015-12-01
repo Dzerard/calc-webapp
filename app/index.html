@@ -6,13 +6,14 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="shortcut icon" href="C:\xampp\htdocs\calc-webapp\app\images\favicon.ico">
+  <link rel="shortcut icon" href="C:\xampp\htdocs\calc-webapp\app\images\favicon.ico?v=2015">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <!-- endbower -->
+   <link rel="stylesheet" href="fonts/icomoon/style.css">
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
@@ -30,12 +31,12 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">
-          <img class="img-responsive" alt="Brand" src="C:\xampp\htdocs\calc-webapp\app\images\logo_calc.png">
+          <img class="img-responsive" alt="Brand" src="..\images\logo_calc.png">
         </a>
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-
+         
         </ul>
       </div><!--/.nav-collapse -->
     </div>
@@ -44,41 +45,16 @@
     <div class="row">
       <div class="col-md-12">
         <div id="topPriceRabate" class="top-price-rabate text-right">
-          <span>-5% Rabat</span>
+          <span class="rabate-tag"><em></em><i>-5%</i> Rabat</span>
         </div>
       </div>
       <div class="col-md-12">
-        <div id="topPriceSum" class="top-price-sum text-right">
+        <div id="finalPrice" class="top-price-sum text-right ">
           154,25zł
         </div>
       </div>
     </div>
   </section>
-
-
-  <!-- <section id="productList" class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <div class="product-item">
-          <div class="row">
-            <div class="col-md-3 product-name">
-              Roleta Ścienna
-            </div>
-            <div class="col-md-3 product-dimensions">
-              68 x 150cm
-            </div>
-            <div class="col-md-3 product-amount">
-              12szt
-            </div>
-            <div class="col-md-3 product-amount">
-              124,20zł
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section> -->
 
   <section id="productList" class="container-fluid">
     <div class="row">
@@ -86,24 +62,7 @@
         <div class="table-responsive">
           <table class="product-item table table-hover">
             <tbody>
-              <tr>
-                <td>Roleta Ścienna</td>
-                <td>68 x 150cm</td>
-                <td>12szt</td>
-                <td>124,20zł</td>
-              </tr>
-              <tr>
-                <td>Roleta MINI</td>
-                <td>75 x 150cm</td>
-                <td>1szt</td>
-                <td>48zł</td>
-              </tr>
-              <tr>
-                <td>Roleta Dzień i Noc</td>
-                <td>75 x 150cm</td>
-                <td>2szt</td>
-                <td>84,20zł</td>
-              </tr>
+              <!--- lista zakupow -->
             </tbody>
           </table>
         </div>
@@ -114,13 +73,6 @@
   <section id="productForm" class="container-fluid">
 
     <div class="form-container">
-
-
-      <div class="row">
-        <div class="col-md-12">
-          <div class="final-price"></div>
-        </div>
-      </div>
 
 
       <form class="form-horizontal"  data-parsley-form-config>
@@ -140,6 +92,7 @@
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="002">Roleta Ścienna</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="003">Roleta Mini</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="004">Roleta TERMO</a></li>
+                    <li role="separator" class="divider"></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="005">Karnisz Kwadro</a></li>
                   </ul>
                 </div>

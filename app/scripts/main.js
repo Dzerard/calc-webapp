@@ -94,16 +94,49 @@ var app = {
       console.log('formularz nipoprawnie wypeÅ‚niony');
     }
 
+
+    this.addRow('name', 'dime', 'amount', tempPrice + self.currency);
+    this.container.find('form')[0].reset();
+    this.container.find('form').parsley().reset();
+    
+
+  },
+  addRow: function(name, dimensions, amount, price) {
+    var self = this,
+        $tr = $('<tr>'),
+        $name = $('<td>'),
+        $dimensions = $('<td>'),
+        $amount = $('<td>'), 
+        $price = $('<td>'),
+        $remove  = $('<td><a href="#" class="remove-item"><span class="icon-bin"></span></a></td>');
+
+
+    $tr
+      .append($name.text(name))
+      .append($dimensions.text(dimensions))
+      .append($amount.text(amount))
+      .append($price.text(price))
+      .append($remove);
+
+      $remove.on('click', function() {
+        var $this = $(this);
+
+        self.removeRowAction($this);
+        return false;
+      });
+
+    this.productList.find('.product-item tbody').append($tr);
   },
   setItems: function () {
     this.button = this.container.find('#countPriceButton');
     this.selectProduct = this.container.find('#product');
-    this.finalPrice = this.container.find('.final-price');
+    this.finalPrice = $('#finalPrice');
     this.countItems = this.container.find('#countItems');
     this.dropdown = this.container.find('.dropdown');
     this.itemWidth = this.container.find('#itemWidth');
     this.itemHeight = this.container.find('#itemHeight');
     // this.maxAmount  = this.container.find('#maxAmount');
+    this.productList = $('#productList');
   },
   submit: function () {
 
@@ -167,6 +200,22 @@ var app = {
 
       self.checkIfItemSelect();
       // console.log(self.currentItem);
+    });
+
+    this.productList.find('.remove-item').on('click', function(){
+
+      var $this = $(this);
+      self.removeRowAction($this);
+
+      return false;
+    })
+
+  },
+
+  removeRowAction: function($button) {
+
+    $button.parents('tr').fadeOut('medium', function(){
+      $button.parents('tr').remove();
     });
   },
   validForom: function () {
