@@ -70,6 +70,7 @@
 
 .top-price-sum {
   font-size: 60px;
+  font-weight: 700;
 }
 
 /* Custom page footer */
@@ -127,37 +128,34 @@ body > section {
 .parsley-errors-list {
   color: red;
 }
-::-webkit-input-placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-:-moz-placeholder {
-  /* Firefox 18- */
-  color: rgba(255, 255, 255, 0.3);
-}
-::-moz-placeholder {
-  /* Firefox 19+ */
-  color: rgba(255, 255, 255, 0.3);
-}
-:-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.3);
-}
-/* all */
 
-::-webkit-input-placeholder {
-  color: red;
-}
-::-moz-placeholder {
-  color: red;
-}
-/* firefox 19+ */
+.form-control {
 
-:-ms-input-placeholder {
-  color: red;
-}
-/* ie */
+  &::-webkit-input-placeholder {
+    // color: lighten(rgba(255,255,255), 80%);
+    color: $color-white;
+    font-size: 12px;
+    line-height: 24px;
+  }
 
-input:-moz-placeholder {
-  color: red;
+  &::-moz-placeholder {
+    color: #fff;
+    font-size: 12px;
+    line-height: 24px;
+  }
+
+  &::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  &::-ms-input-placeholder {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+  }
 }
 
 .dropdown-menu{
@@ -175,18 +173,57 @@ input:-moz-placeholder {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffae00', endColorstr='#ff7b11',GradientType=0 );
 
   border: 1px solid #cc6922;
-
+  transition: background .2s ease-in-out;
   -webkit-box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
   -moz-box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
   box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
 }
 
-.btn-success:hover, .btn-success:focus, .btn-success:active{
-  background: #ff9501;
-
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:active:hover, .btn-success:active:focus, .btn-success:active.focus, .btn-success.active:hover, .btn-success.active:focus, .btn-success.active.focus, .open > .btn-success.dropdown-toggle:hover, .open > .btn-success.dropdown-toggle:focus, .open > .btn-success.dropdown-toggle.focus {
+  background: darken(#ff9501, 5%);
   border: 1px solid #cc6922;
-
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+}
+
+.table {
+
+  &.product-item  {
+    tr {
+
+      &:hover {
+        background-color: darken($color-lead, 10%);
+      }
+
+      td {
+        border-top: 1px solid $color-white;
+        font-size: $font-size-medium;
+      }
+    }
+
+  }
+}
+
+.remove-item {
+  color: $color-white;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    color: $color-tag-background;
+    background-color: transparent;
+    text-decoration: none;
+  }
+}
+
+.white {
+  border-color: $color-white;
+}
+
+
+.parsley-errors-list {
+  list-style-type: none;
+  padding:0;
+  text-align: center;
+  font-size: 12px;
 }

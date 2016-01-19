@@ -60,7 +60,7 @@ var app = {
         console.log(tempPrice + 'zł');
 
         if (!isNaN(tempPrice)) {
-          self.finalPrice.html('<b>' + tempPrice + self.currency + '</b>');
+          self.finalPrice.html(tempPrice + self.currency);
         }
       }
 
@@ -87,7 +87,7 @@ var app = {
         console.log(tempPrice + 'zł');
 
         if (!isNaN(tempPrice)) {
-          self.finalPrice.html('<b>' + tempPrice + self.currency + '</b>');
+          self.finalPrice.html(tempPrice + self.currency);
         }
       }
     } else {
@@ -171,6 +171,16 @@ var app = {
   },
   bindFunctions: function () {
     var self = this;
+
+    // window.Parsley.on('field:error', function() {
+    //     var $element = $(this.$element).parent();
+    //     var message = $form.attr('data-message');
+    //     $(this.$element).parent().attr('title', message).tooltip('show');
+    // });
+
+    // window.Parsley.on('field:success', function() {
+    //     $(this.$element).parent().removeAttr('title').tooltip('destroy');
+    // });
 
     //akcja do przeliczania formularza
     this.button.on('click', function () {
