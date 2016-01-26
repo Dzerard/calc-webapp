@@ -193,11 +193,12 @@ body > section {
     tr {
 
       &:hover {
-        background-color: darken($color-lead, 10%);
+        background-color: $color-lead-lighten;
       }
 
       td {
-        border-top: 1px solid $color-white;
+        // border-top: 1px solid $color-white;
+        border: none;
         font-size: $font-size-medium;
       }
     }
@@ -210,7 +211,7 @@ body > section {
   text-decoration: none;
 
   &:hover, &:focus {
-    color: $color-tag-background;
+    color: $color-tag-border;
     background-color: transparent;
     text-decoration: none;
   }
