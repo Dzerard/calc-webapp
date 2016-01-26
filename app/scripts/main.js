@@ -17,12 +17,21 @@ var app = {
     this.bindFunctions();
     this.validForom();
   },
+  showRabate: function () {
+    var tableBody = this.productList.find('.product-item tbody');
+    var rabate = $('#topPriceRabate');
+    if (tableBody.find('tr').length >= 3) {
+      rabate.removeClass('hidden');
+    } else {
+      rabate.addClass('hidden');
+    }
+  },
   summary: function () {
     var self = this;
 
     var tempPrice = 0;
     //ilosc i cena jednostkowa
-    if ($('[data-parsley-form-config]').parsley().validate()) {
+    if ($('[data-parsley-form-config]').parsley().validate() === true) {
 
       var currentItem = self.currentItem;
       var width = this.itemWidth.val();
@@ -126,6 +135,7 @@ var app = {
       });
 
     this.productList.find('.product-item tbody').append($tr);
+    this.showRabate();
   },
   setItems: function () {
     this.button = this.container.find('#countPriceButton');
@@ -184,10 +194,11 @@ var app = {
 
     //akcja do przeliczania formularza
     this.button.on('click', function () {
+      console.log($('[data-parsley-form-config]').parsley().validate());
 
       $('[data-parsley-form-config]').parsley().validate();
 
-      if (self.checkIfItemSelect() === true) {
+      if (self.checkIfItemSelect() === true && $('[data-parsley-form-config]').parsley().validate() === true) {
         self.summary();
       }
 
@@ -223,9 +234,11 @@ var app = {
   },
 
   removeRowAction: function($button) {
+    var self = this;
 
     $button.parents('tr').fadeOut('medium', function(){
       $button.parents('tr').remove();
+      self.showRabate();
     });
   },
   validForom: function () {
