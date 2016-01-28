@@ -79,26 +79,22 @@
 }
 
 body > section {
-  width: 880px;
+  max-width: 880px;
   // background: $color-template-base;
 }
 
 .choose-product .btn-default {
   background: transparent;
-  border: 1px solid white;
   width: 100%;
   text-align: left;
   position: relative;
 }
-.choose-product .btn-default .caret {
-  position: absolute;
-  right: 10px;
-  top: 15px;
-}
+
 .choose-product .btn-default .form-horizontal .control-label {
   text-align: left;
 }
-#productForm .btn.btn-block {
+
+.btn.btn-block {
   border: 0;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -106,25 +102,26 @@ body > section {
   color: white;
   font-size: 24px;
 }
-#productForm .input-lg {
-  border-radius: 3px;
-  background-color: transparent;
-  color: white;
+
+.input-group {
+  
+  .input-lg {
+    border-right: 0;
+    box-shadow: none;
+    border-color: white;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 }
-#productForm .input-group .input-lg {
-  border-right: 0;
-  box-shadow: none;
-  border-color: white;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-#productForm .input-group .input-group-addon {
+
+.input-group-addon {
   background-color: transparent;
   color: white;
   border-left: 0;
-  font-size: 24px;
+  font-size: 20px;
   border-color: white;
 }
+
 .parsley-errors-list {
   color: red;
 }
@@ -227,4 +224,38 @@ body > section {
   padding:0;
   text-align: center;
   font-size: 12px;
+}
+
+.dropdown-toggle {
+  
+  .arr {
+    
+    &:before {
+      content: "\f107";
+      font-family: $font-icons;
+    } 
+  }
+}
+
+.bottom-buttons {
+  text-align: right;
+  
+  button {
+    width: 30%;
+    
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+}
+
+.summary-price-description {
+  display: block;
+  text-align: right;
+  font-size: 11px;
+}
+
+.custom-error {
+  display: none;
 }

@@ -107,7 +107,7 @@ var app = {
     this.addRow('name', 'dime', 'amount', tempPrice + self.currency);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
-    
+
 
   },
   addRow: function(name, dimensions, amount, price) {
@@ -115,7 +115,7 @@ var app = {
         $tr = $('<tr>'),
         $name = $('<td>'),
         $dimensions = $('<td>'),
-        $amount = $('<td>'), 
+        $amount = $('<td>'),
         $price = $('<td>'),
         $remove  = $('<td><a href="#" class="remove-item"><span class="icon-bin"></span></a></td>');
 
@@ -169,28 +169,20 @@ var app = {
 
     if (itemSet === 'false') {
 
-      this.dropdown.find('button').attr('title', 'Wybierz produkt');
+      this.dropdown.find('button').attr('data-original-title', 'Wybierz produkt');
+      this.dropdown.parent().addClass('has-error');
       this.dropdown.find('button').tooltip('show');
 
       return false;
     } else {
       this.dropdown.find('button').tooltip('destroy');
+      this.dropdown.parent().removeClass('has-error');
 
       return true;
     }
   },
   bindFunctions: function () {
     var self = this;
-
-    // window.Parsley.on('field:error', function() {
-    //     var $element = $(this.$element).parent();
-    //     var message = $form.attr('data-message');
-    //     $(this.$element).parent().attr('title', message).tooltip('show');
-    // });
-
-    // window.Parsley.on('field:success', function() {
-    //     $(this.$element).parent().removeAttr('title').tooltip('destroy');
-    // });
 
     //akcja do przeliczania formularza
     this.button.on('click', function () {
@@ -211,7 +203,7 @@ var app = {
       self.dropdown.find('li').removeClass('active');
       $dropdownElement.addClass('active');
       self.currentItem = products[$dropdownElement.find('a').data('product-id')];
-      self.dropdown.find('button').text($dropdownElement.find('a').text());
+      self.dropdown.find('button b').text($dropdownElement.find('a').text());
       self.dropdown.find('button').attr('data-item-set', true);
       self.setMaxAmount(self.currentItem.amount);
       self.setMaxHeight(self.currentItem.maxHeight);
@@ -229,8 +221,7 @@ var app = {
       self.removeRowAction($this);
 
       return false;
-    })
-
+    });
   },
 
   removeRowAction: function($button) {
@@ -254,10 +245,20 @@ var app = {
     if ($('[data-parsley-form-config]').length > 0) {
       $('[data-parsley-form-config]').parsley(parsleyConfig);
 
-      //       $('[data-parsley-form-config]').on('field:error', function() {
-      //   // This global callback will be called for any field that fails validation.
-      //   console.log('Validation failed for: ', this.$element);
-      // });
+      //błędy w tooltipach
+      $.listen('parsley:field:error', function (fieldInstance) {
+        var $element = fieldInstance.$element.parent();
+        var message = "Pole wymagane";
+
+        $element.addClass('has-error');
+        $element.attr('data-original-title', message).tooltip('show');
+        //console.log(fieldInstance);
+      });
+
+      $.listen('parsley:field:success', function (fieldInstance) {
+          fieldInstance.$element.parent().tooltip('destroy').removeClass('has-error');
+      });
+
     }
   }
 };

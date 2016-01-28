@@ -5,9 +5,23 @@ $color-grey: #ebebeb;
 $color-template-base: #ff0000;
 $color-tag-border: #cd1800;
 $color-tag-background: #ff471e;
+$color-danger: #C91410;
+$color-bg-success: #ff9501;
 
 $color-body-background: #fcaf47;
 $color-lead: $color-body-background;
 $color-lead-lighten: #f9a638;
 
 $font-size-medium: 18px;
+$font-icons: 'FontAwesome';
+$font-default: 'Roboto', Tahoma, Arial;
+
+// MQ breakpoints
+$mqXLarge:        1260px;
+$mqLarge:         1200px;
+$mqMedium:        991px;
+$mqBreak:         925px; //custom
+$mqBreakSm:       800px;
+$mqTablet:        768px;
+$mqMobile:        600px;
+$mqMobileXs:      480px;

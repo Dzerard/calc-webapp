@@ -1,15 +1,14 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="pl">
 <head>
   <meta charset="utf-8">
   <title>calc webapp</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="shortcut icon" href="C:\xampp\htdocs\calc-webapp\app\images\favicon.ico?v=2015">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+  <link rel="shortcut icon" href="/images/favicon.ico?v=2015">
+  <!--<link rel="apple-touch-icon" href="/apple-touch-icon.png">-->
+  
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <!-- endbower -->
@@ -24,12 +23,6 @@
   <nav class="navbar">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" href="#">
           <img class="img-responsive" alt="Brand" src="..\images\logo_calc.png">
         </a>
@@ -52,6 +45,7 @@
         <div id="finalPrice" class="top-price-sum text-right ">
           00,00zł
         </div>
+        <span class="summary-price-description">Suma do zapłaty</span>
       </div>
     </div>
 
@@ -87,15 +81,17 @@
               <div class="col-md-12">
                 <div class="dropdown">
                   <button data-tooltip class="btn btn-default dropdown-toggle input-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" data-item-set="false">
-                    Wybierz produkt
-                    <span class="caret"></span>
+                    <b>Wybierz produkt</b>
+                    <span class="arr"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li class="dropdown-header">Rolety</li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);"  data-product-id="001">Roleta Dzień i Noc</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="002">Roleta Ścienna</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="003">Roleta Mini</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="004">Roleta TERMO</a></li>
                     <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Inne</li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="javascript:void(0);" data-product-id="005">Karnisz Kwadro</a></li>
                   </ul>
                 </div>
@@ -149,24 +145,14 @@
         <hr class="white">
 
         <div class="form-group">
-          <div class="col-md-12">
-            <button type="button" id="countPriceButton" class="btn btn-success btn-lg col-md-3 pull-right">Przelicz</button>
+          <div class="col-md-12 bottom-buttons">
+            <button type="button" id="countPriceButton" class="btn btn-success btn-lg">Przelicz</button>
           </div>
         </div>
       </form>
     </div>
 
   </section>
-
-<!--
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bower_components/parsleyjs/dist/parsley.min.js"></script>
-    <script src="bower_components/parsleyjs/src/i18n/pl.js"></script>
-    <script src="public/js/app.js"></script>
-  -->
-  <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
-
 
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
