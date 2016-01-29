@@ -25,6 +25,17 @@ var app = {
     } else {
       rabate.addClass('hidden');
     }
+
+    //show hide table thead
+    if (tableBody.find('tr').length >= 1) {
+      this.productList.find('.product-item thead').removeClass('hidden');
+      this.productList.find('.alert').hide();
+
+    } else {
+      this.productList.find('.product-item thead').addClass('hidden');
+      this.productList.find('.alert').slideDown();
+    }
+
   },
   summary: function () {
     var self = this;
@@ -100,11 +111,12 @@ var app = {
         }
       }
     } else {
-      console.log('formularz nipoprawnie wypeÅ‚niony');
+      console.log('formularz nipoprawnie wypełniony');
     }
 
+    var dime = width +'cm x ' + height +'cm'; //wymiary
 
-    this.addRow('name', 'dime', 'amount', tempPrice + self.currency);
+    this.addRow(currentItem.name, dime, amount, tempPrice + self.currency);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
 
@@ -165,7 +177,7 @@ var app = {
   checkIfItemSelect: function () {
     var itemSet = this.dropdown.find('button').attr('data-item-set');
 
-    console.log(itemSet);
+    //console.log(itemSet);
 
     if (itemSet === 'false') {
 
@@ -186,7 +198,6 @@ var app = {
 
     //akcja do przeliczania formularza
     this.button.on('click', function () {
-      console.log($('[data-parsley-form-config]').parsley().validate());
 
       $('[data-parsley-form-config]').parsley().validate();
 

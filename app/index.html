@@ -47,17 +47,26 @@
         </div>
         <span class="summary-price-description">Suma do zapłaty</span>
       </div>
-    </div>
-
-    <hr class="white">
-    
+    </div>    
   </section>
 
   <section id="productList" class="container-fluid">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="table-responsive">
+          <div class="alert alert-info">
+            Twoje zamówienie jest puste, dodaj produkt do listy.
+          </div>
           <table class="product-item table table-hover">
+            <thead class="hidden">
+              <tr>
+                <th>Nazwa</th>
+                <th>Wymiary</th>
+                <th>Ilość</th>
+                <th>Wartość</th>
+                <th>&ensp;</th>
+              </tr>
+            </thead>
             <tbody>
               <!--- lista zakupow -->
             </tbody>
@@ -146,7 +155,7 @@
 
         <div class="form-group">
           <div class="col-md-12 bottom-buttons">
-            <button type="button" id="countPriceButton" class="btn btn-success btn-lg">Przelicz</button>
+            <button type="submit" id="countPriceButton" class="btn btn-success btn-lg">Przelicz</button>
           </div>
         </div>
       </form>

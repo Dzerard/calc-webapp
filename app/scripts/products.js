@@ -30,7 +30,7 @@ var products = {
     ],
     'amount': 50,
     'maxHeight': 250,
-    'name': 'Roleta DzieÅ„ i Noc'
+    'name': 'Roleta Dzień i Noc'
   },
   '002': {
     'price': '400',
