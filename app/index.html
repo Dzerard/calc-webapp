@@ -34,6 +34,8 @@
       </div><!--/.nav-collapse -->
     </div>
   </nav>
+  
+  <div class="flow-step-1">
   <section id="topPrice" class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -43,7 +45,7 @@
       </div>
       <div class="col-md-12">
         <div id="finalPrice" class="top-price-sum text-right ">
-          00,00zł
+          0zł
         </div>
         <span class="summary-price-description">Suma do zapłaty</span>
       </div>
@@ -54,7 +56,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <div class="table-responsive">
-          <div class="alert alert-info">
+          <div class="alert alert-info fade in">
             Twoje zamówienie jest puste, dodaj produkt do listy.
           </div>
           <table class="product-item table table-hover">
@@ -156,13 +158,56 @@
         <div class="form-group">
           <div class="col-md-12 bottom-buttons">
             <button type="submit" id="countPriceButton" class="btn btn-success btn-lg">Przelicz</button>
+            <button type="button" id="orderFormButton" class="btn btn-primary btn-lg" disabled>Zamów</button>
           </div>
         </div>
       </form>
     </div>
+    
+    
 
   </section>
+  </div>
+  <div class="flow-step-2 hidden">
+    <section class="container">
+      <h2 class="text-center">Formularz do zamówienia</h2>
 
+      <form>
+        <div class="form-group">
+          <label for="registerFirstName">First Name</label>
+          <input type="text" class="form-control" id="registerFirstName" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <label for="registerLastName">Last Name</label>
+          <input type="text" class="form-control" id="registerLastName" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <label for="registerEmailAddress">Email Address</label>
+          <input type="email" class="form-control" id="registerEmailAddress" placeholder="" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" class="form-control" id="registerPassword" placeholder="8 character password, at least one number" required>
+        </div>
+        <div class="form-group">
+          <label for="registerRetypePassword">Retype Password</label>
+          <input type="password" class="form-control" id="registerRetypePassword" required>
+        </div>
+
+        <p class="description">By creating a user account, you accept<br>
+          The <a href="#">QRIS Terms of Use and Privacy Policy</a></p>
+
+        <div class="form-group">
+          <div class="col-md-12 bottom-buttons-form">
+            <button data-step="1" type="button" id="backToCalculator" class="btn btn-success btn-lg pull-left"><i class="fa fa-angle-left"></i>Powrót</button>
+            <button type="submit" id="orderFormButton" class="btn btn-primary btn-lg pull-right" disabled>Zamów</button>
+          </div>
+        </div>
+      </form>
+    </section>    
+  </div>
+  
+  
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
   <script src="/bower_components/modernizr/modernizr.js"></script>

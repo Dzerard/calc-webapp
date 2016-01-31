@@ -9,6 +9,8 @@ var app = {
   selectProduct: null,
   countItems: null,
   currency: 'zł',
+  step1: null,
+  step2: null,
   currentItem: null,
   finalPrice: null,
   init: function (container) {
@@ -17,6 +19,27 @@ var app = {
     this.bindFunctions();
     this.validForom();
   },
+  countTotalPrice: function() {
+    //cena całosci zależna jest od rabatu
+    var tableBody = this.productList.find('.product-item tbody');
+    var $rows = tableBody.find('tr');
+    var tempPrice = 0.00;
+    var summary = [];
+
+    $.each($rows, function(key, item) {
+      tempPrice += parseFloat($(item).find('[data-price]').data('price'));
+      summary.push(tempPrice);
+      //parseFloat(summary).toFixed(2) + parseFloat(tempPrice).toFixed(2);
+    });
+
+    console.log(tempPrice);
+
+    this.finalPrice.html(String(tempPrice).replace('.',',') + this.currency);
+
+    console.log($rows);
+
+  },
+  // przerobic na event w momencie usuwania wiersza
   showRabate: function () {
     var tableBody = this.productList.find('.product-item tbody');
     var rabate = $('#topPriceRabate');
@@ -30,12 +53,13 @@ var app = {
     if (tableBody.find('tr').length >= 1) {
       this.productList.find('.product-item thead').removeClass('hidden');
       this.productList.find('.alert').hide();
-
+      this.orderButton.removeAttr('disabled');
     } else {
       this.productList.find('.product-item thead').addClass('hidden');
-      this.productList.find('.alert').slideDown();
+      this.productList.find('.alert').show();
+      this.orderButton.attr('disabled', true);
     }
-
+    this.countTotalPrice();
   },
   summary: function () {
     var self = this;
@@ -79,9 +103,9 @@ var app = {
 
         console.log(tempPrice + 'zł');
 
-        if (!isNaN(tempPrice)) {
-          self.finalPrice.html(tempPrice + self.currency);
-        }
+//        if (!isNaN(tempPrice)) {
+//          self.finalPrice.html(tempPrice + self.currency);
+//        }
       }
 
       /* roleta ścienna typu mini */
@@ -106,9 +130,9 @@ var app = {
 
         console.log(tempPrice + 'zł');
 
-        if (!isNaN(tempPrice)) {
-          self.finalPrice.html(tempPrice + self.currency);
-        }
+//        if (!isNaN(tempPrice)) {
+//          self.finalPrice.html(tempPrice + self.currency);
+//        }
       }
     } else {
       console.log('formularz nipoprawnie wypełniony');
@@ -116,13 +140,14 @@ var app = {
 
     var dime = width +'cm x ' + height +'cm'; //wymiary
 
-    this.addRow(currentItem.name, dime, amount, tempPrice + self.currency);
+    this.addRow(currentItem.name, dime, amount, tempPrice, self.currency);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
-
-
   },
-  addRow: function(name, dimensions, amount, price) {
+  addRow: function(name, dimensions, amount, price, currency) {
+
+    console.log(price);
+
     var self = this,
         $tr = $('<tr>'),
         $name = $('<td>'),
@@ -131,12 +156,11 @@ var app = {
         $price = $('<td>'),
         $remove  = $('<td><a href="#" class="remove-item"><span class="icon-bin"></span></a></td>');
 
-
     $tr
       .append($name.text(name))
       .append($dimensions.text(dimensions))
       .append($amount.text(amount))
-      .append($price.text(price))
+      .append($price.text(String(price).replace('.',',') + currency).attr('data-price', price))
       .append($remove);
 
       $remove.on('click', function() {
@@ -159,6 +183,11 @@ var app = {
     this.itemHeight = this.container.find('#itemHeight');
     // this.maxAmount  = this.container.find('#maxAmount');
     this.productList = $('#productList');
+    this.step1 = $('.flow-step-1');
+    this.orderButton = $('#orderFormButton');
+    this.step2 = $('.flow-step-2');
+    this.backToCalculator = $("#backToCalculator");
+    this.orderFormButton = $("#orderFormButton");
   },
   submit: function () {
 
@@ -208,7 +237,25 @@ var app = {
       return false;
     });
 
-    this.dropdown.find('li').on('click', function () {
+    function showStep(step) {
+      var hide = 'step1',
+          show = 'step2';
+
+      if($(this).attr('data-step') == '1' || step === 1) {
+        hide = ['step2'];
+        show = ['step1'];
+      }
+
+      self[hide].fadeOut('fast', function() {
+        self[show].hide().removeClass('hidden').fadeIn('fast');
+        self[hide].addClass('hidden');
+      });
+    }
+
+    this.orderButton.on('click', showStep);
+    this.backToCalculator.on('click', showStep);
+
+    this.dropdown.find('li[role="presentation"]').on('click', function () {
       var $dropdownElement = $(this);
 
       self.dropdown.find('li').removeClass('active');
@@ -245,7 +292,6 @@ var app = {
   },
   validForom: function () {
 
-
     var parsleyConfig = {
       errorsContainer: function (pEle) {
         var $err = pEle.$element.parent().parent().find('.custom-error');
@@ -259,6 +305,9 @@ var app = {
       //błędy w tooltipach
       $.listen('parsley:field:error', function (fieldInstance) {
         var $element = fieldInstance.$element.parent();
+        console.log(fieldInstance);
+        console.log(fieldInstance.getValue());
+
         var message = "Pole wymagane";
 
         $element.addClass('has-error');

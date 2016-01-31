@@ -78,7 +78,7 @@
     
 }
 
-body > section {
+body section {
   max-width: 880px;
   // background: $color-template-base;
 }
@@ -266,6 +266,17 @@ body > section {
 
     @include mobile {
       width: 100%;
+    }
+  }
+}
+
+.bottom-buttons-form {
+  button {
+    width: 30%;
+    
+
+    @include mobile {
+      width: 45%;
     }
   }
 }
