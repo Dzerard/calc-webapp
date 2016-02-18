@@ -308,7 +308,7 @@ var app = {
         console.log(fieldInstance);
         console.log(fieldInstance.getValue());
 
-        var message = "Pole wymagane";
+        var message = window.ParsleyUI.getErrorsMessages(fieldInstance);;
 
         $element.addClass('has-error');
         $element.attr('data-original-title', message).tooltip('show');
