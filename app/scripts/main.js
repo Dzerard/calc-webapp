@@ -3,6 +3,7 @@
 
 /* global $ */
 /* global products */
+/*global grecaptcha */
 var app = {
   container: null,
   button: null,
@@ -318,7 +319,83 @@ var app = {
       });
 
     }
-  }
+  },
+  step2Form: function() {
+	var $form = $('form');
+
+	  var route = $form.attr('action');
+		$form.on('submit', function () {
+
+			if ($form.parsley().validate()) {
+
+				$form.find('.recaptcha-wrapper').removeClass('hidden');
+
+				var v = grecaptcha.getResponse(); //parse Recaptcha
+
+				if (v.length === 0) {
+					return false;
+				}
+
+				//check
+				$formWrapper.addClass('js-request');
+
+				var afterResponse = function (data) {
+//                  console.log(data);
+					if ($formWrapper.find('.js-message').length > 0) {
+						$formWrapper.find('.js-message').replaceWith($messageContainer);
+					} else {
+						$form.before($messageContainer);
+					}
+
+					// error
+					//                  $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').text('poraw dane');
+					//                  $formWrapper.removeClass('js-request');
+					//                  $formWrapper.find('.loader')
+					//                  <div class="js-message alert alert-danger">Wiadomość wysłana</div>
+					//                  $formWrapper.removeClass('js-request');
+					//                  $form[0].reset(); //reset forma
+
+					// success
+					$formWrapper.find('.loader').fadeOut('fast');
+					$form.slideUp('slow', function () {
+						$formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html(data.message).show();
+					});
+				};
+
+				$.ajax({
+					url: route,
+					data: $form.serialize(),
+					type: 'POST',
+//                  timeout: 2000,
+					success: function (data) {
+						afterResponse(data);
+					},
+					error: function () {
+						if ($formWrapper.find('.js-message').length > 0) {
+							$formWrapper.find('.js-message').replaceWith($messageContainer);
+						} else {
+							$form.before($messageContainer);
+						}
+
+						$formWrapper.find('.loader').fadeOut('fast');
+						$form.slideUp('slow', function () {
+							$formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html('Oops, it looks like an error occured. <span>Refresh page and try again</span>').show();
+						});
+					}
+				});
+			}
+			return false;
+		});
+	}
+};
+
+//view
+// <script async defer src='https://www.google.com/recaptcha/api.js?hl=en'></script>
+
+var recaptchaCallback = function () {
+	'use strict';
+
+	$('.contact-form-container form').submit();
 };
 
 app.init($('.form-container'));
