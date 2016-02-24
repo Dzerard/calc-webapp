@@ -33,11 +33,9 @@ var app = {
     });
 
     console.log(tempPrice);
+	console.log($rows);
 
-    this.finalPrice.html(String(tempPrice).replace('.',',') + this.currency);
-
-    console.log($rows);
-
+    this.finalPrice.html(String(tempPrice).replace('.', ',') + this.currency);
   },
   // przerobic na event w momencie usuwania wiersza
   showRabate: function () {
@@ -138,9 +136,9 @@ var app = {
       console.log('formularz nipoprawnie wypełniony');
     }
 
-    var dime = width +'cm x ' + height +'cm'; //wymiary
+    var dime = width + 'cm x ' + height + 'cm'; //wymiary
 
-    this.addRow(currentItem.name, dime, amount, tempPrice, self.currency);
+	this.addRow(currentItem.name, dime, amount, tempPrice, self.currency);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
   },
@@ -154,13 +152,13 @@ var app = {
         $dimensions = $('<td>'),
         $amount = $('<td>'),
         $price = $('<td>'),
-        $remove  = $('<td><a href="#" class="remove-item"><span class="icon-bin"></span></a></td>');
+        $remove = $('<td><a href="#" class="remove-item"><span class="icon-bin"></span></a></td>');
 
     $tr
       .append($name.text(name))
       .append($dimensions.text(dimensions))
       .append($amount.text(amount))
-      .append($price.text(String(price).replace('.',',') + currency).attr('data-price', price))
+      .append($price.text(String(price).replace('.', ',') + currency).attr('data-price', price))
       .append($remove);
 
       $remove.on('click', function() {
@@ -186,8 +184,8 @@ var app = {
     this.step1 = $('.flow-step-1');
     this.orderButton = $('#orderFormButton');
     this.step2 = $('.flow-step-2');
-    this.backToCalculator = $("#backToCalculator");
-    this.orderFormButton = $("#orderFormButton");
+    this.backToCalculator = $('#backToCalculator');
+    this.orderFormButton = $('#orderFormButton');
   },
   submit: function () {
 
@@ -241,7 +239,7 @@ var app = {
       var hide = 'step1',
           show = 'step2';
 
-      if($(this).attr('data-step') == '1' || step === 1) {
+      if($(this).attr('data-step') === '1' || step === 1) {
         hide = ['step2'];
         show = ['step1'];
       }
@@ -308,7 +306,7 @@ var app = {
         console.log(fieldInstance);
         console.log(fieldInstance.getValue());
 
-        var message = window.ParsleyUI.getErrorsMessages(fieldInstance);;
+        var message = window.ParsleyUI.getErrorsMessages(fieldInstance);
 
         $element.addClass('has-error');
         $element.attr('data-original-title', message).tooltip('show');

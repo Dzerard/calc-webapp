@@ -1,4 +1,5 @@
 /* exports */
+/*eslint-disable no-unused-vars*/
 var products = {
   '001': {
     'price': '400',
@@ -209,3 +210,4 @@ var products = {
     'name': 'Roleta Mini'
   }
 };
+/*eslint-enable no-unused-vars*/
