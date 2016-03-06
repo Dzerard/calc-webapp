@@ -5,7 +5,7 @@
     <title>calc webapp</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex">    
+    <meta name="robots" content="noindex">
     <meta name="googlebot" content="noindex">
     <link rel="shortcut icon" href="images/favicon.ico">
     <!--<link rel="apple-touch-icon" href="/apple-touch-icon.png">-->
@@ -13,7 +13,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link rel="stylesheet" href="styles/fonts/icomoon/style.css">
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -170,7 +170,7 @@
     </div>
     <div class="flow-step-2 hidden">
       <section class="container">
-        <form method="POST" action="/" class="contact-form" data-parsley-validate>
+        <form method="POST" action="/"  data-action="mail.php" class="contact-form" data-parsley-validate>
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
@@ -244,6 +244,8 @@
             </div>
           </div>
 
+          <div class="g-recaptcha" data-sitekey="6LeSKRkTAAAAADZ3NZgT_c5H_67EPCcJ8RTW7foI"></div>
+
           <div class="row">
             <div class="col-md-12 bottom-buttons-form">
               <div class="form-group">
@@ -256,11 +258,10 @@
       </section>
     </div>
 
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="/bower_components/modernizr/modernizr.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src='/bower_components/modernizr/modernizr.js'></script>
+    <script src='/bower_components/jquery/dist/jquery.js'></script>
     <!-- endbower -->
     <script src="/bower_components/parsleyjs/dist/parsley.min.js"></script>
     <script src="/bower_components/parsleyjs/src/i18n/pl.js"></script>
@@ -287,5 +288,7 @@
     <script src="scripts/products.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
+
+    <script src='https://www.google.com/recaptcha/api.js?hl=pl'></script>
   </body>
 </html>

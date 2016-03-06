@@ -184,6 +184,26 @@ body section {
   box-shadow: none;
 }
 
+.btn-primary {
+  border: 1px solid #01A949;
+  background: linear-gradient(to bottom, #2DCC70 0%, #01A949 90%, #128C46 100%);
+  box-shadow: inset 0px 1px 0px 0px rgba(152, 255, 121, 0.75), 0px 6px 10px -4px rgba(0, 0, 0, 0.2);
+
+  &:disabled, &:active {
+    &:hover, &:focus {
+      background: #128C46;
+      border: 1px solid #0C6933;
+      box-shadow: none;
+    }
+  }
+
+  &:disabled, &:hover, &:focus {
+    background: #128C46;
+    border: 1px solid #0C6933;
+    box-shadow: none;
+  }
+}
+
 .table {
 
   &.product-item  {
