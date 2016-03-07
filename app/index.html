@@ -13,7 +13,6 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
-    <link rel="stylesheet" href="styles/fonts/icomoon/style.css">
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
@@ -170,81 +169,89 @@
     </div>
     <div class="flow-step-2 hidden">
       <section class="container">
+        <div class="js-message hidden fadeIn">
+          Message
+        </div>
         <form method="POST" action="/"  data-action="mail.php" class="contact-form" data-parsley-validate>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="contactName">Imię</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactName" placeholder="" required>
+          <div class="contact-captcha-wrap">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="contactName">Imię</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactName" placeholder="" required name="name">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="contactSurname">Nazwisko</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactSurname" placeholder="" required name="surname">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="contactEmail">E-mail</label>
+                  <div>
+                    <input type="email" class="form-control input-lg" id="contactEmail" placeholder="" required name="email">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="contactSurname">Nazwisko</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactSurname" placeholder="" required>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="contactStreet">Ulica</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactStreet" placeholder="" required name="street">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="contactHouseNo">Nr domu/mieszkania</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactHouseNo" placeholder="" required name="number">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="contactEmail">E-mail</label>
-                <div>
-                  <input type="email" class="form-control input-lg" id="contactEmail" placeholder="" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="contactZip">Kod pocztowy</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactZip" placeholder="" required name="postal-code">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="contactCity">Miasto</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactCity" placeholder="" required name="city">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-8">
-              <div class="form-group">
-                <label for="contactStreet">Ulica</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactStreet" placeholder="" required>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="contactPhone">Telefon kontaktowy</label>
+                  <div>
+                    <input type="text" class="form-control input-lg" id="contactPhone" placeholder="" name="phone">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label for="contactHouseNo">Nr domu/mieszkania</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactHouseNo" placeholder="" required>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="contactZip">Kod pocztowy</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactZip" placeholder="" required>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="contactCity">Miasto</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactCity" placeholder="" required>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="contactPhone">Telefon kontaktowy</label>
-                <div>
-                  <input type="text" class="form-control input-lg" id="contactPhone" placeholder="">
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="g-recaptcha" data-sitekey="6LeSKRkTAAAAADZ3NZgT_c5H_67EPCcJ8RTW7foI"></div>
+            <div class="recaptcha-wrapper hidden fadeIn">
+              <div class="g-recaptcha" data-sitekey="6LeSKRkTAAAAADZ3NZgT_c5H_67EPCcJ8RTW7foI" data-callback="recaptchaCallback"></div>
+            </div>
+
+          </div>
 
           <div class="row">
             <div class="col-md-12 bottom-buttons-form">

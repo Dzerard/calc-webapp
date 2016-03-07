@@ -1,9 +1,9 @@
 // jshint devel:true
 'use strict';
-
 /* global $ */
 /* global products */
-/*global grecaptcha */
+/* global grecaptcha */
+
 var app = {
   container: null,
   button: null,
@@ -318,13 +318,12 @@ var app = {
       $.listen('parsley:field:success', function (fieldInstance) {
           fieldInstance.$element.parent().tooltip('destroy').removeClass('has-error');
       });
-
     }
   },
   step2Form: function () {
-    var $form = $('.contact-form');
-//        route = $form.attr('data-action'),
-//        $formWrapper = $form.parent();
+    var $form = $('.contact-form'),
+        route = $form.attr('data-action'),
+        $formWrapper = $form.parent();
 
     $form.on('submit', function () {
 
@@ -336,66 +335,61 @@ var app = {
         if (v.length === 0) {
           return false;
         }
-        console.log('send');
-        return false;
-        //check
-//        $formWrapper.addClass('js-request');
 
-//        var afterResponse = function (data) {
-////                  console.log(data);
-////          if ($formWrapper.find('.js-message').length > 0) {
-////            $formWrapper.find('.js-message').replaceWith($messageContainer);
-////          } else {
-////            $form.before($messageContainer);
-////          }
-////
-////          // error
-////          //                  $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').text('poraw dane');
-////          //                  $formWrapper.removeClass('js-request');
-////          //                  $formWrapper.find('.loader')
-////          //                  <div class="js-message alert alert-danger">Wiadomość wysłana</div>
-////          //                  $formWrapper.removeClass('js-request');
-////          //                  $form[0].reset(); //reset forma
-////
-////          // success
-////          $formWrapper.find('.loader').fadeOut('fast');
-////          $form.slideUp('slow', function () {
-////            $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html(data.message).show();
-////          });
-//        };
+        var afterResponse = function (data) {
+                  console.log(data);
+//          if ($formWrapper.find('.js-message').length > 0) {
+//            $formWrapper.find('.js-message').replaceWith($messageContainer);
+//          } else {
+//            $form.before($messageContainer);
+//          }
 //
-//        $.ajax({
-//          url: route,
-//          data: $form.serialize(),
-//          type: 'POST',
-////                  timeout: 2000,
-//          success: function (data) {
-//            afterResponse(data);
-//          },
-//          error: function () {
-//            if ($formWrapper.find('.js-message').length > 0) {
-//              $formWrapper.find('.js-message').replaceWith($messageContainer);
-//            } else {
-//              $form.before($messageContainer);
-//            }
+//          // error
+//          //                  $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').text('poraw dane');
+//          //                  $formWrapper.removeClass('js-request');
+//          //                  $formWrapper.find('.loader')
+//          //                  <div class="js-message alert alert-danger">Wiadomość wysłana</div>
+//          //                  $formWrapper.removeClass('js-request');
+//          //                  $form[0].reset(); //reset forma
 //
+//          // success
+//          $formWrapper.find('.loader').fadeOut('fast');
+//          $form.slideUp('slow', function () {
+//            $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html(data.message).show();
+//          });
+        };
+
+
+          $.ajax({
+            url: route,
+            data: $form.serialize(),
+            type: 'POST',
+//                  timeout: 2000,
+            success: function (data) {
+              afterResponse(data);
+            },
+
+          error: function () {
+            if ($formWrapper.find('.js-message').length > 0) {
+              $formWrapper.find('.js-message').text('Wystąpił błąd!');
+            }
+
 //            $formWrapper.find('.loader').fadeOut('fast');
 //            $form.slideUp('slow', function () {
 //              $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html('Oops, it looks like an error occured. <span>Refresh page and try again</span>').show();
 //            });
-//          }
-//        });
+          }
+        });
       }
       return false;
     });
   }
 };
 
-//view
-//var recaptchaCallback = function () {
-//	'use strict';
-//
-//	$('.contact-form').submit();
-//};
+/*eslint-disable no-unused-vars*/
+var recaptchaCallback = function () {
+	$('.contact-form').submit();
+};
+/*eslint-enable no-unused-vars*/
 
 app.init($('.form-container'));

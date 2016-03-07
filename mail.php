@@ -1,16 +1,16 @@
 <?php
 
-require __DIR__ . '/../../vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+require __DIR__ . '/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 class mailController {
 
-  protected $storePath = null;
+  //protected $storePath = null;
   protected $response = array();
   protected $errors = array();
   static $_KEY = '6LeSKRkTAAAAADuRJ348BPWJYTeTTXe5IeLFg0pW';
 
   public function __construct() {
-    $this->storePath = __DIR__ . '/../../public/uploads/';
+    //$this->storePath = __DIR__ . '/../../public/uploads/';
   }
 
   public function sendMail($data) {
@@ -20,15 +20,9 @@ class mailController {
     $mail->CharSet = "UTF-8";
     $mail->From = $data['email'];
     $mail->FromName = 'Formularz kontaktowy';
-    $mail->addAddress('kontakt@dragonsunited.co.uk', 'Kontakt Dragons United');     // Add a recipient
-    $mail->addReplyTo('kontakt@dragonsunited.co.uk', 'Kontakt');
+    $mail->addAddress('gielarek@gmail.com', 'Kontakt Pszczółka');     // Add a recipient
+    $mail->addReplyTo('gielarek@gmail.com', 'Kontakt');
 
-    //pliki
-    if (isset($data['file'])) {
-      foreach ($data['file'] as $key => $item) {
-        $mail->addAttachment($this->storePath . $item, 'attachement' . $key);
-      }
-    }
 
     // Set email format to HTML
     $mail->isHTML(true);
