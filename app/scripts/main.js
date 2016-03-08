@@ -362,7 +362,7 @@ var app = {
 
           $.ajax({
             url: route,
-            data: $form.serialize(),
+            data: {data: $form.serialize()},
             type: 'POST',
 //                  timeout: 2000,
             success: function (data) {
