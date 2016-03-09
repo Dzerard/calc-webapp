@@ -21,21 +21,21 @@ var app = {
     this.validForom();
     this.step2Form();
   },
-  countTotalPrice: function() {
+  countTotalPrice: function () {
     //cena całosci zależna jest od rabatu
     var tableBody = this.productList.find('.product-item tbody');
     var $rows = tableBody.find('tr');
     var tempPrice = 0.00;
     var summary = [];
 
-    $.each($rows, function(key, item) {
+    $.each($rows, function (key, item) {
       tempPrice += parseFloat($(item).find('[data-price]').data('price'));
       summary.push(tempPrice);
       //parseFloat(summary).toFixed(2) + parseFloat(tempPrice).toFixed(2);
     });
 
     console.log(tempPrice);
-	console.log($rows);
+    console.log($rows);
 
     this.finalPrice.html(String(tempPrice).replace('.', ',') + this.currency);
   },
@@ -140,35 +140,35 @@ var app = {
 
     var dime = width + 'cm x ' + height + 'cm'; //wymiary
 
-	this.addRow(currentItem.name, dime, amount, tempPrice, self.currency);
+    this.addRow(currentItem.name, dime, amount, tempPrice, self.currency);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
   },
-  addRow: function(name, dimensions, amount, price, currency) {
+  addRow: function (name, dimensions, amount, price, currency) {
 
     console.log(price);
 
     var self = this,
-        $tr = $('<tr>'),
-        $name = $('<td>'),
-        $dimensions = $('<td>'),
-        $amount = $('<td>'),
-        $price = $('<td>'),
-        $remove = $('<td><a href="#" class="remove-item"><span class="icon-bin"></span></a></td>');
+            $tr = $('<tr>'),
+            $name = $('<td>'),
+            $dimensions = $('<td>'),
+            $amount = $('<td>'),
+            $price = $('<td>'),
+            $remove = $('<td><a href="#" class="remove-item"><span class="icon-trash-o"></span></a></td>');
 
     $tr
-      .append($name.text(name))
-      .append($dimensions.text(dimensions))
-      .append($amount.text(amount))
-      .append($price.text(String(price).replace('.', ',') + currency).attr('data-price', price))
-      .append($remove);
+            .append($name.text(name))
+            .append($dimensions.text(dimensions))
+            .append($amount.text(amount))
+            .append($price.text(String(price).replace('.', ',') + currency).attr('data-price', price))
+            .append($remove);
 
-      $remove.on('click', function() {
-        var $this = $(this);
+    $remove.on('click', function () {
+      var $this = $(this);
 
-        self.removeRowAction($this);
-        return false;
-      });
+      self.removeRowAction($this);
+      return false;
+    });
 
     this.productList.find('.product-item tbody').append($tr);
     this.showRabate();
@@ -239,14 +239,14 @@ var app = {
 
     function showStep(step) {
       var hide = 'step1',
-          show = 'step2';
+              show = 'step2';
 
-      if($(this).attr('data-step') === '1' || step === 1) {
+      if ($(this).attr('data-step') === '1' || step === 1) {
         hide = ['step2'];
         show = ['step1'];
       }
 
-      self[hide].fadeOut('fast', function() {
+      self[hide].fadeOut('fast', function () {
         self[show].hide().removeClass('hidden').fadeIn('fast');
         self[hide].addClass('hidden');
       });
@@ -273,7 +273,7 @@ var app = {
       // console.log(self.currentItem);
     });
 
-    this.productList.find('.remove-item').on('click', function(){
+    this.productList.find('.remove-item').on('click', function () {
 
       var $this = $(this);
       self.removeRowAction($this);
@@ -281,11 +281,10 @@ var app = {
       return false;
     });
   },
-
-  removeRowAction: function($button) {
+  removeRowAction: function ($button) {
     var self = this;
 
-    $button.parents('tr').fadeOut('medium', function(){
+    $button.parents('tr').fadeOut('medium', function () {
       $button.parents('tr').remove();
       self.showRabate();
     });
@@ -316,42 +315,42 @@ var app = {
       });
 
       $.listen('parsley:field:success', function (fieldInstance) {
-          fieldInstance.$element.parent().tooltip('destroy').removeClass('has-error');
+        fieldInstance.$element.parent().tooltip('destroy').removeClass('has-error');
       });
     }
   },
-	helpers: (function () {
-		var $loader = $('<div>', {'class': 'loader big'});
+  helpers: (function () {
+    var $loader = $('<div>', {'class': 'loader big'});
 
-		function loader($container) {
-			$container.append($loader);
-		}
+    function loader($container) {
+      $container.append($loader);
+    }
 
-		function removeLoader() {
-			$loader.remove();
-		}
+    function removeLoader() {
+      $loader.remove();
+    }
 
-		function scrollTo($toContainer) {
+    function scrollTo($toContainer) {
 
-			if ($toContainer instanceof $) {
+      if ($toContainer instanceof $) {
 
-				$('html,body').animate({scrollTop: $toContainer.offset().top}, 'medium', function () {
-					//@todo $callback();
-				});
-			}
-		}
+        $('html,body').animate({scrollTop: $toContainer.offset().top}, 'medium', function () {
+          //@todo $callback();
+        });
+      }
+    }
 
-		return {
-			loader: loader,
-			removeLoader: removeLoader,
-			scrollTo: scrollTo
-		};
-	})(),
+    return {
+      loader: loader,
+      removeLoader: removeLoader,
+      scrollTo: scrollTo
+    };
+  })(),
   step2Form: function () {
     var $form = $('.contact-form'),
-        route = $form.attr('data-action'),
-        $formWrapper = $form.parent(),
-		self = this;
+            route = $form.attr('data-action'),
+            $formWrapper = $form.parent(),
+            self = this;
 
     $form.on('submit', function () {
 
@@ -365,7 +364,22 @@ var app = {
         }
 
         var afterResponse = function (data) {
-                  console.log(data);
+          console.log(data);
+          console.log(data.ok);
+          $formWrapper.find('.js-message').hide().removeClass('hidden');
+
+          if (data.err !== undefined) {
+            $formWrapper.find('.js-message').removeClass('alert-info').addClass('alert-danger').hrml('Formularz zawiera błędy:<br>' + data.err).show();
+          } else if(data.ok !== undefined) {
+            $formWrapper.find('.js-message').addClass('alert-info').removeClass('alert-danger').text('Formularz został wysłany! Wkrótce otrzymasz więcej informacji!').show();
+            $form[0].reset();
+            $form.slideUp();
+            $form.find('.recaptcha-wrapper').addClass('hidden');
+
+            setTimeout(function(){
+              window.location.reload();
+            }, 5000);
+          }
 //          if ($formWrapper.find('.js-message').length > 0) {
 //            $formWrapper.find('.js-message').replaceWith($messageContainer);
 //          } else {
@@ -387,31 +401,32 @@ var app = {
 //          });
         };
 
+        $form.find('[name="message"]').val($('.product-item.table').html());
 
-		$.ajax({
-			url: route,
-			data: {data: $form.serialize()},
-			type: 'POST',
-//                  timeout: 2000,
-			success: function (data) {
-				afterResponse(data);
-			},
-			beforeSend: function () {
-				self.helpers.loader($('.contact-captcha-wrap'));
-			},
-			error: function () {
-				if ($formWrapper.find('.js-message').length > 0) {
-					$formWrapper.find('.js-message').text('Wystąpił błąd!');
-				}
+        $.ajax({
+          url: route,
+          data: {data: $form.serialize()},
+          type: 'POST',
+          dataType: 'json',
+          success: function (data) {
+            afterResponse(data);
+          },
+          beforeSend: function () {
+            self.helpers.loader($('.contact-captcha-wrap'));
+          },
+          error: function () {
+            if ($formWrapper.find('.js-message').length > 0) {
+              $formWrapper.find('.js-message').text('Wystąpił błąd!');
+            }
 
 //            $formWrapper.find('.loader').fadeOut('fast');
 //            $form.slideUp('slow', function () {
 //              $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html('Oops, it looks like an error occured. <span>Refresh page and try again</span>').show();
 //            });
-			}
-		}).always(function () {
-			self.helpers.removeLoader();
-		});
+          }
+        }).always(function () {
+          self.helpers.removeLoader();
+        });
       }
       return false;
     });
@@ -420,7 +435,7 @@ var app = {
 
 /*eslint-disable no-unused-vars*/
 var recaptchaCallback = function () {
-	$('.contact-form').submit();
+  $('.contact-form').submit();
 };
 /*eslint-enable no-unused-vars*/
 

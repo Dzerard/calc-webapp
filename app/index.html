@@ -169,7 +169,7 @@
     </div>
     <div class="flow-step-2 hidden">
       <section class="container">
-        <div class="js-message hidden fadeIn">
+        <div class="js-message hidden alert alert-info fadeIn">
           Message
         </div>
         <form method="POST" action="/"  data-action="mail.php" class="contact-form" data-parsley-validate name="data">
@@ -246,6 +246,8 @@
                 </div>
               </div>
             </div>
+
+            <input type="hidden" name="message" class="hidden" />
 
             <div class="recaptcha-wrapper hidden fadeIn">
               <div class="g-recaptcha" data-sitekey="6LeSKRkTAAAAADZ3NZgT_c5H_67EPCcJ8RTW7foI" data-callback="recaptchaCallback"></div>

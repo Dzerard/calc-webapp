@@ -14,7 +14,6 @@ class mailController {
   }
 
   public function sendMail($data) {
-
     $mail = new PHPMailer;
     $mail->setLanguage('pl');
     $mail->CharSet = "UTF-8";
@@ -23,18 +22,27 @@ class mailController {
     $mail->addAddress('gielarek@gmail.com', 'Kontakt Pszczółka');     // Add a recipient
     $mail->addReplyTo('gielarek@gmail.com', 'Kontakt');
 
-
     // Set email format to HTML
     $mail->isHTML(true);
-    $mail->Subject = $data['topic'];
-    $mail->Body = 'Treść wiadomości<br><b>' . $data['message'] . '</b>';
+    $mail->Subject = "Zamówienie ze strony";
+    $mail->Body = '<p style="font-size: 15px; margin-bottom: 10px;">Treść wiadomości:</p>'
+            . '<table>'
+            . '<tr><td>Od:</td><td> <b>' . $data['name'] . ' ' . $data['surname'] . '</b></td></tr>'
+            . '<tr><td>Telefon:</td><td><b>' . ($data['phone'] ? $data['phone'] : '-') . '</b></td></tr>'
+            . '<tr><td>Adres zamówienia:</td><td><b>' . $data['postal-code'] . ' ' . $data['city'] . '</b><br><b> ' . $data['street'] . ' ' . $data['number'] . ' </b></td></tr>'
+            . '</table>'
+            . '<p style="font-size: 15px; margin-bottom: 10px;"> Tabela: </p>'
+            . $data['message'];
+
+
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     if (!$mail->send()) {
-      echo 'Message could not be sent.';
-      echo 'Mailer Error: ' . $mail->ErrorInfo;
+      //echo 'Message could not be sent.';
+      //echo 'Mailer Error: ' . $mail->ErrorInfo;
+      //die;
     } else {
-      echo 'Message has been sent';
+      //echo 'Message has been sent';
     }
 
     return true;
@@ -72,8 +80,13 @@ class mailController {
   public function validForm($data) {
 
     $this->validMail($data['email']);
-    $this->validStrLength($data['topic'], 1, 'topic');
+    $this->validStrLength($data['name'], 1, 'name');
+    $this->validStrLength($data['surname'], 1, 'surname');
+    $this->validStrLength($data['city'], 1, 'city');
+    $this->validStrLength($data['postal-code'], 1, 'postal-code');
+    $this->validStrLength($data['number'], 1, 'number');
     $this->validStrLength($data['message'], 1, 'message');
+    $this->validStrLength($data['street'], 1, 'street');
 
     if (!empty($this->errors)) {
       $this->response['err'] = $this->errors;
@@ -81,6 +94,8 @@ class mailController {
     } else {
       $this->response['ok'] = 'good_data';
     }
+
+    return true;
   }
 
 }
