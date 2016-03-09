@@ -320,10 +320,38 @@ var app = {
       });
     }
   },
+	helpers: (function () {
+		var $loader = $('<div>', {'class': 'loader big'});
+
+		function loader($container) {
+			$container.append($loader);
+		}
+
+		function removeLoader() {
+			$loader.remove();
+		}
+
+		function scrollTo($toContainer) {
+
+			if ($toContainer instanceof $) {
+
+				$('html,body').animate({scrollTop: $toContainer.offset().top}, 'medium', function () {
+					//@todo $callback();
+				});
+			}
+		}
+
+		return {
+			loader: loader,
+			removeLoader: removeLoader,
+			scrollTo: scrollTo
+		};
+	})(),
   step2Form: function () {
     var $form = $('.contact-form'),
         route = $form.attr('data-action'),
-        $formWrapper = $form.parent();
+        $formWrapper = $form.parent(),
+		self = this;
 
     $form.on('submit', function () {
 
@@ -360,26 +388,30 @@ var app = {
         };
 
 
-          $.ajax({
-            url: route,
-            data: {data: $form.serialize()},
-            type: 'POST',
+		$.ajax({
+			url: route,
+			data: {data: $form.serialize()},
+			type: 'POST',
 //                  timeout: 2000,
-            success: function (data) {
-              afterResponse(data);
-            },
-
-          error: function () {
-            if ($formWrapper.find('.js-message').length > 0) {
-              $formWrapper.find('.js-message').text('Wystąpił błąd!');
-            }
+			success: function (data) {
+				afterResponse(data);
+			},
+			beforeSend: function () {
+				self.helpers.loader($('.contact-captcha-wrap'));
+			},
+			error: function () {
+				if ($formWrapper.find('.js-message').length > 0) {
+					$formWrapper.find('.js-message').text('Wystąpił błąd!');
+				}
 
 //            $formWrapper.find('.loader').fadeOut('fast');
 //            $form.slideUp('slow', function () {
 //              $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html('Oops, it looks like an error occured. <span>Refresh page and try again</span>').show();
 //            });
-          }
-        });
+			}
+		}).always(function () {
+			self.helpers.removeLoader();
+		});
       }
       return false;
     });
