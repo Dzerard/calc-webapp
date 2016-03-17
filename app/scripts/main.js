@@ -364,8 +364,6 @@ var app = {
         }
 
         var afterResponse = function (data) {
-          console.log(data);
-          console.log(data.ok);
           $formWrapper.find('.js-message').hide().removeClass('hidden');
 
           if (data.err !== undefined) {
@@ -401,7 +399,7 @@ var app = {
 //          });
         };
 
-        $form.find('[name="message"]').val($('.product-item.table').html());
+        $form.find('[name="message"]').val('<table>' + $('.product-item.table').html() + '</table>');
 
         $.ajax({
           url: route,

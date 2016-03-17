@@ -179,7 +179,7 @@
                 <div class="form-group">
                   <label for="contactName">Imię</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactName" placeholder="" required name="name">
+                    <input type="text" class="form-control input-lg" id="contactName" placeholder="" required name="name" data-parsley-pattern="/[a-zA-Z]+/g">
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@
                 <div class="form-group">
                   <label for="contactSurname">Nazwisko</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactSurname" placeholder="" required name="surname">
+                    <input type="text" class="form-control input-lg" id="contactSurname" placeholder="" required name="surname" data-parsley-pattern="/[a-zA-Z]+/g">
                   </div>
                 </div>
               </div>
@@ -205,7 +205,7 @@
                 <div class="form-group">
                   <label for="contactStreet">Ulica</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactStreet" placeholder="" required name="street">
+                    <input type="text" class="form-control input-lg" id="contactStreet" placeholder="" required name="street" data-parsley-pattern="/[a-zA-Z]+/g">
                   </div>
                 </div>
               </div>
@@ -223,7 +223,8 @@
                 <div class="form-group">
                   <label for="contactZip">Kod pocztowy</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactZip" placeholder="" required name="postal-code">
+                    <input type="text" class="form-control input-lg" id="contactZip" placeholder="" required
+                           name="postal-code" data-parsley-pattern="/[\d]{2}-[\d]{3}/g" data-parsley-maxlength="6">
                   </div>
                 </div>
               </div>
@@ -231,7 +232,7 @@
                 <div class="form-group">
                   <label for="contactCity">Miasto</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactCity" placeholder="" required name="city">
+                    <input type="text" class="form-control input-lg" id="contactCity" placeholder="" required name="city" data-parsley-pattern="/[a-zA-Z]+/g">
                   </div>
                 </div>
               </div>
@@ -241,7 +242,7 @@
                 <div class="form-group">
                   <label for="contactPhone">Telefon kontaktowy</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactPhone" placeholder="" name="phone">
+                    <input type="text" class="form-control input-lg" id="contactPhone" placeholder="" name="phone" data-parsley-min="6">
                   </div>
                 </div>
               </div>
