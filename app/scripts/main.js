@@ -399,7 +399,16 @@ var app = {
 //          });
         };
 
-        $form.find('[name="message"]').val('<table>' + $('.product-item.table').html() + '</table>');
+        //prepare html of items
+        var $message = $('.product-item.table tbody').clone();
+        $message.find('td:last-child').remove();
+        var messageOutput = $message.html();
+
+        //final Price
+        var $finalPrice = $('#finalPrice');
+
+        $form.find('[name="message"]').val(messageOutput);
+        $form.find('[name="summary"]').val($finalPrice.html());
 
         $.ajax({
           url: route,

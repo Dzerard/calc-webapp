@@ -14,6 +14,19 @@ class mailController {
   }
 
   public function sendMail($data) {
+
+    $message = file_get_contents('mail/index.html');
+    $address = $data['postal-code'] . ' ' . $data['city'] . '<br>' . $data['street'] . ' ' . $data['number'];
+
+    $message = str_replace('[SUBJECT]', 'Zamówienie', $message);
+    $message = str_replace('[CLIENTS.WEBSITE]', 'http://lukaszgielar.com', $message);
+    $message = str_replace('[NAME]', $data['name'] . ' ' . $data['surname'], $message);
+    $message = str_replace('[PHONE]', ($data['phone'] ? $data['phone'] : '-'), $message);
+    $message = str_replace('[ADRESS]', $address, $message);
+    $message = str_replace('[TOTAL]', $data['total'], $message);
+    $message = str_replace('[DELIVERY]', '20zł', $message);
+    $message = str_replace('[ITEMS]', $data['message'], $message);
+
     $mail = new PHPMailer;
     $mail->setLanguage('pl');
     $mail->CharSet = "UTF-8";
@@ -24,15 +37,16 @@ class mailController {
 
     // Set email format to HTML
     $mail->isHTML(true);
+    $mail->MsgHTML($message);
     $mail->Subject = "Zamówienie ze strony";
-    $mail->Body = '<p style="font-size: 15px; margin-bottom: 10px;">Treść wiadomości:</p>'
-            . '<table>'
-            . '<tr><td>Od:</td><td> <b>' . $data['name'] . ' ' . $data['surname'] . '</b></td></tr>'
-            . '<tr><td>Telefon:</td><td><b>' . ($data['phone'] ? $data['phone'] : '-') . '</b></td></tr>'
-            . '<tr><td>Adres zamówienia:</td><td><b>' . $data['postal-code'] . ' ' . $data['city'] . '</b><br><b> ' . $data['street'] . ' ' . $data['number'] . ' </b></td></tr>'
-            . '</table>'
-            . '<p style="font-size: 15px; margin-bottom: 10px;"> Tabela: </p>'
-            . $data['message'];
+//    $mail->Body = '<p style="font-size: 15px; margin-bottom: 10px;">Treść wiadomości:</p>'
+//            . '<table>'
+//            . '<tr><td>Od:</td><td> <b>' . $data['name'] . ' ' . $data['surname'] . '</b></td></tr>'
+//            . '<tr><td>Telefon:</td><td><b>' . ($data['phone'] ? $data['phone'] : '-') . '</b></td></tr>'
+//            . '<tr><td>Adres zamówienia:</td><td><b>' . $data['postal-code'] . ' ' . $data['city'] . '</b><br><b> ' . $data['street'] . ' ' . $data['number'] . ' </b></td></tr>'
+//            . '</table>'
+//            . '<p style="font-size: 15px; margin-bottom: 10px;"> Tabela: </p>'
+//            . $data['message'];
 
 
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
