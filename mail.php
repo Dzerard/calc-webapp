@@ -26,6 +26,8 @@ class mailController {
     $message = str_replace('[TOTAL]', $data['total'], $message);
     $message = str_replace('[DELIVERY]', '20zł', $message);
     $message = str_replace('[ITEMS]', $data['message'], $message);
+    $message = str_replace('[CLIENTS.WEBSITE.ASSETS]', 'http://lukaszgielar.com/work/calc/mail/', $message);
+
 
     $mail = new PHPMailer;
     $mail->setLanguage('pl');
