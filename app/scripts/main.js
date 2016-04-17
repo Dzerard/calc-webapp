@@ -408,7 +408,7 @@ var app = {
         var $finalPrice = $('#finalPrice');
 
         $form.find('[name="message"]').val(messageOutput);
-        $form.find('[name="summary"]').val($finalPrice.html());
+        $form.find('[name="total"]').val($finalPrice.html());
 
         $.ajax({
           url: route,

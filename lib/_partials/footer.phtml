@@ -1,0 +1,92 @@
+<footer>
+  <div class="container">
+    <div class="box-foot">
+      <div class="row">
+
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">              
+          <a href="https://www.facebook.com/polishfootballacademydragonsunited" ><span class="social-icon"><i class="fa fa-facebook"></i></span></a>
+          <a href="https://www.youtube.com/channel/UCmoEcPbuk5tMwmq-KrfVsXg/feed" ><span class="social-icon"><i class="fa fa-youtube"></i></span></a>          
+        </div>
+        
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">      
+          <p class="huge"><i class="fa fa-mobile-phone"></i>&ensp;<span>074 662 722 81</span></p>                    
+        </div>
+        
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">      
+          <address>
+            <span>Vale Farm Sports Center</span><br>
+            <span>80 WatfordRoad</span><br>
+            <span>WEMBLEY HA0 3HG</span>
+          </address>
+          <p class="geo-location"><a href="<?php echo $app->basePath('contact') ?>" id="map-view"><i class="fa fa-map-marker"></i>&ensp;<span translate="TEXT_SEE_ON_MAP">Zobacz na mapie</span></a></p>  				
+        </div>
+
+      </div>
+      <!--<hr class="light-hr">-->
+    </div>
+
+  </div>
+  <section class="footer-bootom-sponsors">
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-5 col-sm-5 col-xs-12 text-center">
+          <div class="row">
+            <div class="col-md-8 col-sm-8 col-xs-8 text-center separator">
+              <a href="#" data-original-title="{{ 'TEXT_GO_TO_MAIN_SPONSOR' | translate}}" data-tooltip><i class="icon-main-sponsor"></i></a>
+              <p class="sponsor-title" translate="TEXT_MAIN_SPONSOR">Sponsor</p>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4 separator text-center">
+              <a href="https://www.pzpn.pl/" data-original-title="{{ 'TEXT_GO_TO_PZPN' | translate}}" data-tooltip><i class="icon-pzpn"></i></a>
+            </div>                       
+          </div>
+        </div>
+
+        <div class="col-md-7 col-sm-7 col-xs-12 text-center">
+          <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              <a href="#" data-original-title="{{ 'TEXT_SEE_MORE_ADIDAS' | translate}}" data-tooltip><i class="icon-adidas"></i></a>
+            </div>
+            <div class="col-md-4 col-sm-3 col-xs-3">
+              <a href="#" data-original-title="SPK Londyn" data-tooltip><i class="icon-sponsor-1"></i></a> 
+            </div>
+            <div class="col-md-4 col-sm-5 col-xs-5">
+              <a href="#" data-original-title="SignsArt" data-tooltip><i class="icon-sponsor-2"></i></a>
+            </div>
+          </div>
+          <p class="sub-sponsor" translate="TEXT_TOP_PARTNERS">Partnerzy</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="footer-bootom">
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-12">
+          <p>WEMBLEY © <b>DRAGONSUNITED - <?php echo date('Y'); ?></b></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</footer>
+
+<div class="modal fade" id="appModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" translate='MODAL_NEWSLETTER_TITLE_REMOVE'>Wypisz się z Newslettera</h4>
+      </div>
+      <div class="modal-body">
+        <p><span translate='MODAL_NEWSLETTER_EXIST_DESC'>W naszej bazie istnieje już e-mail: </span><span class="email-holder"></span></p>
+        <p translate='MODAL_NEWSLETTER_REMOVE_CONF'>Czy chcesz wypisać się z newslettera ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" translate="TEXT_CANCEL">Anuluj</button>
+        <button type="button" class="btn btn-primary" data-loading-text="{{ 'TEXT_CONTACT_SENDING' | translate}}">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="<?php echo $app->basePath('public/js/app.js') ?>"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>

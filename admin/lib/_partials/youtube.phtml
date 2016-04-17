@@ -1,0 +1,64 @@
+<div>	
+  <p class="modal-trigger">
+    <a href="#youtubeModal" role="button" class="btn btn-info" data-toggle="modal">Dodaj link</a>
+  </p>         
+
+  <h3 class="page-header">
+    Lista filmów
+  </h3>
+
+  <div class="sort-categries-js" rel="settings.php">
+    <?php foreach ($youtubeList as $k => $v) : ?>
+      <div rel="<?php echo $v['youtube_id']; ?>">
+        <i class="sort icon-th"></i>
+        <form class="form-inline" method="POST" rel="" action="settings.php">                            
+          <div class="form-group">
+            <input class="form-control input-sm my-font" type="text" name="youtube_url" 
+                   value="<?php echo $v['youtube_url']; ?>"> 
+            <input type="hidden" name="youtube_id" value="<?php echo $v['youtube_id']; ?>">
+            <div class="youtube-actions">
+              <?php if ($v['youtube_visible'] == 'on') : ?>
+                <a href="#" data-id="<?php echo $v['youtube_id']; ?>" data-value="on" data-name="visibility">
+                  <span class="label label-info">widoczny</span>
+                </a>
+              <?php else : ?>
+                <a href="#" data-id="<?php echo $v['youtube_id']; ?>" data-value="off" data-name="visibility">
+                  <span class="label label-default">widoczny</span>
+                </a>
+              <?php endif; ?>
+            
+              <button type="submit" class="btn btn-danger removeCategory" name="youtube_del" value="del" data-tooltip title="usuń"><i class="icon-trash icon-white"></i></button> 
+              <button type="submit" class="btn btn-primary" name="youtube_update" value="youtube_update" data-rel="tooltip" title="zapisz"><i class="icon-ok icon-white"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>            
+    <?php endforeach; ?>    
+
+  </div>
+
+</div>
+
+
+<div id="youtubeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Wypełnij formularz</h3>
+  </div>
+  <form action="settings.php" method="post" class="form-modal" style="margin:0px;">
+    <div class="modal-body">
+      <label for="focusedInput">Url do filmu:</label>
+      <input class="my-font span6" id="focusedInput" type="text" name="youtube_url" required="">			
+
+      <label class="checkbox">
+        Widoczność <input type="checkbox" id="inputVisible" name="youtube_visible" value="">
+      </label>                 
+
+    </div>          
+
+    <div class="modal-footer">              	
+      <button class="btn" data-dismiss="modal" aria-hidden="true"><span class="my-font">Anuluj</span></button>
+      <button type="submit" name="youtube_save" class="btn btn-primary"><span class="my-font">Zapisz</span></button>               
+    </div>
+  </form>
+</div>

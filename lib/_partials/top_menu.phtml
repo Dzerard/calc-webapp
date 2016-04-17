@@ -1,0 +1,89 @@
+<?php
+	if (!isset($menuActive)) {
+	  $menuActive = 'home';
+	}
+	if (!isset($subMenuActive)) {
+	  $subMenuActive = '';
+	}
+	$app->setMenuContext($menuActive, $subMenuActive);
+?>
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-header">
+      
+      <button type="button" id="navbarMenuToggle" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <button type="button" class="navbar-toggle navbar-toggle-search collapsed">
+        <i class="fa fa-search"></i>
+      </button>
+      <a class="navbar-brand" href="<?php echo $app->basePath('') ?>"><img src="<?php echo $app->basePath('public/img/logo_small.png') ?>" alt="Logo" class="img-responsive"></a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav on-search-hide">
+        <li  class="dropdown<?php echo $app->activeMenu("home") ?>">
+          <a href="<?php echo $app->basePath('') ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span translate="NAV_ENTRY">Akademia</span> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="<?php echo $app->basePath('history') ?>" translate="NAV_ABOUT_ACADEMY">O Akademi</a></li>                   
+            <li><a href="<?php echo $app->basePath('mission') ?>" translate="NAV_OUR_MISSION">Nasza misja</a></li>                                     
+            <li><a href="<?php echo $app->basePath('regulations') ?>" translate="NAV_REGULATIONS">Regulamin</a></li>                   
+          </ul>
+        </li>                            
+        <li class="<?php echo $app->activeMenu("news") ?>">
+          <a href="<?php echo $app->basePath('news') ?>" translate="NAV_NEWS">News</a>           
+        </li>
+        <li class="<?php echo $app->activeMenu("gallery") ?>">
+          <a href="<?php echo $app->basePath('gallery') ?>" translate="NAV_GALLERY">Galeria</a>
+        </li>
+        <li class="dropdown <?php echo $app->activeMenu("strefa") ?>">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"  href="#<?php echo $app->basePath('strefa') ?>"><span translate="NAV_ZONE">Strefa</span> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="<?php echo $app->basePath('strefa/trening') ?>" translate="NAV_ZONE_TRAINING">Treningu</a></li>
+            <li><a href="<?php echo $app->basePath('strefa/rodzic') ?>"  translate="NAV_ZONE_PARENT">Rodzica</a></li>
+            <li><a href="<?php echo $app->basePath('strefa/zawodnik') ?>" translate="NAV_ZONE_PLAYER">Zawodnika</a></li>
+          </ul>						
+        </li>
+        <li class="dropdown <?php echo $app->activeMenu("teams") ?>">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"  href="#<?php echo $app->basePath('teams') ?>"><span translate="NAV_TEAMS">Drużyny</span> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="<?php echo $app->basePath('teams/u6') ?>" translate="NAV_TEAMS_6">U-6 Skrzaty</a></li>
+            <li><a href="<?php echo $app->basePath('teams/u8') ?>"  translate="NAV_TEAMS_8">U-8 Żaki</a></li>
+            <li><a href="<?php echo $app->basePath('teams/u12') ?>" translate="NAV_TEAMS_12">U-12 Młodziki</a></li>
+            <li><a href="<?php echo $app->basePath('teams/u16') ?>" translate="NAV_TEAMS_16">U-16 Junior młodszy</a></li>
+          </ul>						
+        </li>
+        <li class="<?php echo $app->activeMenu("subscribe") ?>"> 
+          <a href="<?php echo $app->basePath('subscribe') ?>" translate="NAV_SUBSCRIBE">Zapisy</a>
+        </li>
+        <li class="<?php echo $app->activeMenu("sponsor") ?>"> 
+          <a href="<?php echo $app->basePath('sponsor') ?>" translate="NAV_SPONSOR">Sponsoring</a>
+        </li>
+        <li class="<?php echo $app->activeMenu("shop") ?>"> 
+          <a href="<?php echo $app->basePath('shop') ?>" translate="NAV_SHOP">Dragons Shop</a>
+        </li>
+        <li  class="<?php echo $app->activeMenu("contact") ?>">
+			<a href="<?php echo $app->basePath('contact') ?>" translate="NAV_CONTACT">Kontakt</a>
+		</li>
+      </ul>
+      <ul class="navbar-right navbar-nav on-search-hide">
+        <li><a class="btn" id="searchToggle" href="#"><i class="fa fa-search"></i></a></li>
+      </ul>
+      
+      <form action="/search" method="get" class="navbar-form navbar-left search-form-container">
+        <div class="form-group">
+          <div class="col-sm-10 col-xs-8">
+            <input type="text" class="input-search form-control" id="search-searchword" name="search" placeholder="{{ 'NAV_SEARCH_PLACEHODER' | translate }}"  required autocomplete="off">
+          </div>
+          <div class="col-sm-2 col-xs-4 text-right">
+            <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
+            <button class="btn search-cancel"><i class="fa fa-reply"></i></button>
+          </div>
+        </div>                
+      </form>
+      
+    </div>
+  </div>
+</nav>
