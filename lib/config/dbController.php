@@ -9,8 +9,8 @@ class dbController {
     'dev' => [
       'host' => 'localhost',
       'user' => 'root',
-      'pass' => 'admin',
-      'name' => 'malytram_admin'
+      'pass' => '',
+      'name' => 'calc'
     ],
     'prod' => [
       'host' => 'localhost',
