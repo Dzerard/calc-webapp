@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10.7
+-- version 4.0.4
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Czas wygenerowania: 19 Kwi 2016, 12:59
--- Wersja serwera: 5.5.48-cll
--- Wersja PHP: 5.4.31
+-- Host: localhost
+-- Czas wygenerowania: 20 Kwi 2016, 22:39
+-- Wersja serwera: 5.6.12-log
+-- Wersja PHP: 5.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Baza danych: `lukaszg1_soccer`
+-- Baza danych: `calc`
 --
+CREATE DATABASE IF NOT EXISTS `calc` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `calc`;
 
 -- --------------------------------------------------------
 
@@ -98,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   `login_id` int(11) NOT NULL AUTO_INCREMENT,
   `login_login` varchar(255) NOT NULL,
   `login_pass` varchar(255) NOT NULL,
+  `login_salt` varchar(255) NOT NULL,
   PRIMARY KEY (`login_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -105,8 +108,8 @@ CREATE TABLE IF NOT EXISTS `login` (
 -- Zrzut danych tabeli `login`
 --
 
-INSERT INTO `login` (`login_id`, `login_login`, `login_pass`) VALUES
-(1, 'admin', 'dawid87wasko');
+INSERT INTO `login` (`login_id`, `login_login`, `login_pass`, `login_salt`) VALUES
+(1, 'admin', 'ef2f66ff725cff3765844d3b40ee967b', 'supersalt1235!@$$#IOIMFFFMcm');
 
 -- --------------------------------------------------------
 
@@ -174,6 +177,36 @@ INSERT INTO `news` (`news_id`, `news_title`, `news_desc`, `news_user`, `news_ins
 (64, 'UDANY POCZÄTEK TRAMPKARZY', '<p style="text-align: justify;">Tramkarze Tramwaju w 2. kolejce nowego sezonu pokonali AlfÄ Morawice 8:3. PiÄÄ bramek dla DTS-u strzeĹiĹ Krystian BiaĹosiewicz, a pozostaĹe trafienia zanotowali: Jacek Sendor, MikoĹaj Knurowski i Mateusz BrygoĹa.</p>', 1, 1378757625, 1378787745, 'yes', 'no', 4, NULL, '', '', NULL),
 (65, 'PECHOWA PORA??KA ??AK??W', '<p style="text-align: justify;">Wyjazdowy mecz ??ak&oacute;w Tramwaju z Lotnikiem Kryspin&oacute;w zako??czy?? siï¿½? minimalnï¿½? pora??kï¿½? naszego zespo??u. Rywale zwyciï¿½???yli 8:7, strzelajï¿½?c zwyciï¿½?skï¿½? bramkï¿½? w ostatnich sekundach spotkania. Sze??ï¿½? goli dla DTS-u strzeli?? Jan - si&oacute;dmï¿½? bramkï¿½? do??o??y?? Kamil Rojewski.</p>', 1, 1378757993, 1379250415, 'yes', 'no', 4, '', 'cf00a_nemo.jpg', '', NULL),
 (66, 'afaf', '<p>adada</p>', 1, 1379251356, 1401847211, 'yes', 'no', 2, 'trening', '7e240_piramida.jpg', 'http://www.dailymotion.com/embed/video/k4RtDzR4xWqM7S38T1v', 'a3982_money.xlsx');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_name` varchar(255) NOT NULL,
+  `order_val` varchar(255) NOT NULL,
+  `order_text` text NOT NULL,
+  `order_address` varchar(255) NOT NULL,
+  `order_create` int(11) NOT NULL,
+  `order_update` int(11) NOT NULL,
+  `order_status` enum('open','waiting','closed') NOT NULL,
+  `order_city` varchar(255) NOT NULL,
+  `order_postal_code` varchar(255) NOT NULL,
+  `order_phone` varchar(255) NOT NULL,
+  `order_email` varchar(255) NOT NULL,
+  `order_delivery_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`order_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
+
+--
+-- Zrzut danych tabeli `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `order_name`, `order_val`, `order_text`, `order_address`, `order_create`, `order_update`, `order_status`, `order_city`, `order_postal_code`, `order_phone`, `order_email`, `order_delivery_value`) VALUES
+(66, 'afaf', '', '<p>adada</p>', '1', 1379251356, 1401847211, '', 'no', '2', '7e240_piramida.jpg', 'http://www.dailymotion.com/embed/video/k4RtDzR4xWqM7S38T1v', 'a3982_money.xlsx');
 
 -- --------------------------------------------------------
 
@@ -281,3 +314,4 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_phone`, `user_desc`, `user_mai
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

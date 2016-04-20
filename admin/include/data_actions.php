@@ -1,7 +1,8 @@
 <?php
+
 //@todo podział na mniejsze modele
-require_once(__DIR__."/../../lib/config/config.php");
-require_once(__DIR__."/../../lib/config/dbController.php");
+require_once(__DIR__ . "/../../lib/config/config.php");
+require_once(__DIR__ . "/../../lib/config/dbController.php");
 
 require_once("methods.php");
 
@@ -31,7 +32,7 @@ class db_actions {
         $this->pdo->exec('UPDATE `news` SET `news_title`= \'' . $_myPOST['news_title'] . '\', `news_desc`=\'' . $_myPOST['news_desc'] . '\', `news_update`=\'' . $time . '\',`news_visible`=\'' . $visible . '\',`news_top`=\'' . $top . '\',`news_category_id`=\'' . $_myPOST['news_category_id'] . '\', `news_video`=\'' . $_myPOST['news_video'] . '\', `news_subcategory`=\'' . $_myPOST['news_subcategory'] . '\'    WHERE  `news_id` IN (\'' . $_myPOST['news_id'] . '\')');
       }
     } catch (PDOException $e) {
-      
+
     }
 
     /** !! do przerobienia */
@@ -88,10 +89,10 @@ class db_actions {
             echo "Zapisany w katalogu: " . "img/news/" . $name . '</div></div>';
 
             try {
-              //update zdjecia newsa		
+              //update zdjecia newsa
               $this->pdo->exec('UPDATE `news` SET `news_image`= \'' . $name . '\' WHERE  `news_id` IN (\'' . $_myPOST['news_id'] . '\')');
             } catch (PDOException $e) {
-              
+
             }
           }
         } else {
@@ -115,11 +116,11 @@ class db_actions {
             move_uploaded_file($_myFILES["news_file"]["tmp_name"], "files/" . $name);
 
             try {
-              //update zdjecia newsa		
+              //update zdjecia newsa
               $this->pdo->exec('UPDATE `news` SET `news_file`= \'' . $name . '\' WHERE  `news_id` IN (\'' . $_myPOST['news_id'] . '\')');
               $_SESSION['alerts'] = 'plik zapisany';
             } catch (PDOException $e) {
-              
+
             }
           }
         }
@@ -131,6 +132,29 @@ class db_actions {
     header("Location: news.php?id=" . $id);
     ob_end_flush();
     exit();
+  }
+
+  //wyswietlanie newsa/newsów
+  public function showOrders($all = false, $status = '') {
+    $temp = [];
+    try {
+
+      if ($all) {
+        if ($status != '') {
+          // @$temp = $this->pdo->query("SELECT * FROM `news` JOIN `category` ON category_id = news_category_id WHERE category_id IN ($status) ORDER BY news_update DESC");
+        } else {
+          @$temp = $this->pdo->query('SELECT * FROM `orders` ORDER BY order_update DESC');
+        }
+      } else {
+        @$temp = $this->pdo->query('SELECT * FROM `news` WHERE `news_id` IN (\'' . $_GET['id'] . '\') ');
+      }
+      $orders = $temp->fetchAll();
+      $temp->closeCursor();
+    } catch (PDOException $e) {
+      //exception
+    }
+
+    return $orders;
   }
 
   //wyswietlanie newsa/newsów
@@ -150,26 +174,28 @@ class db_actions {
       $news = $temp->fetchAll();
       $temp->closeCursor();
     } catch (PDOException $e) {
-      
+
     }
 
     return $news;
   }
-  
+
   //settings
   public function getSettings($id) {
-      
+
     try {
       $stmt = $this->pdo->query('SELECT * FROM `settings` WHERE `settings_id` IN (\'' . $id . '\') ');
-      $all = $stmt->fetch(PDO::FETCH_ASSOC);      
-      $stmt->closeCursor();  
-    } catch (PDOException $e) { }
-    return $all;        
+      $all = $stmt->fetch(PDO::FETCH_ASSOC);
+      $stmt->closeCursor();
+    } catch (PDOException $e) {
+
+    }
+    return $all;
   }
-  
+
   //save settings
   public function saveSettings($post, $id) {
-  
+
     try {
       //update rekordu
       $this->pdo->exec('UPDATE `settings` SET '
@@ -179,9 +205,8 @@ class db_actions {
               . '`settings_content_en`= \'' . $post['settingsPanelEn'] . '\', '
               . '`settings_visible`= \'' . ($post['settingsVisible'] == 'on' ? 'yes' : 'no') . '\', '
               . '`settings_update`= \'' . time() . '\'  WHERE  `settings_id` IN (\'' . $id . '\')');
-              
+
       alerts::setMessage('Ustawienia panelu zostały zaktualizowane');
-      
     } catch (PDOException $e) {
       var_dump($e);
       die;
@@ -189,23 +214,25 @@ class db_actions {
     }
     header("Location: settings.php");
     ob_end_flush();
-    exit();       
+    exit();
   }
-  
+
   //settings - get pages
   public function getPages() {
-      
+
     try {
       $stmt = $this->pdo->query('SELECT * FROM `pages`');
-      $all = $stmt->fetchAll(PDO::FETCH_ASSOC);      
-      $stmt->closeCursor();  
-    } catch (PDOException $e) { }
-    return $all;        
+      $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $stmt->closeCursor();
+    } catch (PDOException $e) {
+
+    }
+    return $all;
   }
-  
+
   //settings - save page
   public function savePage($post) {
-    
+
     try {
       //update rekordu
       $this->pdo->exec('UPDATE `pages` SET '
@@ -216,47 +243,47 @@ class db_actions {
               . '`pages_update`= \'' . time() . '\', '
               . '`pages_visible`= \'' . ($post['pageVisible'] == 'on' ? 'yes' : 'no') . '\' '
               . ' WHERE  `pages_name` IN (\'' . $post['pageName'] . '\')');
-      alerts::setMessage('Strona: "'.$post['pagesNamePL'].'" została zaktualizowana');
-      
+      alerts::setMessage('Strona: "' . $post['pagesNamePL'] . '" została zaktualizowana');
     } catch (PDOException $e) {
       alerts::setMessage('Wystąpił błąd');
     }
     header("Location: settings.php");
     ob_end_flush();
     exit();
-    
   }
-  
+
   //settings youtube
   public function getYoutube() {
-      
+
     try {
       $stmt = $this->pdo->query('SELECT * FROM `youtube` ORDER BY youtube_order ASC');
-      $all = $stmt->fetchAll(PDO::FETCH_ASSOC);      
-      $stmt->closeCursor();  
-    } catch (PDOException $e) { }
-    return $all;        
+      $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $stmt->closeCursor();
+    } catch (PDOException $e) {
+
+    }
+    return $all;
   }
-  
-  //sort youtube 
+
+  //sort youtube
   public function sortYoutube($post) {
-    
-    foreach ((array)$post['order'] as $k => $v) {     					
-      $this->pdo->exec('UPDATE `youtube` SET `youtube_order` = \''.$k.'\' WHERE youtube_id IN (\''.$v.'\')');			     
-    }      
-		      
+
+    foreach ((array) $post['order'] as $k => $v) {
+      $this->pdo->exec('UPDATE `youtube` SET `youtube_order` = \'' . $k . '\' WHERE youtube_id IN (\'' . $v . '\')');
+    }
+
     return array('message' => 'Linki zostały posortowane!');
   }
-  
-  //visibility youtube 
+
+  //visibility youtube
   public function visibilityYoutube($post) {
     $status = $post['youtube_visibility_status'] == 'on' ? 'off' : 'on';
-    
-    $this->pdo->exec('UPDATE `youtube` SET `youtube_visible` = \''.$status.'\' WHERE youtube_id IN (\''.$post['youtube_visibility'].'\')');			     
-       
+
+    $this->pdo->exec('UPDATE `youtube` SET `youtube_visible` = \'' . $status . '\' WHERE youtube_id IN (\'' . $post['youtube_visibility'] . '\')');
+
     return array('current_status' => $status);
   }
-  
+
   //youtube delete
   public function removeYoutube($post) {
     try {
@@ -267,44 +294,45 @@ class db_actions {
       header("Location: settings.php");
       ob_end_flush();
       exit();
-    } catch (PDOException $e) {}        
+    } catch (PDOException $e) {
+
+    }
   }
+
   //youtube update
   public function updateYoutube($post) {
     try {
       $this->pdo->exec('UPDATE `youtube` SET '
-              . '`youtube_url`= \'' . $post['youtube_url'] . '\' '              
+              . '`youtube_url`= \'' . $post['youtube_url'] . '\' '
               . ' WHERE  `youtube_id` IN (\'' . $post['youtube_id'] . '\')');
       alerts::setMessage('Link został zaktualizowany');
-      
     } catch (PDOException $e) {
       alerts::setMessage('Wystąpił błąd');
     }
     header("Location: settings.php");
     ob_end_flush();
-    exit();        
-  }
-  //youtube save
-  public function saveYoutube($post) {
-    
-    try {
-      $this->pdo->exec('INSERT INTO `youtube` (`youtube_id`, `youtube_url`, `youtube_visible`) VALUES ( '
-                . '"",'
-                . '\'' . $post['youtube_url'] . '\', '
-                . '\'' . ($post['youtube_visible'] == 'on' ? 'on' : 'off') . '\'  '
-                .')');
-        alerts::setMessage('Nowy link został dodany');
-      
-    } catch (PDOException $e) {
-      alerts::setMessage('Wystąpił błąd');
-    }
-    
-    header("Location: settings.php");
-    ob_end_flush();
-    exit();        
+    exit();
   }
 
-  
+  //youtube save
+  public function saveYoutube($post) {
+
+    try {
+      $this->pdo->exec('INSERT INTO `youtube` (`youtube_id`, `youtube_url`, `youtube_visible`) VALUES ( '
+              . '"",'
+              . '\'' . $post['youtube_url'] . '\', '
+              . '\'' . ($post['youtube_visible'] == 'on' ? 'on' : 'off') . '\'  '
+              . ')');
+      alerts::setMessage('Nowy link został dodany');
+    } catch (PDOException $e) {
+      alerts::setMessage('Wystąpił błąd');
+    }
+
+    header("Location: settings.php");
+    ob_end_flush();
+    exit();
+  }
+
   public function addEvent($_myPOST) {
 
     try {
@@ -314,23 +342,24 @@ class db_actions {
                 . '"",'
                 . '\'' . $_myPOST['event_title'] . '\', '
                 . '\'' . $_myPOST['event_description'] . '\',  '
-                . '\'' . date('Y-m-d H:i:s',$time) . '\',  '
+                . '\'' . date('Y-m-d H:i:s', $time) . '\',  '
                 . '\'' . $_myPOST['event_date'] . '\', '
-                .'"1")');
+                . '"1")');
         alerts::setMessage('Nowy event został dodany');
       } else {
         alerts::setMessage('Wystąpił błąd');
-      }      
-      unset($_myPOST);      
+      }
+      unset($_myPOST);
       header("Location: events.php");
       ob_end_flush();
       exit();
-    } catch (PDOException $e) {}
+    } catch (PDOException $e) {
+
+    }
   }
 
-  
   public function updateEvent($post) {
-    
+
     try {
       //update rekordu
       $this->pdo->exec('UPDATE `events` SET '
@@ -338,7 +367,6 @@ class db_actions {
               . '`event_description`= \'' . $post['event_description'] . '\', '
               . '`event_date`= \'' . $post['event_date'] . '\' WHERE  `event_id` IN (\'' . $post['event_id'] . '\')');
       alerts::setMessage('Event został zaktualizowany');
-      
     } catch (PDOException $e) {
       alerts::setMessage('Wystąpił błąd');
     }
@@ -346,20 +374,20 @@ class db_actions {
     ob_end_flush();
     exit();
   }
-  
+
   public function getEvent($id) {
-    
+
     try {
       //usuwanie rekordu
       $stmt = $this->pdo->query('SELECT * FROM `events` WHERE `event_id` IN (\'' . $id . '\') ');
-      $all = $stmt->fetch(PDO::FETCH_ASSOC);      
-      $stmt->closeCursor();  
+      $all = $stmt->fetch(PDO::FETCH_ASSOC);
+      $stmt->closeCursor();
     } catch (PDOException $e) {
-    
+
     }
     return $all;
   }
-  
+
   //usuwanie evenu
   public function deleteEvent($id) {
     try {
@@ -371,9 +399,10 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
+
   //lista eventow
   public function eventsList() {
 
@@ -381,35 +410,41 @@ class db_actions {
       $stmt = $this->pdo->query('SELECT * FROM `events` ORDER BY event_date DESC');
       $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
       $stmt->closeCursor();
-    } catch (PDOException $e) {  }
+    } catch (PDOException $e) {
+
+    }
 
     return $all;
   }
-  //spradza czy event aktywny   
+
+  //spradza czy event aktywny
   public function checkIfObsolete($time) {
-    
+
     // $diff = date_diff(strtotime($time), time());
-      $diff = (strtotime($time) - time());
-      if($diff<0) {
-        echo "class='danger'";
-      }
-      return;
+    $diff = (strtotime($time) - time());
+    if ($diff < 0) {
+      echo "class='danger'";
+    }
+    return;
   }
+
   //lista newsletter
-  public function newsletterList($emailOnly=false) {
+  public function newsletterList($emailOnly = false) {
 
     try {
       $stmt = $this->pdo->query('SELECT * FROM `newsletter` ORDER BY `newsletter_insert` ASC');
-      if($emailOnly) {
+      if ($emailOnly) {
         $stmt = $this->pdo->query('SELECT `newsletter_user`,`newsletter_email` FROM `newsletter` ORDER BY `newsletter_insert` ASC');
-      } 
+      }
       $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
       $stmt->closeCursor();
-    } catch (PDOException $e) {  }
+    } catch (PDOException $e) {
+
+    }
 
     return $all;
   }
-  
+
   public function showCategories() {
 
     try {
@@ -420,7 +455,7 @@ class db_actions {
         $categoryName[$row['category_id']] = $row['category_name'];
       }
     } catch (PDOException $e) {
-      
+
     }
 
     return $categoryName;
@@ -445,7 +480,7 @@ class db_actions {
         unlink($katalog . 'small_' . $fileToDelete);
       }
     } catch (PDOException $e) {
-      
+
     }
 
     $url = $location . '?id=' . $_myPOST[$table . '_id'];
@@ -475,7 +510,7 @@ class db_actions {
         unlink($katalog . $fileToDelete);
       }
     } catch (PDOException $e) {
-      
+
     }
 
 
@@ -505,7 +540,7 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
 
@@ -525,7 +560,7 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
 
@@ -542,7 +577,7 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
 
@@ -557,7 +592,7 @@ class db_actions {
         $this->pdo->exec('UPDATE `news` SET `news_visible`= "yes"  WHERE  `news_id` IN (\'' . $id . '\')');
       }
     } catch (PDOException $e) {
-      
+
     }
 
     unset($_POST);
@@ -579,7 +614,7 @@ class db_actions {
         $this->pdo->exec('UPDATE `news` SET `news_top`= "yes"  WHERE  `news_id` IN (\'' . $id . '\')');
       }
     } catch (PDOException $e) {
-      
+
     }
 
     unset($_POST);
@@ -596,31 +631,31 @@ class db_actions {
 
       if ($update) {
         $id = $_myPOST['scheduleId'];
-        $this->pdo->exec('UPDATE `schedule` SET 
-                             `scheduleDate`     =\'' . $_myPOST['scheduleDate'] . '\', 
+        $this->pdo->exec('UPDATE `schedule` SET
+                             `scheduleDate`     =\'' . $_myPOST['scheduleDate'] . '\',
                              `scheduleDateName` =\'' . $_myPOST['scheduleDateName'] . '\',
                              `scheduleGameTime` =\'' . $_myPOST['scheduleGameTime'] . '\',
                              `scheduleMeetTime` =\'' . $_myPOST['scheduleMeetTime'] . '\',
                              `scheduleTeamHosts`=\'' . $_myPOST['scheduleTeamHosts'] . '\',
                              `scheduleTeamAway` =\'' . $_myPOST['scheduleTeamAway'] . '\',
                              `scheduleScore`    =\'' . $_myPOST['scheduleScore'] . '\',
-                             `schedulePlayers`  =\'' . $_myPOST['schedulePlayers'] . '\',                                 
+                             `schedulePlayers`  =\'' . $_myPOST['schedulePlayers'] . '\',
                              `scheduleUpdate`   =\'' . time() . '\',
-                             `scheduleType`     =\'' . $_myPOST['scheduleType'] . '\' 
+                             `scheduleType`     =\'' . $_myPOST['scheduleType'] . '\'
                              WHERE  `scheduleId` IN (\'' . $_myPOST['scheduleId'] . '\')');
       } else {
 
-        $this->pdo->exec('INSERT INTO `schedule` (`scheduleId`, `scheduleDate`, `scheduleDateName`, `scheduleGameTime`, `scheduleMeetTime`, `scheduleTeamHosts`,`scheduleTeamAway`,`scheduleScore`, `schedulePlayers`, `scheduleUpdate`, `scheduleType` ) VALUES ( 
-                                  "", 
+        $this->pdo->exec('INSERT INTO `schedule` (`scheduleId`, `scheduleDate`, `scheduleDateName`, `scheduleGameTime`, `scheduleMeetTime`, `scheduleTeamHosts`,`scheduleTeamAway`,`scheduleScore`, `schedulePlayers`, `scheduleUpdate`, `scheduleType` ) VALUES (
+                                  "",
                                   \'' . $_myPOST['scheduleDate'] . '\',
                                   \'' . $_myPOST['scheduleDateName'] . '\',
-                                  \'' . $_myPOST['scheduleGameTime'] . '\', 
-                                  \'' . $_myPOST['scheduleMeetTime'] . '\', 
-                                  \'' . $_myPOST['scheduleTeamHosts'] . '\', 
-                                  \'' . $_myPOST['scheduleTeamAway'] . '\', 
-                                  \'' . $_myPOST['scheduleScore'] . '\', 
-                                  \'' . $_myPOST['schedulePlayers'] . '\',                                 
-                                  \'' . time() . '\', 
+                                  \'' . $_myPOST['scheduleGameTime'] . '\',
+                                  \'' . $_myPOST['scheduleMeetTime'] . '\',
+                                  \'' . $_myPOST['scheduleTeamHosts'] . '\',
+                                  \'' . $_myPOST['scheduleTeamAway'] . '\',
+                                  \'' . $_myPOST['scheduleScore'] . '\',
+                                  \'' . $_myPOST['schedulePlayers'] . '\',
+                                  \'' . time() . '\',
                                   \'' . $_myPOST['scheduleType'] . '\' )');
       }
       unset($_myPOST);
@@ -632,7 +667,7 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
 
@@ -655,7 +690,7 @@ class db_actions {
 
       $temp->closeCursor();
     } catch (PDOException $e) {
-      
+
     }
 
     return $list;
@@ -672,43 +707,43 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
-  
+
   public function exportHeaderCSV($filename) {
-     // disable caching
+    // disable caching
     $now = gmdate("D, d M Y H:i:s");
-    header ( 'HTTP/1.1 200 OK' );
+    header('HTTP/1.1 200 OK');
     header("Expires: Tue, 03 Jul 20016 06:00:00 GMT");
     header("Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate");
     header("Last-Modified: {$now} GMT");
 
-    // force download  
+    // force download
     header("Content-Type: application/force-download");
     header("Content-Type: application/octet-stream");
     header("Content-Type: application/download");
 
     // disposition / encoding on response body
     header("Content-Disposition: attachment;filename={$filename}");
-    header("Content-Transfer-Encoding: binary");     
+    header("Content-Transfer-Encoding: binary");
     header('Content-Encoding: UTF-8');
     header('Content-type: text/csv; charset=UTF-8');
     echo "\xEF\xBB\xBF"; // UTF-8 BOM
   }
-  
+
   public function exportNewsletterCSV() {
-    
-    $fileName="data_export_" . date("Y-m-d") . ".csv";
-    $this->exportHeaderCSV($fileName);   
+
+    $fileName = "data_export_" . date("Y-m-d") . ".csv";
+    $this->exportHeaderCSV($fileName);
     $array = $this->newsletterList(true);
     if (count($array) == 0) {
-       return null;
+      return null;
     }
     ob_start();
     $df = fopen("php://output", 'w');
     fputcsv($df, array_keys(reset($array)), ";");
-   
+
     foreach ($array as $row) {
       fputcsv($df, $row, ";");
     }
@@ -716,7 +751,7 @@ class db_actions {
     echo ob_get_clean();
     die;
   }
-  
+
   public function deleteShedule($id) {
     try {
 
@@ -726,7 +761,7 @@ class db_actions {
       ob_end_flush();
       exit();
     } catch (PDOException $e) {
-      
+
     }
   }
 
@@ -737,9 +772,12 @@ class db_actions {
       $temp = $this->pdo->query("SELECT * FROM score WHERE `score_category` IN ('$category') ORDER BY score_insert DESC LIMIT 1");
       $score = $temp->fetch();
       $temp->closeCursor();
-    } catch (PDOException $e) { }
+    } catch (PDOException $e) {
+
+    }
     return $score;
   }
+
 }
 
 $adminActions = new db_actions();
