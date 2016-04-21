@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__ . "/admin/config/config.php");
+require_once(__DIR__ . "/admin/config/dbController.php");
 require __DIR__ . '/phpmailer/phpmailer/PHPMailerAutoload.php';
 
 class mailController {
@@ -7,9 +9,12 @@ class mailController {
   //protected $storePath = null;
   protected $response = array();
   protected $errors = array();
-  static $_KEY = '6LeSKRkTAAAAADuRJ348BPWJYTeTTXe5IeLFg0pW';
-
-  public function __construct() {
+  protected $pdo;
+  static $_KEY = '6LeSKRkTAAAAADuRJ348BPWJYTeTTXe5IeLFg0pW';  
+  
+  public function __construct() {          
+    $dbController = dbController::getInstance();
+    $this->pdo = $dbController->setConnection();    
     //$this->storePath = __DIR__ . '/../../public/uploads/';
   }
 
@@ -58,7 +63,8 @@ class mailController {
       //echo 'Mailer Error: ' . $mail->ErrorInfo;
       //die;
     } else {
-      //echo 'Message has been sent';
+        //echo 'Message has been sent';
+        $this->addOrder($data);
     }
 
     return true;
@@ -112,6 +118,42 @@ class mailController {
     }
 
     return true;
+  }
+  
+  public function addOrder($post) {
+
+    try {
+      $time = time();      
+
+      if ($post['message'] != '') {
+        $this->pdo->exec('INSERT INTO `orders` ('
+                . '`order_id`,'
+                . ' `order_name`,'
+                . ' `order_val`,'
+                . ' `news_insert`,'
+                . ' `news_update`,'
+                . ' `news_visible`,'
+                . '`news_top`,'
+                . '`news_category_id`,'
+                . '`news_user` ) VALUES ('
+                . ' "",'
+                . '  \'' . $post['name'] . '\','
+                . ' \'' . $post['news_desc'] . '\','
+                . '  \'' . $time . '\','
+                . '  \'' . $time . '\','
+                . ' \'' . $visible . '\','
+                . ' \'' . $top . '\','
+                . ' \'' . $post['news_category_id'] . '\' ,'
+                . ' "1")');
+      }
+
+//      unset($post);
+//      header("Location: news.php?id=" . $this->pdo->lastInsertId());
+//      ob_end_flush();
+//      exit();
+    } catch (PDOException $e) {
+
+    }
   }
 
 }

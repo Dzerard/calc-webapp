@@ -1,7 +1,7 @@
 <?php
 
-require_once(__DIR__ . "/../../lib/config/config.php");
-require_once(__DIR__ . "/../../lib/config/dbController.php");
+require_once(__DIR__ . "/../config/config.php");
+require_once(__DIR__ . "/../config/dbController.php");
 
 class loginAction {
 

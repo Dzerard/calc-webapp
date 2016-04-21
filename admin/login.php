@@ -1,7 +1,6 @@
 <?php
 ob_start();
 session_start();
-var_dump(md5('adminPszczolka!!' . 'supersalt1235!@$$#IOIMFFFMcm'));
 require_once("lib/login.php");
 require_once("lib/_partials/admin_head.phtml");
 ?>

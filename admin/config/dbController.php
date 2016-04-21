@@ -9,14 +9,20 @@ class dbController {
       'dev' => [
           'host' => 'localhost',
           'user' => 'root',
-          'pass' => 'admin',
+          'pass' => '',
           'name' => 'calc'
       ],
       'prod' => [
+          'host' => '',
+          'user' => '',
+          'pass' => '',
+          'name' => ''
+      ],
+      'master' => [
           'host' => 'localhost',
-          'user' => 'dragonsu_admin',
-          'pass' => 'wasko87',
-          'name' => 'dragonsu_admin'
+          'user' => 'lukaszg1_calc',
+          'pass' => 'admin',
+          'name' => 'lukaszg1_calc'                    
       ]
   ];
 

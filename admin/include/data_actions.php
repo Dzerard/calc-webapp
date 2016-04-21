@@ -1,8 +1,8 @@
 <?php
 
 //@todo podział na mniejsze modele
-require_once(__DIR__ . "/../../lib/config/config.php");
-require_once(__DIR__ . "/../../lib/config/dbController.php");
+require_once(__DIR__ . "/../config/config.php");
+require_once(__DIR__ . "/../config/dbController.php");
 
 require_once("methods.php");
 
@@ -552,7 +552,25 @@ class db_actions {
       (isset($_myPOST['news_top']) == 'on') ? $top = 'yes' : $top = 'no';
 
       if ($_myPOST['news_title'] != '') {
-        $this->pdo->exec('INSERT INTO `news` (`news_id`, `news_title`, `news_desc`, `news_insert`, `news_update`, `news_visible`,`news_top`,`news_category_id`,`news_user` ) VALUES ( "",  \'' . $_myPOST['news_title'] . '\', \'' . $_myPOST['news_desc'] . '\',  \'' . $time . '\',  \'' . $time . '\', \'' . $visible . '\', \'' . $top . '\', \'' . $_myPOST['news_category_id'] . '\' , "1")');
+        $this->pdo->exec('INSERT INTO `news` ('
+                . '`news_id`,'
+                . ' `news_title`,'
+                . ' `news_desc`,'
+                . ' `news_insert`,'
+                . ' `news_update`,'
+                . ' `news_visible`,'
+                . '`news_top`,'
+                . '`news_category_id`,'
+                . '`news_user` ) VALUES ('
+                . ' "",'
+                . '  \'' . $_myPOST['news_title'] . '\','
+                . ' \'' . $_myPOST['news_desc'] . '\','
+                . '  \'' . $time . '\','
+                . '  \'' . $time . '\','
+                . ' \'' . $visible . '\','
+                . ' \'' . $top . '\','
+                . ' \'' . $_myPOST['news_category_id'] . '\' ,'
+                . ' "1")');
       }
 
       unset($_myPOST);
