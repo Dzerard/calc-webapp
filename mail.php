@@ -38,7 +38,8 @@ class mailController {
     $mail->CharSet = "UTF-8";
     $mail->From = $data['email'];
     $mail->FromName = 'Formularz kontaktowy';
-    $mail->addAddress('gielarek@gmail.com; lg@softhis.com', 'Kontakt Pszczółka');     // Add a recipient
+    $mail->addAddress('gielarek@gmail.com', 'Kontakt Pszczółka Admin');     // Add a recipient
+    $mail->addAddress('pawelgrus@outlook.com', 'Kontakt Pszczółka');     // Add a recipient
     $mail->addReplyTo('gielarek@gmail.com', 'Kontakt');
 
     // Set email format to HTML
