@@ -14,7 +14,44 @@ class db_actions {
     $dbController = dbController::getInstance();
     $this->pdo = $dbController->setConnection();
   }
+  
+  //wyswietlanie zamowienia   
+  public function showOrders($all = false, $status = '') {
+    $temp = [];
+    try {
 
+      if ($all) {
+        if ($status != '') {
+          // @$temp = $this->pdo->query("SELECT * FROM `news` JOIN `category` ON category_id = news_category_id WHERE category_id IN ($status) ORDER BY news_update DESC");
+        } else {
+          @$temp = $this->pdo->query('SELECT * FROM `orders` ORDER BY order_update DESC');
+        }
+      } else {
+        @$temp = $this->pdo->query('SELECT * FROM `orders` WHERE `order_id` IN (\'' . $_GET['id'] . '\') ');
+      }
+      $orders = $temp->fetchAll();
+      $temp->closeCursor();
+    } catch (PDOException $e) {
+      //exception
+    }
+
+    return $orders;
+  }
+  
+  public function deleteOrder($id) {
+    try {      
+      //usuwanie rekordu
+      $this->pdo->exec('DELETE FROM `orders` WHERE `order_id` IN (\'' . $id . '\') ');
+
+      unset($_GET);
+      header("Location: admin.php");
+      ob_end_flush();
+      exit();
+    } catch (PDOException $e) {
+
+    }
+  }
+  
   /**
     dodawanie nowych newsów
    */
@@ -132,30 +169,7 @@ class db_actions {
     header("Location: news.php?id=" . $id);
     ob_end_flush();
     exit();
-  }
-
-  //wyswietlanie newsa/newsów
-  public function showOrders($all = false, $status = '') {
-    $temp = [];
-    try {
-
-      if ($all) {
-        if ($status != '') {
-          // @$temp = $this->pdo->query("SELECT * FROM `news` JOIN `category` ON category_id = news_category_id WHERE category_id IN ($status) ORDER BY news_update DESC");
-        } else {
-          @$temp = $this->pdo->query('SELECT * FROM `orders` ORDER BY order_update DESC');
-        }
-      } else {
-        @$temp = $this->pdo->query('SELECT * FROM `news` WHERE `news_id` IN (\'' . $_GET['id'] . '\') ');
-      }
-      $orders = $temp->fetchAll();
-      $temp->closeCursor();
-    } catch (PDOException $e) {
-      //exception
-    }
-
-    return $orders;
-  }
+  } 
 
   //wyswietlanie newsa/newsów
   public function showNews($all = false, $category = '') {

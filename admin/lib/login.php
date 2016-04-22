@@ -15,7 +15,7 @@ class loginAction {
 
   function checkUser() {
     if (isset($_SESSION['goodLogin'])) {
-      header('Location: admin');
+      header('Location: admin.php');
       ob_end_flush();
       exit();
     }
@@ -46,7 +46,7 @@ class loginAction {
         if ($stmt->rowCount() !== 0) {
           $_SESSION['user'] = $_POST['username'];
           $_SESSION['goodLogin'] = 'yes';
-          header('Location: admin');
+          header('Location: admin.php');
           ob_end_flush();
           exit();
         } else {

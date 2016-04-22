@@ -33,29 +33,18 @@ class mailController {
     $message = str_replace('[ITEMS]', $data['message'], $message);
     $message = str_replace('[CLIENTS.WEBSITE.ASSETS]', 'http://lukaszgielar.com/work/calc/mail/', $message);
 
-
     $mail = new PHPMailer;
     $mail->setLanguage('pl');
     $mail->CharSet = "UTF-8";
     $mail->From = $data['email'];
     $mail->FromName = 'Formularz kontaktowy';
-    $mail->addAddress('gielarek@gmail.com', 'Kontakt Pszczółka');     // Add a recipient
+    $mail->addAddress('gielarek@gmail.com; lg@softhis.com', 'Kontakt Pszczółka');     // Add a recipient
     $mail->addReplyTo('gielarek@gmail.com', 'Kontakt');
 
     // Set email format to HTML
     $mail->isHTML(true);
     $mail->MsgHTML($message);
     $mail->Subject = "Zamówienie ze strony";
-//    $mail->Body = '<p style="font-size: 15px; margin-bottom: 10px;">Treść wiadomości:</p>'
-//            . '<table>'
-//            . '<tr><td>Od:</td><td> <b>' . $data['name'] . ' ' . $data['surname'] . '</b></td></tr>'
-//            . '<tr><td>Telefon:</td><td><b>' . ($data['phone'] ? $data['phone'] : '-') . '</b></td></tr>'
-//            . '<tr><td>Adres zamówienia:</td><td><b>' . $data['postal-code'] . ' ' . $data['city'] . '</b><br><b> ' . $data['street'] . ' ' . $data['number'] . ' </b></td></tr>'
-//            . '</table>'
-//            . '<p style="font-size: 15px; margin-bottom: 10px;"> Tabela: </p>'
-//            . $data['message'];
-
-
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     if (!$mail->send()) {
@@ -124,38 +113,43 @@ class mailController {
 
     try {
       $time = time();      
+      $address = $data['street'] . ' ' . $data['number']; 
 
       if ($post['message'] != '') {
         $this->pdo->exec('INSERT INTO `orders` ('
-                . '`order_id`,'
-                . ' `order_name`,'
+                . ' `order_id`,'
+                . ' `order_name`,'                
+                . ' `order_text`,'
                 . ' `order_val`,'
-                . ' `news_insert`,'
-                . ' `news_update`,'
-                . ' `news_visible`,'
-                . '`news_top`,'
-                . '`news_category_id`,'
-                . '`news_user` ) VALUES ('
+                . ' `order_address`,'
+                . ' `order_create`,'
+                . ' `order_update`,'
+                . ' `order_status`,'
+                . ' `order_city`,'
+                . ' `order_postal_code`,'
+                . ' `order_phone`,'
+                . ' `order_email`,'
+                . ' `order_delivery_value`'                
+                . ') VALUES ('
                 . ' "",'
-                . '  \'' . $post['name'] . '\','
-                . ' \'' . $post['news_desc'] . '\','
-                . '  \'' . $time . '\','
-                . '  \'' . $time . '\','
-                . ' \'' . $visible . '\','
-                . ' \'' . $top . '\','
-                . ' \'' . $post['news_category_id'] . '\' ,'
-                . ' "1")');
+                . ' \'' . $post['name'] . '\','
+                . ' \'' . $post['message'] . '\','
+                . ' \'' . $post['total'] . '\','                
+                . ' \'' . $post['street'] . ' ' . $post['number'] . '\','       
+                . ' \'' . $time . '\','
+                . ' \'' . $time . '\','
+                . ' \'' . 'waiting' . '\','
+                . ' \'' . $post['city'] . '\','   
+                . ' \'' . $post['postal-code'] . '\','       
+                . ' \'' . $post['phone'] . '\','                   
+                . ' \'' . $post['email'] . '\','                    
+                . ' \'' . '20zł ?' . '\' '
+                . ' )');
       }
-
-//      unset($post);
-//      header("Location: news.php?id=" . $this->pdo->lastInsertId());
-//      ob_end_flush();
-//      exit();
     } catch (PDOException $e) {
-
+        //
     }
   }
-
 }
 
 $save = new mailController();

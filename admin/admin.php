@@ -51,10 +51,11 @@ if (isset($_SESSION["user"])) {
         </form>
       </div>
 
-      <p>Lista zamówień:</p>
+      
       <div class="row-fluid">
-        <div>
-
+        
+        <?php if( !empty($news)) : ?>
+          <p>Lista zamówień:</p>          
           <div class="row-fluid">
             <table class="table table-striped table-hover">
               <thead>
@@ -71,10 +72,10 @@ if (isset($_SESSION["user"])) {
                 <?php foreach ($news as $i) : ?>
                   <tr>
                     <td class="td-spec-2"><?php echo $i['order_id'] ?></td>
-                    <td>  <a href="news.php?id=<?php echo $i['order_id'] ?>" title="Edytuj" class="tool"><?php echo $i['order_name'] ?></a></td>
+                    <td class="td-spec-2">  <a href="order.php?id=<?php echo $i['order_id'] ?>" title="Szczegóły" class="tool"><?php echo $i['order_name'] ?></a></td>
                     <td class="td-spec-2">
                       <a href="admin.php?category=<?php echo $i['order_status'] ?>" name="order_status" title="" data-original-title="status">
-                        <?php echo $i['order_status'] ?>
+                          <span class="label"><?php echo $i['order_status'] ?></span>
                         <?php //helpers::myLabels($i['order_status'], $i['category_name']) ?>
                       </a>
                     </td>
@@ -84,27 +85,30 @@ if (isset($_SESSION["user"])) {
 
                     <td class="td-spec-2"><?php echo date('d-m-Y G:i', $i['order_create']) ?></td>
                     <td class="td-spec-2">
-                      <a href="news.php?id=<?php echo $i['order_id'] ?>" title="Edytuj" class="tool">
-                        <i class="icon-edit" style="margin-right:10px;"></i></a>
-                      <a href="admin.php?del_id=<?php echo $i['order_id'] ?>" title="Usuń" class="tool"><i class="icon-trash"></i></a>
+                      <a href="order.php?id=<?php echo $i['order_id'] ?>" title="Szczegóły" class="tool">
+                        <i class="icon-list-alt"></i>
+                      </a>                      
                     </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
-          </div> <!-- /rowfluid -->
-        </div>
+          </div> 
+        <?php else : ?>
+            <div class="alert alert-danger">
+                Brak zamówień
+            </div>
+        <?php endif; ?>
+        
       </div>
 
     </div>
   </div>
 
-  <?php
-  require_once("lib/_partials/admin_footer.phtml");
-}
-else {
-  ob_start();
-  header("Location: login");
-  ob_end_flush();
-  exit();
-}
+    <?php
+        require_once("lib/_partials/admin_footer.phtml");
+    }
+    
+    else {
+        require_once("lib/_partials/admin_footer_location.phtml");
+    }

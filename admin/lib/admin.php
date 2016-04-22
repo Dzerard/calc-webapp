@@ -1,17 +1,17 @@
 <?php
 
-//wyświetlanie dostepnych newsów
+//wyświetlanie dostepnych zamówień
 if (isset($_GET["category"])) {
   $news = $adminActions->showOrders($all = true, $_GET["category"]);
 } else {
   $news = $adminActions->showOrders($all = true);
 }
-//
-////usuwanie newsów
-//if(isset($_GET["del_id"])){
-//
-//	$adminActions->deleteNews($_GET['del_id']);
-//}
+
+//usuwanie zamówienia
+if(isset($_GET["del_id"])){
+	$adminActions->deleteOrder($_GET['del_id']);
+}
+
 ////wyświetlanie dostepnych kategorii
 //
 //$categories = $adminActions->showCategories();

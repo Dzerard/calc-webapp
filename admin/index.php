@@ -1,6 +1,6 @@
 <?php 
 	ob_start();
-	header("Location: login");      	
+	header("Location: login.php");      	
 	ob_end_flush();
 	exit(); 
 ?>
