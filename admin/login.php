@@ -14,8 +14,8 @@ require_once("lib/_partials/admin_head.phtml");
     </form>
   </div>
 </div>
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="public/js/jquery-1.9.1.min.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -1,6 +1,1 @@
-<?php 
-	ob_start();
-	header("Location: login.php");      	
-	ob_end_flush();
-	exit(); 
-?>
+<?php require_once("lib/_partials/admin_footer_location.phtml"); ?>

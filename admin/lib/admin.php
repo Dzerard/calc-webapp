@@ -1,33 +1,16 @@
 <?php
 
 //wyświetlanie dostepnych zamówień
-if (isset($_GET["category"])) {
-  $news = $adminActions->showOrders($all = true, $_GET["category"]);
-} else {
-  $news = $adminActions->showOrders($all = true);
-}
+$news = $adminActions->showOrders($all = true);
 
 //usuwanie zamówienia
-if(isset($_GET["del_id"])){
-	$adminActions->deleteOrder($_GET['del_id']);
+if (isset($_GET["del_id"])) {
+  $adminActions->deleteOrder($_GET['del_id']);
 }
 
-////wyświetlanie dostepnych kategorii
-//
-//$categories = $adminActions->showCategories();
-//
-//
-//// dodawanie nowego newsa
-//if(isset($_POST["add_news"])){
-//  $adminActions->addNews($_POST);
-//}
 ////zmiana widocznosci konkretnego newsa
 //if(isset($_GET["visibleID"])) {
 //  $adminActions->setVisbility($_GET["visibleID"]);
-//}
-////zmiana widocznosci na stronie glownej konkretnego newsa
-//if(isset($_GET["topID"])) {
-//  $adminActions->setTopVisbility($_GET["topID"]);
 //}
 //wylogowywanie
 if (isset($_POST["logout"])) {

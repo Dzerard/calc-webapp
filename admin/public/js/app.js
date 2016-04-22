@@ -3,50 +3,14 @@
 
   var AppController = {
     init: function () {
-      this.tinyInit();
-      this.bindInput();
       this.datepickerFire();
+      //this.youTubeActions();
     },
-    teamScore: function () {
-      $("#score_team_win_goals").keydown(function (event) {
-        // Allow only backspace and delete
-        if (event.keyCode == 46 || event.keyCode == 8) {
-          // let it happen, don't do anything
-        }
-        else {
-          // Ensure that it is a number and stop the keypress
-          if (event.keyCode < 48 || event.keyCode > 57) {
-            event.preventDefault();
-          }
-        }
-      });
-      $("#score_team_loss_goals").keydown(function (event) {
-        // Allow only backspace and delete
-        if (event.keyCode == 46 || event.keyCode == 8) {
-          // let it happen, don't do anything
-        }
-        else {
-          // Ensure that it is a number and stop the keypress
-          if (event.keyCode < 48 || event.keyCode > 57) {
-            event.preventDefault();
-          }
-        }
-      });
+    plugins: function() {
+      $('.tool,.btn-logout').tooltip('hide');
+      $('[data-tooltip]').tooltip('hide');
     },
-    bindInput: function () {
-      if( $('#inputCategory').val() == 2) {
-        $("#subcategoryDiv").show();	
-      } 
-      $('#inputCategory').bind('change', function (e) {
-        if ($('#inputCategory').val() == 2) {
-          $("#subcategoryDiv").slideDown();
-        }
-        else {
-          $('#subcategoryDiv').slideUp();
-        }
-      });
-    },
-    tinyInit: function () {     
+    tinyInit: function () {
       tinymce.init({
           selector: "textarea",
           language: 'pl',
@@ -61,21 +25,21 @@
     datepickerFire: function() {
       var _this = this;
       $(function() {
-        
+
         $('.remove-confirm').on('click', function(){
           if(confirm('Czy chcesz usunąć ?')) {
             return true;
           };
           return false;
         });
-        
+
 		$("#Tdatepicker").datepicker({ dateFormat: "dd.mm.yy" });
 		$( "#Odatepicker" ).datepicker({ dateFormat: "dd.mm.yy" });
 		$( "#Zdatepicker" ).datepicker({ dateFormat: "dd.mm.yy" });
 		$( "#Mdatepicker" ).datepicker({ dateFormat: "dd.mm.yy" });
-        $( ".datepicker" ).datepicker({ dateFormat: "dd.mm.yy" });	        
-        $('.datetimepickcer').datetimepicker({showMillisec: false, 
-          showMicrosec:false, 
+        $( ".datepicker" ).datepicker({ dateFormat: "dd.mm.yy" });
+        $('.datetimepickcer').datetimepicker({showMillisec: false,
+          showMicrosec:false,
           showTimezone: false,
           showSecond: false,
           timeFormat: 'HH:mm:00',
@@ -95,12 +59,12 @@
           hourText: 'Godzina',
           minuteText: 'Minuta',
 //          controlType: 'select',
-//          oneLine: true, 
+//          oneLine: true,
           dateFormat: 'yy-mm-dd'
         });
-        
+
         $('.edit-modal').on('click', function(){
-        
+
           var btnId = $(this).data('id');
           $.ajax({
             type: 'POST',
@@ -108,7 +72,7 @@
             dataType: 'json',
             data: {'id': btnId},
             success: function (result) {
-                
+
                 $('#editEventForm').find('#event_id_edit').val(result.event_id);
                 $('#editEventForm').find('#event_description_edit').val(result.event_description);
                 $('#editEventForm').find('#event_title_edit').val(result.event_title);
@@ -117,74 +81,74 @@
                 $('#editModal').modal('show');
               }
             });
-          
+
         });
 	  });
     },
     youTubeActions: function() {
-      
+
       var $actionButtons = $('.youtube-actions'),
         $visibility = $actionButtons.find('a'),
-        $youtubleList = $('.sort-categries-js'); 
+        $youtubleList = $('.sort-categries-js');
 
         $visibility.on('click', function() {
           var $btn = $(this),
               id = $btn.attr('data-id'),
-              status = $btn.attr('data-value'); 
-          
+              status = $btn.attr('data-value');
+
           $btn.attr('disabled', true);
-          
+
           $.ajax({
-              type: 'POST', 
-              url : $youtubleList.attr('rel'), 
+              type: 'POST',
+              url : $youtubleList.attr('rel'),
               data: {
                 youtube_visibility: id,
                 youtube_visibility_status: status
-              }, 
-              success : function(data){ 
+              },
+              success : function(data){
                 $btn.attr('disabled', false);
-                
+
                 if(data.current_status == 'off') {
-                  $btn.find('span').removeClass('label-info').addClass('label-default');                  
+                  $btn.find('span').removeClass('label-info').addClass('label-default');
                 } else {
-                  $btn.find('span').removeClass('label-default').addClass('label-info');                  
+                  $btn.find('span').removeClass('label-default').addClass('label-info');
                 }
-                
+
                 $btn.attr('data-value', data.current_status);
               }
           });
-          
+
           return false;
         });
-                        
+
         $youtubleList.find('.removeCategory').on('click', function() {
             return confirm("Czy jesteś pewien, że chcesz usunąć link do filmu?");
         });
-    
+
         var fixHelper = function(e, ui) {
                 ui.children().each(function() {
                     $(this).width($(this).width());
                 });
                 return ui;
             };
-            
+
             $youtubleList.sortable({
                 helper: fixHelper,
-                update: function(event, ui) { 
+                update: function(event, ui) {
                     var order = [];
                     ui.item.parent().children().each(function(k, v){
                         order[order.length] = $(v).attr('rel');
                     });
                     $.ajax({
-                        type: 'POST', 
-                        url : $youtubleList.attr('rel'), 
-                        data: {order: order}, 
-                        success : function(data){ 
+                        type: 'POST',
+                        url : $youtubleList.attr('rel'),
+                        data: {order: order},
+                        success : function(data){
                           console.log(data);
 //                            var container = $(document).find('.categoryMessages');
 //                            container.hide().empty();
 //                            container.html(data.html);
-//                            container.fadeIn();        
+//                            container.fadeIn();
                         }
                     });
                 },
@@ -193,11 +157,8 @@
             });
     }
   };
-  
+
   $(document).ready(function () {
     AppController.init();
-    AppController.youTubeActions();
-    $('.tool,.btn-logout').tooltip('hide');    
-    $('[data-tooltip]').tooltip('hide');
   });
 }());

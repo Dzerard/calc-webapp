@@ -2,7 +2,7 @@
 
 $list = $adminActions->newsletterList();
 
-//usuwanie newsów
+//usuwanie mailingu
 if (isset($_GET["del_id"])) {
   $adminActions->deleteNewsletter($_GET['del_id']);
 }

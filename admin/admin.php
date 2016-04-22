@@ -2,7 +2,7 @@
 ob_start();
 session_start();
 
-require_once("include/data_actions.php");
+require_once("config/lib/data_actions.php");
 require_once("lib/admin.php");
 
 if (isset($_SESSION["user"])) {
@@ -10,6 +10,7 @@ if (isset($_SESSION["user"])) {
   echo navi::menuNavi('admin');
   ?>
   <div class="container">
+    <?php require_once("lib/_partials/admin_messages.phtml"); ?>
     <div class="hero-unit">
 
       <!-- Modal -->
@@ -51,11 +52,11 @@ if (isset($_SESSION["user"])) {
         </form>
       </div>
 
-      
+
       <div class="row-fluid">
-        
-        <?php if( !empty($news)) : ?>
-          <p>Lista zamówień:</p>          
+
+        <?php if (!empty($news)) : ?>
+          <p>Lista zamówień:</p>
           <div class="row-fluid">
             <table class="table table-striped table-hover">
               <thead>
@@ -75,7 +76,7 @@ if (isset($_SESSION["user"])) {
                     <td class="td-spec-2">  <a href="order.php?id=<?php echo $i['order_id'] ?>" title="Szczegóły" class="tool"><?php echo $i['order_name'] ?></a></td>
                     <td class="td-spec-2">
                       <a href="admin.php?category=<?php echo $i['order_status'] ?>" name="order_status" title="" data-original-title="status">
-                          <span class="label"><?php echo $i['order_status'] ?></span>
+                        <span class="label"><?php echo $i['order_status'] ?></span>
                         <?php //helpers::myLabels($i['order_status'], $i['category_name']) ?>
                       </a>
                     </td>
@@ -87,28 +88,28 @@ if (isset($_SESSION["user"])) {
                     <td class="td-spec-2">
                       <a href="order.php?id=<?php echo $i['order_id'] ?>" title="Szczegóły" class="tool">
                         <i class="icon-list-alt"></i>
-                      </a>                      
+                      </a>
                     </td>
                   </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
-          </div> 
+          </div>
         <?php else : ?>
-            <div class="alert alert-danger">
-                Brak zamówień
-            </div>
+          <div class="alert alert-danger">
+            Brak zamówień
+          </div>
         <?php endif; ?>
-        
+
       </div>
 
     </div>
   </div>
 
-    <?php
-        require_once("lib/_partials/admin_footer.phtml");
-    }
-    
-    else {
-        require_once("lib/_partials/admin_footer_location.phtml");
-    }
+  <?php
+  require_once("lib/_partials/admin_footer.phtml");
+}
+
+else {
+  require_once("lib/_partials/admin_footer_location.phtml");
+}

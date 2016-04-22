@@ -1,219 +1,129 @@
 <?php
-require_once("config/config.php"); 
-require_once("config/dbController.php"); 
 
-class methods {	
-  
-  protected $db;
-  function __construct(){     
-    $dbController = dbController::getInstance();
-    $this->db = $dbController->setConnection();
+class helpers {
+
+  public static function clearHtml($string) {
+    //$help = htmlentities($string, ENT_QUOTES, "UTF-8");
+    return strip_tags($string);
   }
 
-  public static function fileAdd($name) {
-      $name   = "lib/tree/$name.php";
-      $file   = fopen($name,'r');
-      $output = fread($file, filesize($name));
-      fclose($file);				
-      printf($output);
-  }	
+  public static function link($category, $id) {
+    return htmlspecialchars($category . '/' . $id);
+  }
 
-  /**
-   * Wyświetlanie dostępnych wszsytkich/i z limitem wiadomości
-   * @param int $limit
-   * @return array
-   */
-  public function lastNews($limit = 0) {
+  public static function linkCategory($category, $subcategory) {
+    return htmlspecialchars($category . '/' . $subcategory);
+  }
 
-    try {
-      if ($limit == 0) {
-        $temp = $this->db->query("SELECT * FROM news JOIN category ON category_id = news_category_id WHERE `news_visible` IN ('yes')  ORDER BY news_insert DESC");
-      } else {
-        $temp = $this->db->query("SELECT * FROM news JOIN category ON category_id = news_category_id WHERE `news_visible` IN ('yes')  ORDER BY news_insert DESC LIMIT $limit");
-      }
+  public static function myLabels($id, $name) {
 
-      $news = $temp->fetchAll();
-      $temp->closeCursor();
-    } catch (PDOException $e) {
-      //var_dump($e);
+    switch ($id) {
+
+      case(1) :
+        $label = '<span class="label label-info">' . $name . '</span>';
+        break;
+      case(2) :
+        $label = '<span class="label label-success">' . $name . '</span>';
+        break;
+      case(3) :
+        $label = '<span class="label label-inverse">' . $name . '</span>';
+        break;
+      case(4) :
+        $label = '<span class="label label-important">' . $name . '</span>';
+        break;
+      default:
+        $label = '<span class="label">' . $name . '</span>';
     }
-    return $news;
+
+    echo $label;
   }
 
-  /**
-   * Wyświetlanie trzech informacji w sliderze
-   * @return array
-   */
-  public function nivoNews() {
-
-    try {
-      $temp = $this->db->query("SELECT * FROM news JOIN category ON category_id = news_category_id WHERE `news_visible` IN ('yes') AND `news_top` IN ('yes') ORDER BY news_insert DESC LIMIT 4");
-      $nivo = $temp->fetchAll();
-      $temp->closeCursor();
-    } catch (PDOException $e) {
-      //var_dump($e);
-    }
-    return $nivo;
-  }
-
-  /**
-   * Wyświetlanie dostępnych konkretnych kategori
-   * @param string $category
-   * @param string $subcategory
-   * @return array
-   */
-  public function lastNewsCategory($category, $subcategory='') {		
-
-    try {
-      if ($subcategory != '') {
-        $temp = $this->db->query("SELECT * FROM news JOIN category ON category_id = news_category_id WHERE `category_name` IN ('$category') AND `news_visible` IN ('yes') AND `news_subcategory` IN ('$subcategory') ORDER BY news_insert DESC");
-      } else {
-        $temp = $this->db->query("SELECT * FROM news JOIN category ON category_id = news_category_id WHERE `category_name` IN ('$category') AND `news_visible` IN ('yes') ORDER BY news_insert DESC");
-      }
-      $news = $temp->fetchAll();
-      $temp->closeCursor();
-    } catch (PDOException $e) {
-      //var_dump($e);
-    }
-    return $news;
-  }
-
-  /**
-   * Terminarz 
-   */    
-  public function scheduleForCategory($all=false, $type='', $id) {		  	
-
-    try {
-      if ($all) {
-        if ($type != '') {
-          $temp = $this->db->query("SELECT * FROM `schedule`  WHERE `scheduleType` IN ('$type') ORDER BY scheduleDate DESC");
-        } else {
-          $temp = $this->db->query('SELECT * FROM `schedule` ORDER BY scheduleDate DESC');
-        }
-        $list = $temp->fetchAll();
-      } else {
-        $temp = $pdo->query('SELECT * FROM `schedule` WHERE `scheduleId` IN (\'' . $_GET['id'] . '\') ');
-        $list = $temp->fetch();
-      }
-      $temp->closeCursor();
-    } catch (PDOException $e) {
-      //var_dump($e);
-    }
-    return $list;
-  }
-
-  /**
-   * Informacje o trenerach
-   * @return array
-   */	 
-  public function coachInfo() {		
-
-    try{
-      $temp  = $this->db->query("SELECT * FROM coach");			 
-      $coach = $temp->fetchAll();			  
-      $temp->closeCursor();	 
-    }	  catch(PDOException $e){}        
-
-    return $coach;
-  }
-
-  /**
-   * Pojedyńczy news
-   * @param int $id
-   * @return array
-   */
-  public function oneNews($id) {			
-
-    try{
-      $temp = $this->db->query("SELECT * FROM news WHERE `news_id` IN ('$id') ");			 
-      $news = $temp->fetch();			  
-      $temp->closeCursor();	 
-    } catch(PDOException $e){}        
-
-    return $news;
-  }
-
-  public function loadGallery($id = '') {
-
-    try {		
-      if ($id == '') {
-        $stmt = $this->db->query("SELECT * FROM gallery WHERE `gallery_visible` IN ('yes') ORDER BY gallery_insert DESC");
-        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      } else {
-        $stmt = $this->db->query("SELECT * FROM gallery WHERE `gallery_id` IN ('$id')  AND `gallery_visible` IN ('yes')");
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      }
-      $stmt->closeCursor();					 			  
-    } catch(PDOException $e){}
-
-    return $row;
-  }
-
-  public function loadLastAddedGallery() {
-    try {		     
-//      $stmt = $this->db->query("SELECT * FROM pic WHERE pic_gallery_id =(SELECT `gallery_id` FROM gallery ORDER BY `gallery_insert` DESC LIMIT 1 ) ");
-      $stmt = $this->db->query("SELECT * FROM pic WHERE pic_gallery_id =3 ");
-      $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      $stmt->closeCursor();					 			  
-    } catch(PDOException $e){}
-
-    return $row;
-  }
-  public function getAllEvents() {
-    try {		     
-      $stmt = $this->db->query("SELECT * FROM events ORDER BY event_date DESC");
-      $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      $stmt->closeCursor();					 			  
-    } catch(PDOException $e){}
-
-    return $row;   
-  }
-  
-  
-  public function loadLastEvents($limit=5) {
-    try {		     
-      $stmt = $this->db->query("SELECT * FROM events ORDER BY event_date DESC LIMIT $limit ");
-      $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      $stmt->closeCursor();					 			  
-    } catch(PDOException $e){}
-
-    return $row;
-  }
-  public function loadGalleryPics($id) {
-    try {
-      $stmt = $this->db->query('SELECT * FROM pic WHERE `pic_gallery_id` IN (\'' . $id . '\')');
-      $pics = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      $stmt->closeCursor();
-    } catch(PDOException $e){}
-
-    return $pics;
-  }	 
-  
-  //settings
-  public function getSettings() {
-    
-    //static 
-    $id = 1;
-    
-    try {
-      $stmt = $this->db->query('SELECT * FROM `settings` WHERE `settings_id` IN (\'' . $id . '\') ');
-      $all = $stmt->fetch(PDO::FETCH_ASSOC);      
-      $stmt->closeCursor();  
-    } catch (PDOException $e) { }
-    return $all;        
-  }
-  
-  //getPageByName
-  public function getPage($name) {
-    $page = null;
-    try {
-      $stmt = $this->db->query('SELECT * FROM `pages` WHERE `pages_name` IN (\'' . $name . '\') ');
-      $page = $stmt->fetch(PDO::FETCH_ASSOC);      
-      $stmt->closeCursor();  
-    } catch (PDOException $e) { }
-    return $page;     
-  }
 }
 
-require_once("helpers.php"); 
-require_once("app.php"); 
+class methods {
+
+  function __construct() {
+
+  }
+
+  public function is_logged() {
+    return $this->logged;
+  }
+
+  public function logout($header) {
+    ob_start();
+    session_start();
+    session_unset();
+    session_destroy();
+    header('Location: ' . $header);
+    ob_end_flush();
+  }
+
+}
+
+$allowedExts = array("jpg", "jpeg", "gif", "png", "ico");
+
+class alerts {
+
+  function __construct() {
+
+  }
+
+  public static function setMessage($message) {
+    $_SESSION['alerts'] = $message;
+  }
+
+  public static function flushAlert($code) {
+    echo '<div class="container"><div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>Return Code: " ' . $code . ' "<br></div></div>';
+  }
+
+  public static function flushAlert_2($code = null) {
+    echo '<div class="container"><div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>Nieobsługiwany format pliku !</div></div>';
+  }
+
+}
+
+class navi {
+
+  function __construct() {
+
+  }
+
+  public static function menuNavi($name) {
+
+    $myMenu = '<div class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="navbar-inner">
+                          <div class="container">
+                            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                            </button>
+                            <form class="navbar-form pull-right" action="admin.php" method="post">
+                                <button type="submit" class="btn btn-danger btn-medium btn-logout" data-placement="left" title="wyloguj" name="logout"><i class="icon-off icon-white"></i></button>
+                            </form>
+                            <a class="brand" href="../">Pszczółka Calc Admin</a>
+                            <div class="nav-collapse collapse">
+                              <ul class="nav">
+                                <li ' . ($name == "admin" ? "class='active'" : " " ) . '><a href="admin.php">Zamówienia</a></li>
+                              </ul>
+
+                            </div><!--/.nav-collapse -->
+                          </div>
+                        </div>
+                      </div>';
+    return htmlspecialchars_decode($myMenu);
+  }
+
+}
+
+class baseController {
+
+  public function redirect($url) {
+    unset($_POST);
+    header("Location:" . $url);
+    ob_end_flush();
+    exit();
+  }
+
+}

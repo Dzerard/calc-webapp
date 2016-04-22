@@ -1,8 +1,8 @@
 <?php
 
 //@todo podział na mniejsze modele
-require_once(__DIR__ . "/../config/config.php");
-require_once(__DIR__ . "/../config/dbController.php");
+require_once(__DIR__ . "/../config.php");
+require_once(__DIR__ . "/../dbController.php");
 
 require_once("methods.php");
 
@@ -14,8 +14,8 @@ class db_actions {
     $dbController = dbController::getInstance();
     $this->pdo = $dbController->setConnection();
   }
-  
-  //wyswietlanie zamowienia   
+
+  //wyswietlanie zamowienia
   public function showOrders($all = false, $status = '') {
     $temp = [];
     try {
@@ -37,9 +37,9 @@ class db_actions {
 
     return $orders;
   }
-  
+
   public function deleteOrder($id) {
-    try {      
+    try {
       //usuwanie rekordu
       $this->pdo->exec('DELETE FROM `orders` WHERE `order_id` IN (\'' . $id . '\') ');
 
@@ -51,7 +51,7 @@ class db_actions {
 
     }
   }
-  
+
   /**
     dodawanie nowych newsów
    */
@@ -169,7 +169,7 @@ class db_actions {
     header("Location: news.php?id=" . $id);
     ob_end_flush();
     exit();
-  } 
+  }
 
   //wyswietlanie newsa/newsów
   public function showNews($all = false, $category = '') {

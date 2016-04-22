@@ -9,7 +9,7 @@ class dbController {
       'dev' => [
           'host' => 'localhost',
           'user' => 'root',
-          'pass' => '',
+          'pass' => 'admin',
           'name' => 'calc'
       ],
       'prod' => [
@@ -22,7 +22,7 @@ class dbController {
           'host' => 'localhost',
           'user' => 'lukaszg1_calc',
           'pass' => 'admin',
-          'name' => 'lukaszg1_calc'                    
+          'name' => 'lukaszg1_calc'
       ]
   ];
 
