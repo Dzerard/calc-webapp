@@ -225,6 +225,25 @@ var app = {
   bindFunctions: function () {
     var self = this;
 
+    window.ParsleyValidator.addValidator('phone', function (value, requirement) {
+      if (value != '') {
+        var emailTab = value.split(','),
+                emailTabValid = [];
+
+        for (var i = 0; i < emailTab.length; i++) {
+          emailTabValid[i] = validateEmail(emailTab[i]);
+        }
+
+        if (emailTabValid.indexOf(false) === -1) {
+          return true;
+        }
+
+        return false;
+      }
+
+      return 0;
+    }, 32);
+
     //akcja do przeliczania formularza
     this.button.on('click', function () {
 

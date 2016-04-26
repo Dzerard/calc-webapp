@@ -12,6 +12,7 @@
 
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/ng-admin/build/ng-admin.min.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -242,7 +243,7 @@
                 <div class="form-group">
                   <label for="contactPhone">Telefon kontaktowy</label>
                   <div>
-                    <input type="text" class="form-control input-lg" id="contactPhone" placeholder="" name="phone" data-parsley-min="6">
+                    <input type="text" class="form-control input-lg" id="contactPhone" placeholder="" name="phone" data-parsley-pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/">
                   </div>
                 </div>
               </div>
@@ -260,7 +261,7 @@
           <div class="row">
             <div class="col-md-12 bottom-buttons-form">
               <div class="form-group">
-                <button data-step="1" type="button" id="backToCalculator" class="btn btn-success btn-lg pull-left"><i class="fa fa-angle-left"></i>Powrót</button>
+                <button data-step="1" type="button" id="backToCalculator" class="btn btn-success btn-lg pull-left"><i class="icon-angle-left"></i>&ensp; Powrót</button>
                 <button type="submit" id="orderFormButton" class="btn btn-primary btn-lg pull-right">Zamów</button>
               </div>
             </div>
@@ -273,6 +274,7 @@
     <!-- bower:js -->
     <script src='/bower_components/modernizr/modernizr.js'></script>
     <script src='/bower_components/jquery/dist/jquery.js'></script>
+    <script src='/bower_components/ng-admin/build/ng-admin.min.js'></script>
     <!-- endbower -->
     <script src="/bower_components/parsleyjs/dist/parsley.min.js"></script>
     <script src="/bower_components/parsleyjs/src/i18n/pl.js"></script>
