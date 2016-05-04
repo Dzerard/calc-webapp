@@ -4,6 +4,7 @@
   var AppController = {
     init: function () {
       this.datepickerFire();
+      this.tinyInit();
       //this.youTubeActions();
     },
     plugins: function() {

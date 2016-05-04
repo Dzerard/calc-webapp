@@ -19,13 +19,13 @@ if (isset($_SESSION["user"])) {
       <p>Szczegóły zamówienia:</p>
       <div class="row-fluid">
         <form class="form-horizontal" action="order.php" method="post">
-          <input type="hidden" name="news_id" value="<?php echo $news[0]['order_id']; ?>">
+          <input type="hidden" name="order_id" value="<?php echo $order[0]['order_id']; ?>">
 
           <div class="control-group">
             <label class="control-label" for="inputTitle">Imię i Nazwisko</label>
             <div class="controls">
               <p class="lead">
-                <?php echo $news[0]['order_name']; ?>
+                <?php echo $order[0]['order_name']; ?>
               </p>
             </div>
           </div>
@@ -34,8 +34,8 @@ if (isset($_SESSION["user"])) {
             <label class="control-label">Adres</label>
             <div class="controls">
               <p>
-                <?php echo $news[0]['order_address']; ?><br>
-                <?php echo $news[0]['order_postal_code'] . ' ' . $news[0]['order_city']; ?>
+                <?php echo $order[0]['order_address']; ?><br>
+                <?php echo $order[0]['order_postal_code'] . ' ' . $order[0]['order_city']; ?>
               </p>
             </div>
           </div>
@@ -44,7 +44,7 @@ if (isset($_SESSION["user"])) {
             <label class="control-label">Telefon</label>
             <div class="controls">
               <p>
-                <?php echo $news[0]['order_phone']; ?>
+                <?php echo $order[0]['order_phone']; ?>
               </p>
             </div>
           </div>
@@ -53,7 +53,7 @@ if (isset($_SESSION["user"])) {
             <label class="control-label">Email</label>
             <div class="controls">
               <p class="break-word">
-                <?php echo $news[0]['order_email']; ?>
+                <?php echo $order[0]['order_email']; ?>
               </p>
             </div>
           </div>
@@ -70,7 +70,7 @@ if (isset($_SESSION["user"])) {
                       <th>Wartość </th>
                     </tr>
                   </thead>
-                  <?php echo $news[0]['order_text']; ?>
+                  <?php echo $order[0]['order_text']; ?>
                 </table>
               </div>
             </div>
@@ -79,7 +79,7 @@ if (isset($_SESSION["user"])) {
             <label class="control-label" for="inputDelivery">Wartość zamówienia</label>
             <div class="controls">
               <p class="lead">
-                <?php echo $news[0]['order_val']; ?>
+                <?php echo $order[0]['order_val']; ?>
               </p>
             </div>
           </div>
@@ -87,7 +87,7 @@ if (isset($_SESSION["user"])) {
             <label class="control-label" for="inputDelivery">Koszt dostawy</label>
             <div class="controls">
               <p class="lead">
-                <input type="text" id="inputDelivery" name="order_delivery_value" class="my-font span5" value="<?php echo $news[0]['order_delivery_value']; ?>" required readonly="">
+                <input type="text" id="inputDelivery" name="order_delivery_value" class="my-font span5" value="<?php echo $order[0]['order_delivery_value']; ?>" required readonly="">
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ if (isset($_SESSION["user"])) {
           <div class="control-group">
             <label class="control-label" for="inputCategory">Status</label>
             <div class="controls">
-              <select  id="inputCategory" name="news_category_id" class="my-font input-medium">
+              <select  id="inputCategory" name="order_status" class="my-font input-medium">
                 <?php
                 $status = [
                     'waiting' => 'Oczekiwanie',
@@ -104,7 +104,7 @@ if (isset($_SESSION["user"])) {
                 ];
 
                 foreach ($status as $r => $k) {
-                  if ($news[0]['order_status'] == $r) {
+                  if ($order[0]['order_status'] == $r) {
                     echo '<option value="' . $r . '" selected>' . $k . '</option>';
                   } else {
                     echo '<option value="' . $r . '">' . $k . '</option>';
@@ -116,10 +116,22 @@ if (isset($_SESSION["user"])) {
           </div>
 
           <div class="control-group">
+            <label class="control-label" for="mailContact">E-mail</label>
+            <div class="controls">
+              <p class="lead">
+                <textarea id="mailContact" name="mail" class="my-font span5">
+                    test
+                </textarea>
+              </p>
+            </div>
+          </div>
+
+
+          <div class="control-group">
             <div class="controls footer-controls">
               <a href="admin.php" class="btn tool my-font"  title="powrót"><i class="icon-chevron-left"></i></a>
-              <button type="submit" class="btn btn-primary tool" name="save" title="zapisz" disabled=""><i class="icon-ok icon-white"></i></button>
-              <a href="admin.php?del_id=<?php echo $news[0]['order_id']; ?>" title="Usuń" class="btn tool btn-danger my-font"><i class="icon-trash"></i></a>
+              <button type="submit" class="btn btn-primary tool" name="save" title="zapisz"><i class="icon-ok icon-white"></i></button>
+              <a href="admin.php?del_id=<?php echo $order[0]['order_id']; ?>" title="Usuń" class="btn tool btn-danger my-font"><i class="icon-trash"></i></a>
             </div>
           </div>
 

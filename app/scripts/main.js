@@ -34,9 +34,9 @@ var app = {
       //parseFloat(summary).toFixed(2) + parseFloat(tempPrice).toFixed(2);
     });
 
-    console.log(tempPrice);
-    console.log($rows);
-
+//    console.log(tempPrice);
+//    console.log($rows);
+    this.finalPrice.data('price', tempPrice);
     this.finalPrice.html(String(tempPrice).replace('.', ',') + this.currency);
   },
   // przerobic na event w momencie usuwania wiersza
@@ -101,7 +101,7 @@ var app = {
           tempPrice = setItemWithPrice.priceMin;
         }
 
-        console.log(tempPrice + 'zł');
+        //console.log(tempPrice + 'zł');
 
 //        if (!isNaN(tempPrice)) {
 //          self.finalPrice.html(tempPrice + self.currency);
@@ -128,7 +128,7 @@ var app = {
           tempPrice = parseFloat(currentPriceWidthPrice * 1.5).toFixed(2);
         }
 
-        console.log(tempPrice + 'zł');
+        //console.log(tempPrice + 'zł');
 
 //        if (!isNaN(tempPrice)) {
 //          self.finalPrice.html(tempPrice + self.currency);
@@ -145,8 +145,6 @@ var app = {
     this.container.find('form').parsley().reset();
   },
   addRow: function (name, dimensions, amount, price, currency) {
-
-    console.log(price);
 
     var self = this,
             $tr = $('<tr>'),
@@ -225,24 +223,24 @@ var app = {
   bindFunctions: function () {
     var self = this;
 
-    window.ParsleyValidator.addValidator('phone', function (value, requirement) {
-      if (value != '') {
-        var emailTab = value.split(','),
-                emailTabValid = [];
-
-        for (var i = 0; i < emailTab.length; i++) {
-          emailTabValid[i] = validateEmail(emailTab[i]);
-        }
-
-        if (emailTabValid.indexOf(false) === -1) {
-          return true;
-        }
-
-        return false;
-      }
-
-      return 0;
-    }, 32);
+//    window.ParsleyValidator.addValidator('phone', function (value, requirement) {
+//      if (value != '') {
+//        var emailTab = value.split(','),
+//                emailTabValid = [];
+//
+//        for (var i = 0; i < emailTab.length; i++) {
+//          emailTabValid[i] = validateEmail(emailTab[i]);
+//        }
+//
+//        if (emailTabValid.indexOf(false) === -1) {
+//          return true;
+//        }
+//
+//        return false;
+//      }
+//
+//      return 0;
+//    }, 32);
 
     //akcja do przeliczania formularza
     this.button.on('click', function () {
@@ -323,8 +321,8 @@ var app = {
       //błędy w tooltipach
       $.listen('parsley:field:error', function (fieldInstance) {
         var $element = fieldInstance.$element.parent();
-        console.log(fieldInstance);
-        console.log(fieldInstance.getValue());
+//        console.log(fieldInstance);
+//        console.log(fieldInstance.getValue());
 
         var message = window.ParsleyUI.getErrorsMessages(fieldInstance);
 
@@ -371,6 +369,14 @@ var app = {
             $formWrapper = $form.parent(),
             self = this;
 
+    function validatePrice(checkPrice) {
+      if (!isNaN(checkPrice)) {
+        return checkPrice;
+      } else {
+        return 0;
+      }
+    }
+
     $form.on('submit', function () {
 
       if ($form.parsley().validate()) {
@@ -397,25 +403,6 @@ var app = {
               window.location.reload();
             }, 5000);
           }
-//          if ($formWrapper.find('.js-message').length > 0) {
-//            $formWrapper.find('.js-message').replaceWith($messageContainer);
-//          } else {
-//            $form.before($messageContainer);
-//          }
-//
-//          // error
-//          //                  $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').text('poraw dane');
-//          //                  $formWrapper.removeClass('js-request');
-//          //                  $formWrapper.find('.loader')
-//          //                  <div class="js-message alert alert-danger">Wiadomość wysłana</div>
-//          //                  $formWrapper.removeClass('js-request');
-//          //                  $form[0].reset(); //reset forma
-//
-//          // success
-//          $formWrapper.find('.loader').fadeOut('fast');
-//          $form.slideUp('slow', function () {
-//            $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html(data.message).show();
-//          });
         };
 
         //prepare html of items
@@ -427,7 +414,12 @@ var app = {
         var $finalPrice = $('#finalPrice');
 
         $form.find('[name="message"]').val(messageOutput);
-        $form.find('[name="total"]').val($finalPrice.html());
+        $form.find('[name="total"]').val($finalPrice.data('price')); //@todo validator
+
+        if(validatePrice($finalPrice.data('price') === 0)) {
+          console.log('Wystąpił błąd! Suma zamówienia jest błędna');
+          return false;
+        }
 
         $.ajax({
           url: route,

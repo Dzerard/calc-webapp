@@ -7,6 +7,26 @@ class helpers {
     return strip_tags($string);
   }
 
+  public static function statusLabel($type) {
+
+    switch ($type) {
+
+      case('waiting') :
+        $label = '<span class="label label-default">Oczekiwanie</span>';
+        break;
+      case('closed') :
+        $label = '<span class="label label-success">Zamknięte</span>';
+        break;
+      case('open') :
+        $label = '<span class="label label-danger">Reopen</span>';
+        break;
+      default:
+        $label = '<span class="label">-</span>';
+    }
+
+    echo $label;
+  }
+
   public static function link($category, $id) {
     return htmlspecialchars($category . '/' . $id);
   }

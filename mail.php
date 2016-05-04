@@ -9,13 +9,40 @@ class mailController {
   //protected $storePath = null;
   protected $response = array();
   protected $errors = array();
+  protected $webUrl = 'http://lukaszgielar.com';
+  protected $currency = 'zł';
+  protected $delivery = array(
+      0 => 10,
+      1 => 16
+  );
   protected $pdo;
-  static $_KEY = '6LeSKRkTAAAAADuRJ348BPWJYTeTTXe5IeLFg0pW';  
-  
-  public function __construct() {          
+  static $_KEY = '6LeSKRkTAAAAADuRJ348BPWJYTeTTXe5IeLFg0pW';
+
+  public function __construct() {
     $dbController = dbController::getInstance();
-    $this->pdo = $dbController->setConnection();    
+    $this->pdo = $dbController->setConnection();
     //$this->storePath = __DIR__ . '/../../public/uploads/';
+  }
+
+  private function parseDelivery($type, $showCurrency) {
+    $value = 0;
+
+    if (array_key_exists($type, $this->delivery)) {
+      $value = $this->delivery[$type];
+    } else {
+      $value = $this->delivery[0];
+    }
+
+    if ($showCurrency) {
+      return $value . $this->currency;
+    }
+
+    return $value;
+  }
+
+  private function parseTotal($price, $delivery) {
+
+    return ($price + $this->parseDelivery($delivery)) . $this->currency;
   }
 
   public function sendMail($data) {
@@ -24,14 +51,14 @@ class mailController {
     $address = $data['postal-code'] . ' ' . $data['city'] . '<br>' . $data['street'] . ' ' . $data['number'];
 
     $message = str_replace('[SUBJECT]', 'Zamówienie', $message);
-    $message = str_replace('[CLIENTS.WEBSITE]', 'http://lukaszgielar.com', $message);
+    $message = str_replace('[CLIENTS.WEBSITE]', $this->webUrl, $message);
     $message = str_replace('[NAME]', $data['name'] . ' ' . $data['surname'], $message);
     $message = str_replace('[PHONE]', ($data['phone'] ? $data['phone'] : '-'), $message);
     $message = str_replace('[ADRESS]', $address, $message);
-    $message = str_replace('[TOTAL]', $data['total'], $message);
-    $message = str_replace('[DELIVERY]', '20zł', $message);
+    $message = str_replace('[TOTAL]', $this->parseTotal($data['total'], $data['delivery']), $message);
+    $message = str_replace('[DELIVERY]', $this->parseDelivery($data['delivery'], true), $message);
     $message = str_replace('[ITEMS]', $data['message'], $message);
-    $message = str_replace('[CLIENTS.WEBSITE.ASSETS]', 'http://lukaszgielar.com/work/calc/mail/', $message);
+    $message = str_replace('[CLIENTS.WEBSITE.ASSETS]', $this->webUrl . '/work/calc/mail/', $message);
 
     $mail = new PHPMailer;
     $mail->setLanguage('pl');
@@ -53,8 +80,8 @@ class mailController {
       //echo 'Mailer Error: ' . $mail->ErrorInfo;
       //die;
     } else {
-        //echo 'Message has been sent';
-        $this->addOrder($data);
+      //echo 'Message has been sent';
+      $this->addOrder($data);
     }
 
     return true;
@@ -109,17 +136,17 @@ class mailController {
 
     return true;
   }
-  
+
   public function addOrder($post) {
 
     try {
-      $time = time();      
-      $address = $data['street'] . ' ' . $data['number']; 
+      $time = time();
+      $address = $data['street'] . ' ' . $data['number'];
 
       if ($post['message'] != '') {
         $this->pdo->exec('INSERT INTO `orders` ('
                 . ' `order_id`,'
-                . ' `order_name`,'                
+                . ' `order_name`,'
                 . ' `order_text`,'
                 . ' `order_val`,'
                 . ' `order_address`,'
@@ -130,27 +157,28 @@ class mailController {
                 . ' `order_postal_code`,'
                 . ' `order_phone`,'
                 . ' `order_email`,'
-                . ' `order_delivery_value`'                
+                . ' `order_delivery_value`'
                 . ') VALUES ('
                 . ' "",'
                 . ' \'' . $post['name'] . '\','
                 . ' \'' . $post['message'] . '\','
-                . ' \'' . $post['total'] . '\','                
-                . ' \'' . $post['street'] . ' ' . $post['number'] . '\','       
+                . ' \'' . $post['total'] . '\','
+                . ' \'' . $post['street'] . ' ' . $post['number'] . '\','
                 . ' \'' . $time . '\','
                 . ' \'' . $time . '\','
                 . ' \'' . 'waiting' . '\','
-                . ' \'' . $post['city'] . '\','   
-                . ' \'' . $post['postal-code'] . '\','       
-                . ' \'' . $post['phone'] . '\','                   
-                . ' \'' . $post['email'] . '\','                    
+                . ' \'' . $post['city'] . '\','
+                . ' \'' . $post['postal-code'] . '\','
+                . ' \'' . $post['phone'] . '\','
+                . ' \'' . $post['email'] . '\','
                 . ' \'' . '20zł ?' . '\' '
                 . ' )');
       }
     } catch (PDOException $e) {
-        //
+      //
     }
   }
+
 }
 
 $save = new mailController();

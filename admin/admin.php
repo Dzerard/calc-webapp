@@ -76,8 +76,7 @@ if (isset($_SESSION["user"])) {
                     <td class="td-spec-2">  <a href="order.php?id=<?php echo $i['order_id'] ?>" title="Szczegóły" class="tool"><?php echo $i['order_name'] ?></a></td>
                     <td class="td-spec-2">
                       <a href="admin.php?category=<?php echo $i['order_status'] ?>" name="order_status" title="" data-original-title="status">
-                        <span class="label"><?php echo $i['order_status'] ?></span>
-                        <?php //helpers::myLabels($i['order_status'], $i['category_name']) ?>
+                        <?php helpers::statusLabel($i['order_status']) ?>
                       </a>
                     </td>
                     <td class="td-spec-2">

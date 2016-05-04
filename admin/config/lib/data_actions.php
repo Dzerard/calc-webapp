@@ -38,6 +38,7 @@ class db_actions {
     return $orders;
   }
 
+  //usuwanie zamówienia
   public function deleteOrder($id) {
     try {
       //usuwanie rekordu
@@ -50,6 +51,31 @@ class db_actions {
     } catch (PDOException $e) {
 
     }
+  }
+
+  //aktualzacja zamowienia
+  public function saveOrder($post) {
+
+    $id = $post['order_id'];
+    try {
+      $time = time();
+      $this->pdo->exec('UPDATE `orders` SET '
+              . '`order_status`= \'' . $post['order_status'] . '\', '
+              . '`order_update`=\'' . $time . '\' '
+              . ' WHERE  `order_id` IN (\'' . $post['order_id'] . '\')');
+
+      alerts::setMessage('Zamówienie zostało zapisane');
+    } catch (PDOException $e) {
+      //
+      var_dump($e);
+      die();
+    }
+
+    unset($post);
+    unset($_POST);
+    header("Location: order.php?id=" . $id);
+    ob_end_flush();
+    exit();
   }
 
   /**

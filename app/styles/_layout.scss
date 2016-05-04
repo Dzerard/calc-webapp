@@ -368,3 +368,16 @@ body section {
     }
   }
 }
+
+select {
+  option {
+    color: #333
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .table-responsive {
+    border: 0;
+  }
+}

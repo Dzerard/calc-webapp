@@ -1,12 +1,12 @@
 <?php
 
 //wyświetlanie dostepnych newsów
-$news = $adminActions->showOrders();
+$order = $adminActions->showOrders();
 
 //update mail
-//if(isset($_POST["save"])){
-//	$adminActions->saveOrder($_POST, $_FILES);
-//}
+if (isset($_POST["save"])) {
+  $adminActions->saveOrder($_POST);
+}
 //wylogowywanie
 if (isset($_POST["logout"])) {
   $logOut = new methods();
