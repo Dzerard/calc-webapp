@@ -18,7 +18,7 @@ class helpers {
         $label = '<span class="label label-success">Zamknięte</span>';
         break;
       case('open') :
-        $label = '<span class="label label-danger">Reopen</span>';
+        $label = '<span class="label label-warning">Odrzucone</span>';
         break;
       default:
         $label = '<span class="label">-</span>';

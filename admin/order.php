@@ -100,7 +100,7 @@ if (isset($_SESSION["user"])) {
                 $status = [
                     'waiting' => 'Oczekiwanie',
                     'closed' => 'Zamknięte',
-                    'open' => 'Otwarte',
+                    'open' => 'Odrzucone',
                 ];
 
                 foreach ($status as $r => $k) {
@@ -115,7 +115,7 @@ if (isset($_SESSION["user"])) {
             </div>
           </div>
 
-          <div class="control-group">
+          <div class="control-group hidden">
             <label class="control-label" for="mailContact">E-mail</label>
             <div class="controls">
               <p class="lead">

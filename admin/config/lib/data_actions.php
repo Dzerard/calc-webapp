@@ -22,7 +22,7 @@ class db_actions {
 
       if ($all) {
         if ($status != '') {
-          // @$temp = $this->pdo->query("SELECT * FROM `news` JOIN `category` ON category_id = news_category_id WHERE category_id IN ($status) ORDER BY news_update DESC");
+          @$temp = $this->pdo->query("SELECT * FROM `orders` WHERE `order_status` IN ('$status') ORDER BY order_update DESC");
         } else {
           @$temp = $this->pdo->query('SELECT * FROM `orders` ORDER BY order_update DESC');
         }
