@@ -73,8 +73,8 @@ if (isset($_SESSION["user"])) {
                                 <tr>
                                     <th class="span1 td-spec">ID</th>
                                     <th class="td-spec">Imię i Nazwisko</th>
-                                    <th class="span1 td-spec">Status</th>
-                                    <th class="span1 td-spec">Suma</th>
+                                    <th class="span1 td-spec"><span data-tooltip title="Kliknij w labelkę aby posortować">Status</span></th>
+                                    <th class="span1 td-spec"><span data-tooltip title="Wraz z przesyłką">Suma</span></th>
                                     <th class="span2 td-spec">Data dodania</th>
                                     <th class="span2 td-spec">Akcje</th>
                                 </tr>
@@ -90,7 +90,7 @@ if (isset($_SESSION["user"])) {
                                             </a>
                                         </td>
                                         <td class="td-spec-2">
-                                            <?php echo $i['order_val'] ?>
+                                            <?php echo $i['order_val'] + $i['order_delivery_value'] ?>zł
                                         </td>
 
                                         <td class="td-spec-2"><?php echo date('d-m-Y G:i', $i['order_create']) ?></td>

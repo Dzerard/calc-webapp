@@ -1,11 +1,11 @@
 /* 12.02.2013 lukaszgielar.pl*/
 @font-face {
-  font-family: GOTH;
-  src: url('font/GOTHIC.TTF');
+    font-family: GOTH;
+    src: url('font/GOTHIC.TTF');
 }
 
 .my-font {
-  font-family:GOTH, Tahoma;
+    font-family:GOTH, Tahoma;
 }
 a {border:0px;}
 
@@ -16,34 +16,34 @@ body {  background-color:#fff; font-family:GOTH, Tahoma; }
 .my-form {padding: 40px 10px; }
 
 .form-signin {
-  background:#eeeeee;
-  max-width:300px;
-  padding: 20px 30px 20px;
-  margin: 0 auto 20px;
-  background-color:#fff;
-  border:1px solid #e5e5e5;
-  border-radius:5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-box-shadow: 0 0 5px 0 rgba(177, 177, 177, 1);
-  box-shadow:0 0 5px 0 rgba(177, 177, 177, 1);
-  -moz-box-shadow:0 0 5px 0 rgba(177, 177, 177, 0.6);
+    background:#eeeeee;
+    max-width:300px;
+    padding: 20px 30px 20px;
+    margin: 0 auto 20px;
+    background-color:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(177, 177, 177, 1);
+    box-shadow:0 0 5px 0 rgba(177, 177, 177, 1);
+    -moz-box-shadow:0 0 5px 0 rgba(177, 177, 177, 0.6);
 }
 
 .form-signin .form-signing-heading , .form-signin .checkbox { margin-bottom: 10px; }
 .form-signin input [type="text"], .form-signing input [type="password"] { font-size:14px; height:auto; margin-bottom: 15px; padding: 7px 9px;}
 
 .td-spec {
-  text-align:center !important;
-  font-size: 12px !important;
+    text-align:center !important;
+    font-size: 12px !important;
 }
 .td-spec-2 {
-  text-align:center !important;
-  font-size: 11px !important;
-  font-weight:normal !important;
+    text-align:center !important;
+    font-size: 11px !important;
+    font-weight:normal !important;
 }
 .td-spec-2 .label {
-  font-weight:normal !important;
+    font-weight:normal !important;
 }
 
 .modal-body { max-height: 425px !important; }
@@ -57,154 +57,158 @@ body {  background-color:#fff; font-family:GOTH, Tahoma; }
 .form-modal { margin:0px !important; }
 .modal-height { height: 380px !important; }
 .my-font.sm-font {
-  font-size: 10px;
-  margin-bottom: 10px;
+    font-size: 10px;
+    margin-bottom: 10px;
 }
 .modal {
-  width:700px !important;
-  margin-left:-350px !important;
+    width:700px !important;
+    margin-left:-350px !important;
 }
 @media (max-width: 768px) {
-  .modal {
-    width:auto !important;
-    margin-left:0 !important;
-  }
-  .hero-unit {
-    padding: 10px;
-    margin: 15px 0;
-    margin-left: -10px;
-    margin-right: -10px;
-  }
-  .accordion-inner {
-    padding: 10px;
-  }
+    .modal {
+        width:auto !important;
+        margin-left:0 !important;
+    }
+    .hero-unit {
+        padding: 10px;
+        margin: 15px 0;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    .accordion-inner {
+        padding: 10px;
+    }
 }
 .alert.alert-custom {
-  margin-top: 10px;
-  font-weight: bold;
-  text-transform: uppercase;
-  text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
 }
 /*404*/
 #layout-error {
-  font-family:GOTH, Tahoma;
+    font-family:GOTH, Tahoma;
 }
 #layout-error h1{
-  font-family:GOTH, Tahoma;
+    font-family:GOTH, Tahoma;
 }
 #layout-error .btn {
-  border-radius: 0;
+    border-radius: 0;
 }
 #layout-error {
-  background: #99c4a9 url("../../public/img/background.jpg") no-repeat top center;
-  margin: 0;
-  padding: 0;
-  color: #3a3a3a;
-  font-size:13px;
-  position: relative;
-  background-attachment:fixed;
+    background: #99c4a9 url("../../public/img/background.jpg") no-repeat top center;
+    margin: 0;
+    padding: 0;
+    color: #3a3a3a;
+    font-size:13px;
+    position: relative;
+    background-attachment:fixed;
 }
 #layout-error .jumbotron{
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 0;
-  margin-top: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 0;
+    margin-top: 25px;
 }
 .mr50 {
-  margin-right: 50px;
+    margin-right: 50px;
 }
 
 .submit-event {
-  text-align:center;
-  padding-bottom:20px;
+    text-align:center;
+    padding-bottom:20px;
 }
 .tool {
-  text-decoration: none;
+    text-decoration: none;
 }
 .tool:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 .table>tbody>tr.danger>td, .table>tbody>tr.danger>th, .table>tbody>tr>td.danger, .table>tbody>tr>th.danger, .table>tfoot>tr.danger>td, .table>tfoot>tr.danger>th, .table>tfoot>tr>td.danger, .table>tfoot>tr>th.danger, .table>thead>tr.danger>td, .table>thead>tr.danger>th, .table>thead>tr>td.danger, .table>thead>tr>th.danger {
-  background-color: #f2dede;
+    background-color: #f2dede;
 }
 .relative {
-  position:relative;
+    position:relative;
 }
 .full-width {
-  width: 100%;
+    width: 100%;
 }
 input.full-width {
-  box-sizing: border-box;
-  height: 30px;
+    box-sizing: border-box;
+    height: 30px;
 }
 .no-wrap-text {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100px;
 }
 .btn.btn-logout {
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  text-align: center;
-  padding: 4px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    padding: 4px;
 }
 body > .navbar .brand {
-  margin-right: 20px;
+    margin-right: 20px;
 }
 .accordion-heading {
-  background: #fff;
-  font-size: 16px;
+    background: #fff;
+    font-size: 16px;
 }
 
 .form-accordion {
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 0 0 4px 4px;
-  border: 1px solid #ddd;
-  border-top: 0;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 0 0 4px 4px;
+    border: 1px solid #ddd;
+    border-top: 0;
 }
 
 .nav-form {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .modal-trigger {
-  text-align:center;
-  padding-bottom:20px;
+    text-align:center;
+    padding-bottom:20px;
 }
 
 .sort-categries-js .sort {
-  cursor:move;
-  float:left;
-  margin-top:8px;
-  margin-right:5px;
+    cursor:move;
+    float:left;
+    margin-top:8px;
+    margin-right:5px;
 }
 .sort-categries-js a {
-  text-decoration: none;
+    text-decoration: none;
 }
 .youtube-actions {
-  display: inline-block;
+    display: inline-block;
 }
 
 .order-table {
-  font-size: 12px;
-  text-align: center;
+    font-size: 12px;
+    text-align: center;
 }
 .order-table thead {
-  font-size: 13px;
-  text-transform: uppercase;
-  border-bottom: 1px solid;
+    font-size: 13px;
+    text-transform: uppercase;
+    border-bottom: 1px solid;
 }
 
 .order-table thead th {
-  padding: 0 10px;
+    padding: 0 10px;
 }
 
 .footer-controls .btn {
-  margin-right: 25px;
+    margin-right: 25px;
 }
 
 .break-word {
-  word-break: break-all;
+    word-break: break-all;
+}
+
+.middle-align {
+    vertical-align: middle;
 }
