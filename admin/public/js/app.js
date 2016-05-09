@@ -5,6 +5,7 @@
     init: function () {
       this.datepickerFire();
       this.tinyInit();
+	  this.plugins();
       //this.youTubeActions();
     },
     plugins: function() {

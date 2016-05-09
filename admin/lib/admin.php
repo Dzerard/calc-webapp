@@ -1,7 +1,12 @@
 <?php
 
 //wyświetlanie dostepnych zamówień
-$news = $adminActions->showOrders($all = true);
+if(isset($_GET["status"])) {
+	$news = $adminActions->showOrders(true, $_GET["status"]);		
+}
+else {
+	$news = $adminActions->showOrders(true);
+}
 
 //usuwanie zamówienia
 if (isset($_GET["del_id"])) {

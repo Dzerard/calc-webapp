@@ -171,7 +171,7 @@ class mailController {
                 . ' \'' . $post['postal-code'] . '\','
                 . ' \'' . $post['phone'] . '\','
                 . ' \'' . $post['email'] . '\','
-                . ' \'' . '20zł ?' . '\' '
+                . ' \'' . $this->parseDelivery($post['delivery']) . '\' '
                 . ' )');
       }
     } catch (PDOException $e) {
