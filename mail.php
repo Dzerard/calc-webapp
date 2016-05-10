@@ -12,8 +12,8 @@ class mailController {
   protected $webUrl = 'http://lukaszgielar.com';
   protected $currency = 'zł';
   protected $delivery = array(
-      0 => 10,
-      1 => 16
+      0 => 16,
+      1 => 22
   );
   protected $pdo;
   static $_KEY = '6LeSKRkTAAAAADuRJ348BPWJYTeTTXe5IeLFg0pW';
@@ -166,7 +166,7 @@ class mailController {
                 . ' \'' . $post['street'] . ' ' . $post['number'] . '\','
                 . ' \'' . $time . '\','
                 . ' \'' . $time . '\','
-                . ' \'' . 'waiting' . '\','
+                . ' \'' . 'open' . '\','
                 . ' \'' . $post['city'] . '\','
                 . ' \'' . $post['postal-code'] . '\','
                 . ' \'' . $post['phone'] . '\','

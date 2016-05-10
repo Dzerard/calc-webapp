@@ -89,7 +89,9 @@ if (isset($_SESSION["user"])) {
                             <p class="lead">
                                 <?php echo $order[0]['order_delivery_value']; ?>zł&ensp;&ensp;
                                 <?php if ($order[0]['order_delivery_value'] == '16') : ?>                                
-                                    <span class="label label-inverse middle-align">Kurier</span>                                
+                                    <span class="label label-inverse middle-align">Kurier</span>           
+                                <?php else: ?>
+                                    <span class="label label-inverse middle-align">Kurier pobranie</span>           
                                 <?php endif; ?>
                             </p>
                         </div>
@@ -101,9 +103,10 @@ if (isset($_SESSION["user"])) {
                             <select  id="inputCategory" name="order_status" class="my-font input-medium">
                                 <?php
                                 $status = [
-                                    'waiting' => 'Oczekiwanie',
-                                    'closed' => 'Zamknięte',
-                                    'open' => 'Odrzucone',
+                                    'waiting' => 'Oczekujące na wpłatę',
+                                    'closed' => 'Zakończone',
+                                    'open' => 'Sprzedane',
+                                    'paid' => 'Zapłacone'
                                 ];
 
                                 foreach ($status as $r => $k) {
@@ -123,7 +126,7 @@ if (isset($_SESSION["user"])) {
                         <div class="controls">
                             <p class="lead">
                                 <textarea id="mailContact" name="mail" class="my-font span5">
-                        test
+                                    test
                                 </textarea>
                             </p>
                         </div>

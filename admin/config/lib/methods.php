@@ -12,13 +12,16 @@ class helpers {
     switch ($type) {
 
       case('waiting') :
-        $label = '<span class="label label-default">Oczekiwanie</span>';
+        $label = '<span class="label label-default">Oczekujące na wpłatę</span>';
         break;
       case('closed') :
-        $label = '<span class="label label-success">Zamknięte</span>';
+        $label = '<span class="label label-success">Zakończone</span>';
         break;
       case('open') :
-        $label = '<span class="label label-warning">Odrzucone</span>';
+        $label = '<span class="label label-warning">Sprzedane</span>';
+        break;
+      case('paid') :
+        $label = '<span class="label label-inverse">Zapłacone</span>';
         break;
       default:
         $label = '<span class="label">-</span>';
