@@ -34,10 +34,9 @@ var app = {
       //parseFloat(summary).toFixed(2) + parseFloat(tempPrice).toFixed(2);
     });
 
-//    console.log(tempPrice);
 //    console.log($rows);
-    this.finalPrice.data('price', tempPrice);
-    this.finalPrice.html(String(tempPrice).replace('.', ',') + this.currency);
+    this.finalPrice.data('price', tempPrice.toFixed(2));
+    this.finalPrice.html(String(tempPrice.toFixed(2)).replace('.', ',') + this.currency);
   },
   // przerobic na event w momencie usuwania wiersza
   showRabate: function () {
@@ -176,7 +175,7 @@ var app = {
     this.selectProduct = this.container.find('#product');
     this.finalPrice = $('#finalPrice');
     this.countItems = this.container.find('#countItems');
-    this.dropdown = this.container.find('.dropdown');
+    this.dropdown = this.container.find('.choose-product .dropdown');
     this.itemWidth = this.container.find('#itemWidth');
     this.itemHeight = this.container.find('#itemHeight');
     // this.maxAmount  = this.container.find('#maxAmount');
@@ -222,6 +221,8 @@ var app = {
   },
   bindFunctions: function () {
     var self = this;
+
+    $('[data-color-tooltip]').tooltip();
 
 //    window.ParsleyValidator.addValidator('phone', function (value, requirement) {
 //      if (value != '') {

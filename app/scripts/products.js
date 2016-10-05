@@ -208,6 +208,38 @@ var products = {
     'amount': 50,
     'maxHeight': 250,
     'name': 'Roleta Mini'
+  },
+  '006': {
+    'price': '400',
+    'type': 'blind',
+    'rabate': {
+      3: 5,
+      10: 10
+    },
+    'gapDelimeter': 10,
+    'priceMeter': [
+      {
+        'minHeight': [1, 150],
+        'priceMin': 36,
+        'priceCM': 0.8,
+        'gap': 9
+      },
+      {
+        'minHeight': [151, 220],
+        'priceMin': 46,
+        'priceCM': 1.2,
+        'gap': 12.6
+      },
+      {
+        'minHeight': [221, 250],
+        'priceMin': 66,
+        'priceCM': 1.5,
+        'gap': 17.64
+      }
+    ],
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Mini w Kasecie'
   }
 };
 /*eslint-enable no-unused-vars*/

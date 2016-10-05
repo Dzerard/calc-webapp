@@ -73,25 +73,23 @@
   font-weight: 700;
 }
 
-/* Custom page footer */
-.footer {
-
-}
-
 body section {
   max-width: 880px;
-  // background: $color-template-base;
 }
 
-.choose-product .btn-default {
-  background: transparent;
-  width: 100%;
-  text-align: left;
-  position: relative;
-}
+.choose-product,
+.choose-color {
 
-.choose-product .btn-default .form-horizontal .control-label {
-  text-align: left;
+  .btn-default {
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    position: relative;
+  }
+
+  .btn-default .form-horizontal .control-label {
+    text-align: left;
+  }
 }
 
 .btn.btn-block {
@@ -379,5 +377,81 @@ select {
 
   .table-responsive {
     border: 0;
+  }
+}
+
+.dropdown-colorpicker {
+
+  > .pallette-list {
+    padding: 0 18px;
+
+    a {
+      display: inline-block;
+      padding: 2px;
+    }
+  }
+}
+
+.color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  box-shadow: 0 0 2px #ccc;
+  vertical-align: middle;
+}
+
+.c-antracyt {
+  background-color: #ccc;
+}
+
+.c-orange {
+  background-color: orange;
+}
+
+.c-red {
+  background-color: red;
+}
+
+.btn-trigger-modal {
+  border: 2px solid $color-white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  color: $color-white;
+  font-size: 20px;
+  padding: 0;
+  text-align: center;
+  position: fixed;
+  right: 50px;
+  top: 50%;
+  margin-top: -20px;
+  transition: all .3s ease-in-out;
+
+  &:hover, &:focus {
+    outline: none;
+    color: $color-white;
+    transform: scale(1.2);
+  }
+}
+
+.form-item {
+  margin-top: 6px;
+
+  label {
+    padding-bottom: 0;
+    line-height: 16px;
+  }
+
+  .radio label::before {
+    border: 0;
+  }
+
+  ul {
+    display: none;
+  }
+  .radio {
+    display: inline-block;
+    margin-right: 10px;
   }
 }
