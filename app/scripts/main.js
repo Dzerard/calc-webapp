@@ -184,14 +184,7 @@ var app = {
     this.orderButton = $('#orderFormButton');
     this.step2 = $('.flow-step-2');
     this.backToCalculator = $('#backToCalculator');
-    this.orderFormButton = $('#orderFormButton');
-  },
-  submit: function () {
-
-
-
-    // this.checkIfItemSelect
-
+    this.colorPicker = $('.dropdown-colorpicker');
   },
   setMaxAmount: function (amount) {
     this.countItems.attr('max', amount);
@@ -202,8 +195,23 @@ var app = {
   },
   checkIfItemSelect: function () {
     var itemSet = this.dropdown.find('button').attr('data-item-set');
+    var colorSet = this.colorPicker.parent().find('button').attr('data-item-set');
 
-    //console.log(itemSet);
+    console.log(colorSet);
+
+    if (colorSet === 'false') {
+
+      this.colorPicker.parent().find('button').attr('data-original-title', 'Wybierz produkt');
+      this.colorPicker.parent().parent().addClass('has-error');
+      this.colorPicker.parent().find('button').tooltip('show');
+
+      // return false;
+    } else {
+      this.colorPicker.parent().find('button').tooltip('destroy');
+      this.colorPicker.parent().parent().removeClass('has-error');
+
+      // return true;
+    }
 
     if (itemSet === 'false') {
 
@@ -223,6 +231,32 @@ var app = {
     var self = this;
 
     $('[data-color-tooltip]').tooltip();
+
+    var colorItems = self.colorPicker.find('li a');
+
+    function updateCurrentColor() {
+      var dropdown = self.colorPicker.parent();
+      var color = dropdown.find('a.active').attr('data-color') ? dropdown.find('a.active').attr('data-color') : 'Wybierz kolor';
+
+      dropdown.find('button').attr('data-item-set', color !== 'Wybierz kolor');
+
+      dropdown.find('button b').text(color);
+    }
+
+    colorItems.on('click', function() {
+      var selfButton = $(this);
+
+      if(selfButton.hasClass('active')) {
+        selfButton.removeClass('active');
+      } else {
+        colorItems.removeClass('active');
+        selfButton.addClass('active');
+      }
+
+      updateCurrentColor();
+
+      return false;
+    });
 
 //    window.ParsleyValidator.addValidator('phone', function (value, requirement) {
 //      if (value != '') {

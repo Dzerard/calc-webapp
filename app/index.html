@@ -37,7 +37,7 @@
         </nav>
 
         <div class="affix-info">
-          <button type="button" class="btn btn-trigger-modal"  data-color-tooltip title="POKAŻ INSTRUKCJĘ" data-toggle="modal" data-target="#infoModal">
+          <button type="button" class="btn btn-trigger-modal"  data-color-tooltip title="POKAŻ INSTRUKCJĘ" data-toggle="modal" data-target="#infoModal" data-placement="left">
             <i class="icon-info-circle"></i>
           </button>
         </div>
@@ -162,24 +162,24 @@
                               <label for="product" class="col-sm-2 control-label text-left">Kolor</label>
                               <div class="col-md-12">
                                 <div class="dropdown">
-                                  <button data-tooltip class="btn btn-default dropdown-toggle input-lg" type="button" id="dropdownColor" data-toggle="dropdown" aria-expanded="true">
+                                  <button data-tooltip class="btn btn-default dropdown-toggle input-lg" type="button" id="dropdownColor" data-toggle="dropdown" aria-expanded="true" data-item-set="false">
                                     <b>Wybierz kolor</b>
                                     <span class="arr"></span>
                                   </button>
                                   <ul class="dropdown-menu dropdown-colorpicker" role="menu" aria-labelledby="dropdownColor">
                                     <li class="dropdown-header">Paleta Standardowa</li>
                                     <li role="presentation" class="pallette-list">
-                                      <a role="menuitem" href="javascript:void(0);" data-product-color-id="1" data-color-tooltip="" title="Pomelo">
+                                      <a role="menuitem" href="javascript:void(0);" data-product-color-id="1" data-color-tooltip="" title="Pomelo" data-color="Pomelo">
                                         <span class="color c-orange"></span>
                                       </a>
-                                      <a role="menuitem" href="javascript:void(0);" data-product-color-id="2" data-color-tooltip="" title="Czerwony">
+                                      <a role="menuitem" href="javascript:void(0);" data-product-color-id="2" data-color-tooltip="" title="Czerwony" data-color="Czerwony">
                                         <span class="color c-red"></span>
                                       </a>
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Rozszerzona</li>
                                     <li role="presentation" class="pallette-list">
-                                      <a role="menuitem" href="javascript:void(0);" data-product-color-id="2"  data-color-tooltip="" title="Antracyt">
+                                      <a role="menuitem" href="javascript:void(0);" data-product-color-id="2"  data-color-tooltip="" title="Antracyt" data-color="Antracyt">
                                         <span class="color c-antracyt"></span>
                                       </a>
                                     </li>
@@ -368,6 +368,7 @@
         <script src='/bower_components/modernizr/modernizr.js'></script>
         <script src='/bower_components/jquery/dist/jquery.js'></script>
         <script src='/bower_components/ng-admin/build/ng-admin.min.js'></script>
+        <script src='/bower_components/select2/dist/js/select2.js'></script>
         <!-- endbower -->
         <script src="/bower_components/parsleyjs/dist/parsley.min.js"></script>
         <script src="/bower_components/parsleyjs/src/i18n/pl.js"></script>
