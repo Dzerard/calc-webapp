@@ -71,6 +71,7 @@ var app = {
       var width = this.itemWidth.val();
       var height = this.itemHeight.val();
       var amount = this.countItems.val();
+      var color = $('#dropdownColor b').text();
       var setItemWithPrice = null;
       var gapNumber = 1;
 
@@ -139,24 +140,26 @@ var app = {
 
     var dime = width + 'cm x ' + height + 'cm'; //wymiary
 
-    this.addRow(currentItem.name, dime, amount, tempPrice, self.currency);
+    this.addRow(currentItem.name, dime, amount, tempPrice, self.currency, color);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
   },
-  addRow: function (name, dimensions, amount, price, currency) {
+  addRow: function (name, dimensions, amount, price, currency, color) {
 
     var self = this,
-            $tr = $('<tr>'),
-            $name = $('<td>'),
-            $dimensions = $('<td>'),
-            $amount = $('<td>'),
-            $price = $('<td>'),
-            $remove = $('<td><a href="#" class="remove-item"><span class="icon-trash-o"></span></a></td>');
+        $tr = $('<tr>'),
+        $name = $('<td>'),
+        $dimensions = $('<td>'),
+        $amount = $('<td>'),
+        $color = $('<td>'),
+        $price = $('<td>'),
+        $remove = $('<td><a href="#" class="remove-item"><span class="icon-trash-o"></span></a></td>');
 
     $tr
             .append($name.text(name))
             .append($dimensions.text(dimensions))
             .append($amount.text(amount))
+            .append($color.text(color))
             .append($price.text(String(price).replace('.', ',') + currency).attr('data-price', price))
             .append($remove);
 
@@ -400,9 +403,9 @@ var app = {
   })(),
   step2Form: function () {
     var $form = $('.contact-form'),
-            route = $form.attr('data-action'),
-            $formWrapper = $form.parent(),
-            self = this;
+        route = $form.attr('data-action'),
+        $formWrapper = $form.parent(),
+        self = this;
 
     function validatePrice(checkPrice) {
       if (!isNaN(checkPrice)) {
