@@ -94,7 +94,8 @@ class mailController {
       parse_str($_POST['data'], $params);
 
       if ($this->validForm($params)) {
-        $this->sendMail($params);
+       // $this->sendMail($params);
+        $this->addOrder($params);
       }
 
       echo json_encode($this->response);
@@ -141,7 +142,7 @@ class mailController {
 
     try {
       $time = time();
-      $address = $data['street'] . ' ' . $data['number'];
+      $address = $post['street'] . ' ' . $post['number'];
 
       if ($post['message'] != '') {
         $this->pdo->exec('INSERT INTO `orders` ('
@@ -171,7 +172,7 @@ class mailController {
                 . ' \'' . $post['postal-code'] . '\','
                 . ' \'' . $post['phone'] . '\','
                 . ' \'' . $post['email'] . '\','
-                . ' \'' . $this->parseDelivery($post['delivery']) . '\' '
+                . ' \'' . $this->parseDelivery($post['delivery'], false) . '\' '
                 . ' )');
       }
     } catch (PDOException $e) {

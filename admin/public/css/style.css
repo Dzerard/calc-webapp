@@ -212,3 +212,19 @@ body > .navbar .brand {
 .middle-align {
     vertical-align: middle;
 }
+
+.order-table thead th {
+  padding: 4px 10px;
+}
+
+.table-center th{
+  font-size: 15px;
+  line-height: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.table-center td,
+.table-center th{
+  text-align: center;
+}

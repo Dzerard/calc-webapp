@@ -174,33 +174,31 @@ var app = {
     this.showRabate();
   },
   setItems: function () {
-    this.button = this.container.find('#countPriceButton');
+    this.button        = this.container.find('#countPriceButton');
     this.selectProduct = this.container.find('#product');
-    this.finalPrice = $('#finalPrice');
-    this.countItems = this.container.find('#countItems');
-    this.dropdown = this.container.find('.choose-product .dropdown');
-    this.itemWidth = this.container.find('#itemWidth');
-    this.itemHeight = this.container.find('#itemHeight');
-    // this.maxAmount  = this.container.find('#maxAmount');
-    this.productList = $('#productList');
-    this.step1 = $('.flow-step-1');
-    this.orderButton = $('#orderFormButton');
-    this.step2 = $('.flow-step-2');
+    this.finalPrice    = $('#finalPrice');
+    this.countItems    = this.container.find('#countItems');
+    this.dropdown      = this.container.find('.choose-product .dropdown');
+    this.itemWidth     = this.container.find('#itemWidth');
+    this.itemHeight    = this.container.find('#itemHeight');
+    this.productList   = $('#productList');
+    this.step1         = $('.flow-step-1');
+    this.orderButton   = $('#orderFormButton');
+    this.step2         = $('.flow-step-2');
+    this.colorPicker   = $('.dropdown-colorpicker');
     this.backToCalculator = $('#backToCalculator');
-    this.colorPicker = $('.dropdown-colorpicker');
   },
   setMaxAmount: function (amount) {
     this.countItems.attr('max', amount);
   },
   setMaxHeight: function (height) {
-
     this.itemHeight.attr('max', height);
   },
   checkIfItemSelect: function () {
     var itemSet = this.dropdown.find('button').attr('data-item-set');
     var colorSet = this.colorPicker.parent().find('button').attr('data-item-set');
 
-    console.log(colorSet);
+    //console.log(colorSet);
 
     if (colorSet === 'false') {
 
@@ -422,9 +420,9 @@ var app = {
         $form.find('.recaptcha-wrapper').removeClass('hidden');
         var v = grecaptcha.getResponse(); //parse Recaptcha
 
-        if (v.length === 0) {
-          return false;
-        }
+        // if (v.length === 0) {
+        //   return false;
+        // }
 
         var afterResponse = function (data) {
           $formWrapper.find('.js-message').hide().removeClass('hidden');

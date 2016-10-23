@@ -23,6 +23,9 @@ class helpers {
       case('paid') :
         $label = '<span class="label label-inverse">Zapłacone</span>';
         break;
+      case('pobranie') :
+        $label = '<span class="label label-inverse"><strong>Pobranie</strong></span>';
+        break;
       default:
         $label = '<span class="label">-</span>';
     }
