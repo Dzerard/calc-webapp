@@ -86,7 +86,7 @@
                 </div>
             </section>
 
-            <section id="productForm" class="container-fluid">
+            <section id="productForm" class="container-fluid product-form-wrapper">
 
                 <div class="form-container">
 
@@ -125,28 +125,17 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12 col-sm-4 col-md-2">
-                                <div>
-                                    <label for="countItems" class="control-label">Ilość</label>
-                                </div>
-                                <div class="input-group">
-                                    <input type="number" min="1" max="99999" value="1" class="form-control input-lg" placeholder="Ile sztuk?" aria-describedby="basic-addon-units" id="countItems" required>
-                                    <span class="input-group-addon" id="basic-addon-units">szt</span>
-                                </div>
-                                <div class="custom-error"></div>
-                            </div>
-
-
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div>
                                     <label for="itemWidth" class="control-label">Szerokość</label>
                                 </div>
                                 <div class="input-group">
-                                    <input type="number"  id="itemWidth" min="1" max="99999" class="form-control input-lg" placeholder="Jak szerokie?" aria-describedby="basic-addon-units" required>
+                                    <input type="number" id="itemWidth" min="1" max="99999" class="form-control input-lg" placeholder="Jak szerokie?" aria-describedby="basic-addon-units" required>
                                     <span class="input-group-addon" id="basic-addon-unit">cm</span>
                                 </div>
                                 <div class="custom-error"></div>
                             </div>
+
                             <div class="col-xs-12 col-sm-6 col-md-3">
                                 <div>
                                     <label for="itemHeight" class="control-label">Długość</label>
@@ -157,6 +146,19 @@
                                 </div>
                                 <div class="custom-error"></div>
                             </div>
+
+                          <div class="col-xs-12 col-sm-4 col-md-2">
+                            <div>
+                              <label for="countItems" class="control-label">Ilość</label>
+                            </div>
+                            <div class="input-group">
+                              <input type="number" min="1" max="99999" value="1" class="form-control input-lg"
+                                     placeholder="Ile sztuk?" aria-describedby="basic-addon-units" id="countItems"
+                                     required>
+                              <span class="input-group-addon" id="basic-addon-units">szt</span>
+                            </div>
+                            <div class="custom-error"></div>
+                          </div>
 
                           <div class="col-xs-12 col-sm-8 col-md-4">
                             <div class="row choose-color">
@@ -193,17 +195,26 @@
 
                           <div class="col-xs-12 col-sm-6 col-md-3">
                             <div>
-                              <label for="itemWidth" class="control-label">Strona łańcuszka</label>
+                              <label for="itemChain" class="control-label">Strona łańcuszka</label>
                             </div>
-                            <div class="form-item">
-                              <span class="radio">
-                                <input id="item-7" type="radio"  name="program" checked>
-                                <label for="item-7">Lewy</label>
-                              </span>
-                              <span class="radio">
-                                <input id="item-8" type="radio" name="program">
-                                <label for="item-8">Prawy</label>
-                              </span>
+                            <div>
+                              <select id="itemChain" class="form-control input-lg select-2" required>
+                                <option value="left">Lewa</option>
+                                <option value="right">Prawa</option>
+                              </select>
+                            </div>
+                            <div class="custom-error"></div>
+                          </div>
+
+                          <div class="col-xs-12 col-sm-6 col-md-3">
+                            <div>
+                              <label for="colorMechanic" class="control-label">Kolor mechanizmu</label>
+                            </div>
+                            <div>
+                              <select id="colorMechanic" class="form-control input-lg select-2" required>
+                                <option value="right">Biały</option>
+                                <option value="left">Brązowy</option>
+                              </select>
                             </div>
                             <div class="custom-error"></div>
                           </div>

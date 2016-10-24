@@ -232,6 +232,9 @@ var app = {
     var self = this;
 
     $('[data-color-tooltip]').tooltip();
+    $('.select-2').select2({
+      minimumResultsForSearch: Infinity
+    });
 
     var colorItems = self.colorPicker.find('li a');
 
