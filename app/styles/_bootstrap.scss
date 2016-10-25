@@ -6,25 +6,25 @@
   height: 100%;
   display: block;
   float: none;
-    
+
   @include tablet {
     text-align: center;
   }
-  
+
   img {
     display: inline-block;
   }
 }
 
 .table-responsive {
-  
+
   @include tablet {
     border-color: $color-white;
   }
 }
 
 .tooltip {
-  
+
   .tooltip-inner {
     font-family: $font-default;
     border-radius: 0;
@@ -43,17 +43,17 @@
   transition: color .2s ease-in-out;
   border-color: $color-white;
   outline: none;
-  
+
   b {
     font-weight: 500;
   }
-  
+
   .arr {
     position: absolute;
     right: 10px;
     top: 8px;
   }
-  
+
   &:active {
     &:hover, &:focus {
       color: $color-white;
@@ -62,7 +62,7 @@
       outline: none;
     }
   }
-  
+
   &:hover, &:focus {
     color: $color-white;
     background: transparent;
@@ -71,21 +71,21 @@
 }
 
 .has-error {
- 
+
   .form-control {
     border-color: $color-danger;
   }
-  
+
   .dropdown-toggle {
     border-color: $color-danger;
   }
-  
+
   .input-group-addon {
     color: white;
     border-color: $color-danger;
     background-color: transparent;
   }
-  
+
   &.input-group {
 
     .input-lg {
@@ -106,7 +106,7 @@
 }
 
 .open > .btn-default.dropdown-toggle {
-  
+
   &, &:focus,&:hover {
     background: darken($color-bg-success, 5%);
     border-color: $color-white;
@@ -118,4 +118,24 @@
   text-align: center;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+
+.container {
+
+  @media (min-width: 768px) {
+    .container {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .container {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    width: 1170px;
+  }
 }

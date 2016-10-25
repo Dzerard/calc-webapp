@@ -74,7 +74,7 @@
 }
 
 body section {
-  max-width: 880px;
+  max-width: 1170px;
 }
 
 .choose-product,
@@ -127,9 +127,9 @@ body section {
 .form-control {
 
   &::-webkit-input-placeholder {
-    // color: lighten(rgba(255,255,255), 80%);
-    color: $color-white;
-    font-size: 12px;
+    color: lighten($color-white, 80%);
+    //font-size: 12px;
+    font-weight: 300;
     line-height: 24px;
   }
 
@@ -227,10 +227,28 @@ body section {
       td {
         font-size: 16px;
         font-weight: normal;
+        vertical-align: middle;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-        &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+        &:nth-child(3), &:nth-child(4), &:nth-child(6) {
           text-align: center;
+        }
+
+        .remove-item {
+          font-size: 20px;
+          display: block;
+          font-weight: bold;
+        }
+
+        small {
+          font-size: 11px;
+          font-weight: bold;
+
+          &:before {
+            content: '+';
+            padding-right: 3px;
+            font-weight: normal;
+          }
         }
       }
     }
@@ -436,7 +454,7 @@ select {
   transition: all .3s ease-in-out;
   background: $color-body-background;
 
-  @include medium {
+  @include large {
     top: 35px;
     right: 15px;
   }
@@ -536,4 +554,12 @@ select {
       padding: 3px 20px;
     }
   }
+}
+
+.select-2 {
+  opacity: 0;
+}
+
+input[type="number"].input-lg {
+  padding-right: 0;
 }

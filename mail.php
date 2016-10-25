@@ -94,8 +94,7 @@ class mailController {
       parse_str($_POST['data'], $params);
 
       if ($this->validForm($params)) {
-       // $this->sendMail($params);
-        $this->addOrder($params);
+        $this->sendMail($params);
       }
 
       echo json_encode($this->response);

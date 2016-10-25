@@ -13,7 +13,10 @@ var app = {
   step1: null,
   step2: null,
   currentItem: null,
+  RABATE_PRODUCT: '001',
   finalPrice: null,
+
+  /* Odpalanie apki */
   init: function (container) {
     this.container = container;
     this.setItems();
@@ -21,8 +24,9 @@ var app = {
     this.validForom();
     this.step2Form();
   },
-  countTotalPrice: function () {
-    //cena całosci zależna jest od rabatu
+
+  /* Przeliczanie wartości całego zamówienia */
+  countTotalPrice: function (useRabate) {
     var tableBody = this.productList.find('.product-item tbody');
     var $rows = tableBody.find('tr');
     var tempPrice = 0.00;
@@ -31,25 +35,39 @@ var app = {
     $.each($rows, function (key, item) {
       tempPrice += parseFloat($(item).find('[data-price]').data('price'));
       summary.push(tempPrice);
-      //parseFloat(summary).toFixed(2) + parseFloat(tempPrice).toFixed(2);
     });
 
-//    console.log($rows);
-    this.finalPrice.data('price', tempPrice.toFixed(2));
-    this.finalPrice.html(String(tempPrice.toFixed(2)).replace('.', ',') + this.currency);
-  },
-  // przerobic na event w momencie usuwania wiersza
-  showRabate: function () {
-    var tableBody = this.productList.find('.product-item tbody');
-    var rabate = $('#topPriceRabate');
-    if (tableBody.find('tr').length >= 3) {
-      rabate.removeClass('hidden');
-    } else {
-      rabate.addClass('hidden');
+    if(useRabate) {
+      tempPrice = tempPrice*.95;
     }
 
-    //show hide table thead
-    if (tableBody.find('tr').length >= 1) {
+    this.finalPrice.data('price', tempPrice.toFixed(2));
+    this.finalPrice.html(String(tempPrice.toFixed(2)).replace('.', ',') + this.currency);
+    this.button.blur();
+  },
+
+  /* Pokazywanie rabatu */
+  showRabate: function () {
+    var tableBodyRows = this.productList.find('.product-item tbody > tr');
+    var countDiscountItems = 0;
+    var useRabate = false;
+    var self = this;
+
+    $.each(tableBodyRows, function(key, item) {
+      if($(item).data('id') === self.RABATE_PRODUCT) {
+        countDiscountItems++;
+      }
+    });
+
+    if (countDiscountItems >= 3) {
+      this.rabateTag.removeClass('hidden');
+      useRabate = true;
+    } else {
+      this.rabateTag.addClass('hidden');
+    }
+
+    //show or hide table thead
+    if (tableBodyRows.length >= 1) {
       this.productList.find('.product-item thead').removeClass('hidden');
       this.productList.find('.alert').hide();
       this.orderButton.removeAttr('disabled');
@@ -58,12 +76,15 @@ var app = {
       this.productList.find('.alert').show();
       this.orderButton.attr('disabled', true);
     }
-    this.countTotalPrice();
+
+    this.countTotalPrice(useRabate);
   },
+
+  /* Przeliczanie cen za produkty */
   summary: function () {
     var self = this;
-
     var tempPrice = 0;
+
     //ilosc i cena jednostkowa
     if ($('[data-parsley-form-config]').parsley().validate() === true) {
 
@@ -100,12 +121,6 @@ var app = {
         if (tempPrice < setItemWithPrice.priceMin) {
           tempPrice = setItemWithPrice.priceMin;
         }
-
-        //console.log(tempPrice + 'zł');
-
-//        if (!isNaN(tempPrice)) {
-//          self.finalPrice.html(tempPrice + self.currency);
-//        }
       }
 
       /* roleta ścienna typu mini */
@@ -113,11 +128,10 @@ var app = {
 
         var currentPriceWidthPrice = 0;
 
-        //ustawiamy przedzial dla szerokosci
+        //ustawiamy wartosc przedzialu dla szerokosci
         for (var j = 0; j < currentItem.priceWidth.length; j++) {
 
           if (width >= currentItem.priceWidth[j].distance[0] && width <= currentItem.priceWidth[j].distance[1]) {
-            //ustaw wartosc przedzialu
             currentPriceWidthPrice = currentItem.priceWidth[j].price;
           }
         }
@@ -127,41 +141,43 @@ var app = {
         } else {
           tempPrice = parseFloat(currentPriceWidthPrice * 1.5).toFixed(2);
         }
-
-        //console.log(tempPrice + 'zł');
-
-//        if (!isNaN(tempPrice)) {
-//          self.finalPrice.html(tempPrice + self.currency);
-//        }
       }
     } else {
-      console.log('formularz nipoprawnie wypełniony');
+      console.log('Formularz nipoprawnie wypełniony!');
     }
 
     var dime = width + 'cm x ' + height + 'cm'; //wymiary
 
-    this.addRow(currentItem.name, dime, amount, tempPrice, self.currency, color);
+    this.addRow(currentItem, dime, amount, tempPrice, self.currency, color);
     this.container.find('form')[0].reset();
     this.container.find('form').parsley().reset();
   },
-  addRow: function (name, dimensions, amount, price, currency, color) {
+
+  /* Dodawanie wiersza do tabeli */
+  addRow: function (item, dimensions, amount, price, currency, color) {
 
     var self = this,
-        $tr = $('<tr>'),
+        $tr = $('<tr>').data('id', item.currentID),
         $name = $('<td>'),
         $dimensions = $('<td>'),
         $amount = $('<td>'),
         $color = $('<td>'),
-        $price = $('<td>'),
+        $price = $('<td>', {'class': 'text-right'}),
         $remove = $('<td><a href="#" class="remove-item"><span class="icon-trash-o"></span></a></td>');
 
+    function prepareRowName(currentItem) {
+      var txt = currentItem.name + '<br><small>' + 'Łańcuszek: ' + self.itemChain.val() + ', Mechanizm: ' + self.colorMechanic.val() + '</small>';
+
+      return txt;
+    }
+
     $tr
-            .append($name.text(name))
-            .append($dimensions.text(dimensions))
-            .append($amount.text(amount))
-            .append($color.text(color))
-            .append($price.text(String(price).replace('.', ',') + currency).attr('data-price', price))
-            .append($remove);
+      .append($name.html(prepareRowName(item)))
+      .append($dimensions.text(dimensions))
+      .append($amount.text(amount))
+      .append($color.text(color))
+      .append($price.text(String(price).replace('.', ',') + currency).attr('data-price', price))
+      .append($remove);
 
     $remove.on('click', function () {
       var $this = $(this);
@@ -187,6 +203,9 @@ var app = {
     this.step2         = $('.flow-step-2');
     this.colorPicker   = $('.dropdown-colorpicker');
     this.backToCalculator = $('#backToCalculator');
+    this.rabateTag     = $('#topPriceRabate');
+    this.itemChain     = $('#itemChain');
+    this.colorMechanic = $('#colorMechanic');
   },
   setMaxAmount: function (amount) {
     this.countItems.attr('max', amount);
@@ -202,7 +221,7 @@ var app = {
 
     if (colorSet === 'false') {
 
-      this.colorPicker.parent().find('button').attr('data-original-title', 'Wybierz produkt');
+      this.colorPicker.parent().find('button').attr('data-original-title', 'Wybierz kolor');
       this.colorPicker.parent().parent().addClass('has-error');
       this.colorPicker.parent().find('button').tooltip('show');
 
@@ -233,7 +252,8 @@ var app = {
 
     $('[data-color-tooltip]').tooltip();
     $('.select-2').select2({
-      minimumResultsForSearch: Infinity
+      minimumResultsForSearch: Infinity,
+      width: '100%'
     });
 
     var colorItems = self.colorPicker.find('li a');
@@ -295,7 +315,7 @@ var app = {
 
     function showStep(step) {
       var hide = 'step1',
-              show = 'step2';
+          show = 'step2';
 
       if ($(this).attr('data-step') === '1' || step === 1) {
         hide = ['step2'];
@@ -317,6 +337,9 @@ var app = {
       self.dropdown.find('li').removeClass('active');
       $dropdownElement.addClass('active');
       self.currentItem = products[$dropdownElement.find('a').data('product-id')];
+      //@todo check if element exist
+      self.currentItem.currentID = $dropdownElement.find('a').data('product-id');
+
       self.dropdown.find('button b').text($dropdownElement.find('a').text());
       self.dropdown.find('button').attr('data-item-set', true);
       self.setMaxAmount(self.currentItem.amount);
@@ -423,9 +446,9 @@ var app = {
         $form.find('.recaptcha-wrapper').removeClass('hidden');
         var v = grecaptcha.getResponse(); //parse Recaptcha
 
-        // if (v.length === 0) {
-        //   return false;
-        // }
+        if (v.length === 0) {
+          return false;
+        }
 
         var afterResponse = function (data) {
           $formWrapper.find('.js-message').hide().removeClass('hidden');
@@ -439,7 +462,7 @@ var app = {
             $form.find('.recaptcha-wrapper').addClass('hidden');
 
             setTimeout(function(){
-              window.location.reload();
+             window.location.reload();
             }, 5000);
           }
         };
@@ -475,11 +498,6 @@ var app = {
             if ($formWrapper.find('.js-message').length > 0) {
               $formWrapper.find('.js-message').text('Wystąpił błąd!');
             }
-
-//            $formWrapper.find('.loader').fadeOut('fast');
-//            $form.slideUp('slow', function () {
-//              $formWrapper.find('.js-message').addClass('alert-success').removeClass('alert-danger').html('Oops, it looks like an error occured. <span>Refresh page and try again</span>').show();
-//            });
           }
         }).always(function () {
           self.helpers.removeLoader();
