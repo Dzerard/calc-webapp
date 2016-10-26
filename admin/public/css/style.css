@@ -228,3 +228,48 @@ body > .navbar .brand {
 .table-center th{
   text-align: center;
 }
+
+.footer-controls .control-label {
+  text-align: left;
+  padding-top: 0;
+  margin-right: 20px;
+}
+
+.control-group.control-group-date {
+  margin-bottom: 0;
+}
+
+.navbar-inverse .nav .active>a,
+.navbar-inverse .nav .active>a:hover,
+.navbar-inverse .nav .active>a:focus {
+  background: #fff;
+  color: #000;
+}
+
+.print-content {
+  float: right;
+  margin-right: 0 !important;
+}
+
+.xs-small {
+  font-size: 10px;
+}
+
+/* Custom print */
+.print-show {
+  display: none;
+}
+
+@media print {
+ .navbar.navbar-inverse.navbar-fixed-top {
+   display: none;
+ }
+
+  .print-show {
+    display: block;
+  }
+
+  #orderActions {
+    display: none;
+  }
+}

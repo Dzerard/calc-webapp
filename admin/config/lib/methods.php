@@ -132,6 +132,8 @@ class navi {
                             <div class="nav-collapse collapse">
                               <ul class="nav">
                                 <li ' . ($name == "admin" ? "class='active'" : " " ) . '><a href="admin.php">Zamówienia</a></li>
+                                <li ' . ($name == "info" ? "class='active'" : " " ) . '><a href="info.php">Informacje</a></li>
+                                <li ' . ($name == "colors" ? "class='active'" : " " ) . '><a href="colors.php">Kolory</a></li>
                               </ul>
 
                             </div><!--/.nav-collapse -->
