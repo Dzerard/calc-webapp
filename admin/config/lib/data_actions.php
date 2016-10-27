@@ -291,88 +291,7 @@ class db_actions {
     ob_end_flush();
     exit();
   }
-
-  //settings youtube
-  public function getYoutube() {
-
-    try {
-      $stmt = $this->pdo->query('SELECT * FROM `youtube` ORDER BY youtube_order ASC');
-      $all = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      $stmt->closeCursor();
-    } catch (PDOException $e) {
-
-    }
-    return $all;
-  }
-
-  //sort youtube
-  public function sortYoutube($post) {
-
-    foreach ((array) $post['order'] as $k => $v) {
-      $this->pdo->exec('UPDATE `youtube` SET `youtube_order` = \'' . $k . '\' WHERE youtube_id IN (\'' . $v . '\')');
-    }
-
-    return array('message' => 'Linki zostały posortowane!');
-  }
-
-  //visibility youtube
-  public function visibilityYoutube($post) {
-    $status = $post['youtube_visibility_status'] == 'on' ? 'off' : 'on';
-
-    $this->pdo->exec('UPDATE `youtube` SET `youtube_visible` = \'' . $status . '\' WHERE youtube_id IN (\'' . $post['youtube_visibility'] . '\')');
-
-    return array('current_status' => $status);
-  }
-
-  //youtube delete
-  public function removeYoutube($post) {
-    try {
-
-      //usuwanie rekordu
-      $this->pdo->exec('DELETE FROM `youtube` WHERE `youtube_id` IN (\'' . $post['youtube_id'] . '\') ');
-      alerts::setMessage('Link został usunięty');
-      header("Location: settings.php");
-      ob_end_flush();
-      exit();
-    } catch (PDOException $e) {
-
-    }
-  }
-
-  //youtube update
-  public function updateYoutube($post) {
-    try {
-      $this->pdo->exec('UPDATE `youtube` SET '
-              . '`youtube_url`= \'' . $post['youtube_url'] . '\' '
-              . ' WHERE  `youtube_id` IN (\'' . $post['youtube_id'] . '\')');
-      alerts::setMessage('Link został zaktualizowany');
-    } catch (PDOException $e) {
-      alerts::setMessage('Wystąpił błąd');
-    }
-    header("Location: settings.php");
-    ob_end_flush();
-    exit();
-  }
-
-  //youtube save
-  public function saveYoutube($post) {
-
-    try {
-      $this->pdo->exec('INSERT INTO `youtube` (`youtube_id`, `youtube_url`, `youtube_visible`) VALUES ( '
-              . '"",'
-              . '\'' . $post['youtube_url'] . '\', '
-              . '\'' . ($post['youtube_visible'] == 'on' ? 'on' : 'off') . '\'  '
-              . ')');
-      alerts::setMessage('Nowy link został dodany');
-    } catch (PDOException $e) {
-      alerts::setMessage('Wystąpił błąd');
-    }
-
-    header("Location: settings.php");
-    ob_end_flush();
-    exit();
-  }
-
+  
   public function addEvent($_myPOST) {
 
     try {
@@ -470,7 +389,7 @@ class db_actions {
 
   //lista newsletter
   public function newsletterList($emailOnly = false) {
-
+    $all = [];
     try {
       $stmt = $this->pdo->query('SELECT * FROM `newsletter` ORDER BY `newsletter_insert` ASC');
       if ($emailOnly) {
@@ -487,10 +406,11 @@ class db_actions {
 
   public function showCategories() {
 
+    $categoryName = array();
+    
     try {
 
-      $stmt = $this->pdo->query('SELECT * FROM category ORDER BY category_name ASC');
-      $categoryName = array();
+      $stmt = $this->pdo->query('SELECT * FROM category ORDER BY category_name ASC');  
       foreach ($stmt as $row) {
         $categoryName[$row['category_id']] = $row['category_name'];
       }

@@ -18,7 +18,7 @@ if (isset($_SESSION["user"])) {
     <div class="print-show">
       <h3>Zamówienie z Kalkulator Pszczółka <small>(z dnia <?php echo date('d-m-Y G:i', $order[0]['order_create']); ?>)</small></h3>
     </div>
-    
+
     <div class="hero-unit">
       <p>Szczegóły zamówienia:</p>
       <div class="row-fluid">
@@ -84,7 +84,7 @@ if (isset($_SESSION["user"])) {
             <label class="control-label" for="inputDelivery">Wartość zamówienia</label>
             <div class="controls">
               <p class="lead">
-                <?php echo $order[0]['order_val']; ?>zł 
+                <?php echo $order[0]['order_val']; ?>zł
                   <?php if ($order[0]['order_rabate']) : ?>&ensp;&ensp;<span class="label label-warning middle-align">Cena z rabatem</span><?php else : ?> <?php endif; ?>
               </p>
             </div>
@@ -147,7 +147,7 @@ if (isset($_SESSION["user"])) {
           </div>
 
           <hr class="print-line">
-          
+
           <div class="control-group" id="orderActions">
             <div class="footer-controls">
               <div class="control-label">
@@ -158,11 +158,11 @@ if (isset($_SESSION["user"])) {
               <a href="#" title="Drukuj" class="btn tool btn-default my-font print-content" data-tooltip><i class="icon-print"></i></a>
             </div>
           </div>
-          
+
           <p class="print-show xs-small">
             <small>Data druku: <?php echo date('d-m-Y G:i'); ?></small>
           </p>
-          
+
         </form>
       </div><!-- /row-fluid -->
     </div><!-- /hero -->

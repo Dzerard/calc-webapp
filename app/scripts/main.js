@@ -26,7 +26,7 @@ var app = {
   },
 
   /* Przeliczanie wartości całego zamówienia */
-  countTotalPrice: function (useRabate) {
+  countTotalPrice: function () {
     var tableBody = this.productList.find('.product-item tbody');
     var $rows = tableBody.find('tr');
     var tempPrice = 0.00;
@@ -37,10 +37,6 @@ var app = {
       summary.push(tempPrice);
     });
 
-    if(useRabate) {
-      tempPrice = tempPrice*.95;
-    }
-
     this.finalPrice.data('price', tempPrice.toFixed(2));
     this.finalPrice.html(String(tempPrice.toFixed(2)).replace('.', ',') + this.currency);
     this.button.blur();
@@ -50,20 +46,53 @@ var app = {
   showRabate: function () {
     var tableBodyRows = this.productList.find('.product-item tbody > tr');
     var countDiscountItems = 0;
-    var useRabate = false;
     var self = this;
 
     $.each(tableBodyRows, function(key, item) {
       if($(item).data('id') === self.RABATE_PRODUCT) {
-        countDiscountItems++;
+        countDiscountItems += $(item).find('.amount').data('amount');
       }
     });
 
+    // tylko dla RABATE_PRODUCT
+    function recalculatePrice(useRabate) {
+      $.each(tableBodyRows, function(key, item) {
+        if($(item).data('id') === self.RABATE_PRODUCT) {
+          var price = $(item).find('[data-price]');
+          var priceValue = price.attr('data-price');
+
+          if(useRabate) {
+
+            if(price.data('rabate') != true) {
+              var text = price.text();
+
+              price.data('rabate', true);
+              price.data('original', price.attr('data-price'));
+              priceValue = priceValue * .95;
+              price.attr('data-price', priceValue.toFixed(2));
+
+              price.html('<s>' + text + '</s><br>' + String(priceValue.toFixed(2)).replace('.', ',') + self.currency);
+            }
+          } else {
+
+            if(price.data('rabate') === true) {
+              var originalPrice = price.data('original');
+
+              price.data('rabate', false);
+              price.attr('data-price', originalPrice);
+              price.text(String(originalPrice).replace('.', ',') + self.currency);
+            }
+          }
+        }
+      });
+    }
+
     if (countDiscountItems >= 3) {
       this.rabateTag.removeClass('hidden');
-      useRabate = true;
+      recalculatePrice(true);
     } else {
       this.rabateTag.addClass('hidden');
+      recalculatePrice(false);
     }
 
     //show or hide table thead
@@ -77,7 +106,7 @@ var app = {
       this.orderButton.attr('disabled', true);
     }
 
-    this.countTotalPrice(useRabate);
+    this.countTotalPrice();
   },
 
   /* Przeliczanie cen za produkty */
@@ -160,7 +189,7 @@ var app = {
         $tr = $('<tr>').data('id', item.currentID),
         $name = $('<td>'),
         $dimensions = $('<td>'),
-        $amount = $('<td>'),
+        $amount = $('<td>', {'class': 'amount'}).data('amount', parseInt(amount)),
         $color = $('<td>'),
         $price = $('<td>', {'class': 'text-right'}),
         $remove = $('<td><a href="#" class="remove-item"><span class="icon-trash-o"></span></a></td>');
@@ -477,6 +506,7 @@ var app = {
 
         $form.find('[name="message"]').val(messageOutput);
         $form.find('[name="total"]').val($finalPrice.data('price')); //@todo validator
+        $form.find('[name="rabate"]').val(self.rabateTag.is(':visible'));
 
         if(validatePrice($finalPrice.data('price') === 0)) {
           console.log('Wystąpił błąd! Suma zamówienia jest błędna');
