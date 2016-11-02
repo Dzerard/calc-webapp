@@ -457,9 +457,10 @@ select {
   top: 50%;
   margin-top: -20px;
   transition: all .3s ease-in-out;
-  background: $color-body-background;
+  z-index: 1;
+  background: rgba(252, 175, 71, 0.7);
 
-  @include large {
+  @include xxlarge {
     top: 35px;
     right: 15px;
   }
@@ -567,4 +568,32 @@ select {
 
 input[type="number"].input-lg {
   padding-right: 0;
+}
+
+.contact-form-modal {
+  display: none;
+}
+
+#formResponse {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: .3s;
+  -webkit-animation-duration: .3s;
+}
+
+.modal-body-wrapper {
+  display: none;
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: .3s;
+  -webkit-animation-duration: .3s;
+}
+
+
+.modal-body {
+
+  .loader.big {
+    position: relative;
+    min-height: 100px;
+  }
 }

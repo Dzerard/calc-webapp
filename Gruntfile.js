@@ -343,7 +343,8 @@ module.exports = function (grunt) {
             'images/{,*/}*.webp',
             '{,*/}*.html',
             'styles/fonts/{,*/}*.*',
-			'mail.php'
+			      'mail.php',
+            'admin/{,*/}*.*'
           ]
         }, {
           expand: true,

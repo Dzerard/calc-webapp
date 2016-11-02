@@ -24,7 +24,7 @@ if (isset($_SESSION["user"])) {
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
           <h3 id="myModalLabel">Wypełnij formularz</h3>
         </div>
-        <form action="gallery.php" method="post">
+        <form action="colors.php" method="post">
           <div class="modal-body">
             <label for="focusedInput">Tytuł galerii:</label>
             <input class="my-font span6" id="focusedInput" type="text" name="gallery_title" required>			
@@ -32,8 +32,8 @@ if (isset($_SESSION["user"])) {
             <label for="galleryDesc">Opis galerii:</label>
             <textarea rows="10" id="galleryDesc" name="gallery_desc" class="my-font span6"></textarea>                                                                                
             <br />
-            <label class="checkbox">
-              Widoczna <input type="checkbox" id="inputVisible" name="gallery_visible">
+            <label class="checkbox hidden">
+              Widoczna <input type="checkbox" id="inputVisible" name="gallery_visible" checked="checked">
             </label>             
           </div>          
           <div class="modal-footer">              	
@@ -53,7 +53,6 @@ if (isset($_SESSION["user"])) {
                 <tr>
                   <th class="span1 td-spec">ID</th>
                   <th class="td-spec">Tytuł</th>                       
-                  <th class="span1 td-spec">Widoczne</th> 
                   <th class="span2 td-spec">Data dodania</th>
                   <th class="span2 td-spec">Akcje</th>                        
                 </tr>
@@ -63,15 +62,14 @@ if (isset($_SESSION["user"])) {
                   <?php foreach ($gallery as $i) : ?>
                     <tr>
                       <td class="td-spec-2"><?php echo $i['gallery_id'] ?></td>
-                      <td>  <a href="colors_edit.php?id=<?php echo $i['gallery_id'] ?>" title="Edytuj" class="tool"><?php echo $i['gallery_title'] ?></a></td>
-
-                      <td class="td-spec-2"><a href="gallery.php?visibleID=<?php echo $i['gallery_id']; ?>"> <?php echo ($i['gallery_visible'] == 'yes') ? '<i class="icon-ok-sign"></i>' : '<i class="icon-remove-sign"></i>' ?></a></td>
-
+                      <td>  
+                        <a href="colors_edit.php?id=<?php echo $i['gallery_id'] ?>" title="Edytuj" class="tool"><?php echo $i['gallery_title'] ?></a>
+                      </td>
                       <td class="td-spec-2"><?php echo date('d-m-Y G:i', $i['gallery_insert']) ?></td>
                       <td class="td-spec-2">
                         <a href="colors_edit.php?id=<?php echo $i['gallery_id'] ?>" title="Edytuj" class="tool">
                           <i class="icon-edit" style="margin-right:10px;"></i></a>	  					
-                        <a href="gallery.php?del_id=<?php echo $i['gallery_id'] ?>" title="Usuń" class="tool"><i class="icon-trash"></i></a>                             
+                        <a href="colors.php?del_id=<?php echo $i['gallery_id'] ?>" title="Usuń" class="tool"><i class="icon-trash"></i></a>                             
                       </td>
                     </tr>
                   <?php endforeach; ?> 

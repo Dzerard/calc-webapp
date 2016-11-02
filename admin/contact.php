@@ -1,8 +1,8 @@
 <?php
 ob_start();
 session_start();
-require_once("config/lib/data_actions.php");
-require_once("lib/newsletter.php");
+require_once("config/lib/contact_actions.php");
+require_once("lib/contact.php");
 
 if (isset($_SESSION["user"])) {
   require_once("lib/_partials/admin_head.phtml");
@@ -19,8 +19,9 @@ if (isset($_SESSION["user"])) {
             <thead>
               <tr>
                 <th class="span1 td-spec">ID</th>
-                <th class="span2 td-spec">Imię i Nazwisko(Nick)</th>
+                <th class="span2 td-spec">Temat</th>
                 <th class="span1 td-spec">E-mail</th>
+                <th class="span1 td-spec">Wiadomość</th>
                 <th class="span1 td-spec">Data dodania</th>
                 <th class="span2 td-spec">Akcje</th>
               </tr>
@@ -28,12 +29,13 @@ if (isset($_SESSION["user"])) {
             <tbody>
               <?php foreach ($list as $i) : ?>
                 <tr>
-                  <td class="td-spec-2"><?php echo $i['newsletter_id'] ?></td>
-                  <td class="td-spec-2"><?php echo $i['newsletter_user'] ?></td>
-                  <td class="td-spec-2"><?php echo $i['newsletter_email'] ?></td>
-                  <td class="td-spec-2"><?php echo date('d-m-Y G:i', $i['newsletter_insert']) ?></td>
+                  <td class="td-spec-2"><?php echo $i['contact_id'] ?></td>
+                  <td class="td-spec-2"><?php echo $i['contact_topic'] ?></td>
+                  <td class="td-spec-2"><?php echo $i['contact_email'] ?></td>
+                  <td class="td-spec-2"><?php echo $i['contact_message'] ?></td>
+                  <td class="td-spec-2"><?php echo date('d-m-Y G:i', $i['contact_insert']) ?></td>
                   <td class="td-spec-2">
-                    <a href="newsletter.php?del_id=<?php echo $i['newsletter_id'] ?>" title="Usuń" class="tool" style="margin-left:8px;">
+                    <a href="contact.php?del_id=<?php echo $i['contact_id'] ?>" title="Usuń" class="tool confirm-remove" style="margin-left:8px;">
                       <i class="icon-trash"></i>
                     </a>
                   </td>
@@ -42,7 +44,7 @@ if (isset($_SESSION["user"])) {
             </tbody>
           </table>
         </div>
-        <a href="newsletter.php?export=true" class="btn btn-default">Eksport CSV</a>
+        <!--<a href="contact.php?export=true" class="btn btn-default">Eksport CSV</a>-->
       </div>
     </div>
   </div>

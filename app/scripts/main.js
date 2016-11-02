@@ -24,6 +24,7 @@ var app = {
     this.validForom();
     this.step2Form();
     this.modalMethods();
+    this.contactFormSave();
   },
 
   /* Przeliczanie wartości całego zamówienia */
@@ -278,7 +279,6 @@ var app = {
   },
   modalMethods: function() {
     var $colorModal = $('#colorModal'),
-        $items = $colorModal.find('.modal-body a'),
         $ok = $colorModal.find('.btn-success'),
         self = this;
 
@@ -290,16 +290,18 @@ var app = {
       }
     }
 
-    $items.tooltip();
+    function modalMethods($items) {
+      $items.tooltip();
 
-    $items.on('click', function() {
+      $items.on('click', function() {
 
-      $items.removeClass('active');
-      $(this).addClass('active');
-      unlockOk();
+        $items.removeClass('active');
+        $(this).addClass('active');
+        unlockOk();
 
-      return false;
-    });
+        return false;
+      });
+    }
 
     $ok.on('click', function() {
       var activeItem = $colorModal.find('.modal-body a.active').first();
@@ -315,61 +317,18 @@ var app = {
 
     $colorModal.on('show.bs.modal', function (e) {
       var $button = $(e.relatedTarget);
-      var colorScheme = $button.data('colors'); //currentItem
+      var colorScheme = $button.attr('data-colors'); //currentItem
+      var body = $colorModal.find('.modal-body');
 
+      if(body.find('[data-title="' + colorScheme + '"]').is(':visible')) {
+        //@todo
+      } else {
+        body.find('.row').addClass('hidden');
+        body.find('[data-title="' + colorScheme + '"]').removeClass('hidden');
+        body.find('a').removeClass('active');
+      }
 
-
-
-
-      console.log($button);
-
-      // if($button.exists()) {
-      //   url = $button.attr('data-url');
-      //   type = !$button.attr('data-system') ? null : $button.attr('data-system');
-      // } else {
-      //   url = systemData.url;
-      //   type = systemData.type;
-      //   method = 'GET';
-      //   $simpleModal.removeData();
-      // }
-      //
-      // $simpleModal.find('form').hide();
-      // $simpleModal.find('.modal-content').hide();
-      //
-      // if(url != undefined) {
-      //   //@todo register avialble methods var DEFINED_METHODS = ['login', 'register'];
-      //   if( type== 'FOS') {
-      //     self.FOSActions($simpleModal, $button, url);
-      //     return;
-      //   }
-      //
-      //   $.ajax({
-      //     type: method,
-      //     url: url,
-      //     dataType: 'json',
-      //     success: function (result) {
-      //       //validacja metod itd.
-      //       $simpleModal.find('.modal-content').html(result.html).show();
-      //       if(self[result.method] !== undefined) {
-      //         self[result.method]($simpleModal); //fire method in view
-      //       }
-      //     },
-      //     beforeSend: function() {
-      //       app.helpers.loader();
-      //     },
-      //     error: function(xhr, ajaxOptions, thrownError) {
-      //       toastr.error(translator.translate(thrownError));
-      //       app.helpers.removeLoader();
-      //     }
-      //   }).always(function() {
-      //     app.helpers.removeLoader();
-      //   });
-      //
-      // } else {
-      //   //betId for invite friends
-      //   $simpleModal.find('form').hide();
-      //   $simpleModal.find('[data-form="'+$button.attr('data-type')+'"]').show();
-      // }
+      unlockOk();
     });
 
     //ladujemy kolorki :)
@@ -381,38 +340,33 @@ var app = {
         'getPics': true
       },
       success: function (result) {
-        var body = $colorModal.find('.modal-body');
-        var myTemplate = $("#picItem").html().trim();
-        var myTemplateClone = $(myTemplate);
+        var body = $colorModal.find('.modal-body'),
+            myTemplate = $("#picItem").html().trim(),
+            myTemplateClone = $(myTemplate),
+            IMAGE_PATH = 'admin/img/gallery/';
 
-        $.each(result.schemes, function(key, item) {
-          var scheme = $('<div>');
+        $.each(result.schemes, function(k, i) {
+          var scheme = $('<div>', {'class': 'row'}).attr('data-title', i['gallery_title']);
 
-          if(item['pics']) {
-            $.each(item['pics'], function(key, item) {
-              scheme.append($(myTemplate).attr('data-key', item['pic_id']));
+          if(i['pics']) {
+            $.each(i['pics'], function(key, item) {
+              var $item = $(myTemplate).attr('data-key', item['pic_id']);
+              $item.find('a').attr('data-image', item['pic_id']).attr('title', item['pic_title']);
+              $item.find('img').attr('src', IMAGE_PATH + item['pic_name']);
+              scheme.append($item);
             });
           }
           body.append(scheme);
         });
 
-        console.log(result);
-        //validacja metod itd.
-        // $simpleModal.find('.modal-content').html(result.html).show();
-        // if(self[result.method] !== undefined) {
-        //   self[result.method]($simpleModal); //fire method in view
-        // }
-      },
-      beforeSend: function() {
-        // app.helpers.loader();
+        //@todo
+        modalMethods($colorModal.find('.modal-body a'));
       },
       error: function(xhr, ajaxOptions, thrownError) {
         console.log("can't load color schemes");
-        // toastr.error(translator.translate(thrownError));
-        // app.helpers.removeLoader();
       }
     }).always(function() {
-      //app.helpers.removeLoader();
+      console.log("schemes loaded");
     });
   },
   bindFunctions: function () {
@@ -644,6 +598,98 @@ var app = {
         });
       }
       return false;
+    });
+  },
+  contactFormSave: function () {
+    var $showForm = $('#showModalContactForm'),
+        $contactForm = $('#modalContactForm'),
+        $formResponse = $('#formResponse'),
+        $instruction = $('#modalInstruction'),
+        $infoModal = $('#infoModal'),
+        self = this;
+
+    $showForm.on('click', function() {
+      $(this).hide();
+      $contactForm.fadeIn();
+      $instruction.hide();
+      return false;
+    });
+
+    $contactForm.submit(function (e) {
+
+      var $btn = $contactForm.find('button'),
+          contactSerialize = $contactForm.serialize();
+
+      if($contactForm.parsley().validate() === true) {
+
+        //when valid send message
+
+        $btn.button('loading');
+
+        $.ajax({
+          type: 'POST',
+          url: 'admin/ajax.php',
+          dataType: 'json',
+          data: {
+            contactForm: contactSerialize
+          },
+          success: function (result) {
+            if (result.err) {
+              $formResponse.addClass('alert alert-danger');
+              $formResponse.text('Wystąpił błąd!').fadeIn();
+            } else {
+              $contactForm.fadeOut('medium', function () {
+                $formResponse.removeAttr('class').addClass('alert alert-info').text('Formularz został wysłany').fadeIn();
+
+                setTimeout(function () {
+                  $formResponse.fadeOut('medium', function() {
+                    $instruction.fadeIn();
+                  });
+                }, 2000);
+              });
+            }
+          },
+          error: function (xmlHttpRequest, textStatus, errorThrown) {
+            $formResponse.addClass('alert alert-danger');
+            $formResponse.text('Wystąpił błąd! Spróbuj ponownie ...').fadeIn();
+          }
+        }).always(function () {
+          $btn.button('reset');
+        });
+      }
+
+      return false;
+    });
+
+    //ładowanie informacji do modala
+    $.ajax({
+      type: 'POST',
+      url: 'admin/ajax.php',
+      dataType: 'json',
+      data: {
+        'aboutPage': true
+      },
+      success: function (result) {
+        var body = $infoModal.find('.modal-body');
+
+        if(result.data['pages_name_pl'] != '') {
+          $infoModal.find('.modal-title').text(result.data['pages_name_pl']);
+        }
+
+        if(result.data['pages_visible'] == 'no') {
+          $contactForm.remove();
+          $showForm.remove();
+        }
+
+        $instruction.html(result.data['pages_context_pl']);
+        body.find('.loader').hide();
+        body.find('.modal-body-wrapper').show();
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.log("can't load about info");
+      }
+    }).always(function() {
+      console.log("info loaded");
     });
   }
 };

@@ -15,7 +15,7 @@
 
   .tile {
     background: $color;
-    
+
     &:hover {
       background: darken($color, 25%);
     }
@@ -38,6 +38,13 @@
     width: 87px;
     height: 2px;
     background: $color-grey;
+  }
+}
+
+
+@mixin xxlarge() {
+  @media screen and (max-width: $mqXXLarge) {
+    @content;
   }
 }
 

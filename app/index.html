@@ -91,12 +91,12 @@
 
                 <div class="form-container">
 
-                    <form class="form-horizontal"  data-parsley-form-config>
+                    <form class="form-horizontal" data-parsley-form-config>
                         <div class="form-group">
 
                             <div class="col-xs-12 col-sm-8 col-md-4">
                                 <div class="row choose-product">
-                                    <label for="product" class="col-sm-2 control-label text-left">Produkt</label>
+                                    <label class="col-sm-2 control-label text-left">Produkt</label>
                                     <div class="col-md-12">
                                         <div class="dropdown">
                                             <button data-tooltip class="btn btn-default dropdown-toggle input-lg" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" data-item-set="false">
@@ -332,18 +332,48 @@
         </div>
 
         <div class="modal fade" tabindex="-1" role="dialog" id="infoModal">
-          <div class="modal-dialog" role="document">
+          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Instrukcja</h4>
               </div>
               <div class="modal-body">
-                <p>tekst &hellip;</p>
+
+                <div class="loader big"></div>
+
+                <div class="modal-body-wrapper">
+                  <div id="modalInstruction"></div>
+
+                  <button type="button" class="btn btn-success" id="showModalContactForm">Formularz kontaktowy</button>
+
+                  <div id="formResponse"></div>
+
+                  <form method="post" action="#" class="contact-form-modal" id="modalContactForm"
+                        data-parsley-validate="">
+                    <p class="lead">Formularz kontaktowy </p>
+                    <div class="form-group">
+                      <label for="contactFormEmail">Email</label>
+                      <input type="email" required class="form-control input-lg" id="contactFormEmail"
+                             placeholder="Email" name="email" autofocus>
+                    </div>
+                    <div class="form-group">
+                      <label for="contactFormTopic">Temat</label>
+                      <input type="text" class="form-control input-lg" id="contactFormTopic" placeholder="Temat"
+                             name="topic" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="contactFormMessage">Wiadomość</label>
+                      <textarea class="form-control required input-lg" id="contactFormMessage" placeholder="Wiadomość"
+                                name="message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success" data-loading-text="Wysyłanie...">Wyślij</button>
+                  </form>
+                </div>
+
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-                <button type="button" class="btn btn-primary">Formularz kontaktowy</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Anuluj</button>
               </div>
             </div>
           </div>
@@ -365,54 +395,6 @@
                     </a>
                   </div>
                 </template>
-
-                <div class="row">
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="001" title="Czerwony">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1155.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="002" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1156.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="003" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1159.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="004" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1160.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="005" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1162.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="006" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1163.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="007" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1164.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="008" title="Czerwony 2">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1170.jpg">
-                    </a>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-xs-6">
-                    <a class="color-pick-item" href="#" data-image="009" title="Czerwony 3">
-                      <img class="img-responsive" alt="Brand" src="images/colors/kolory_natura/a__D2X1172.jpg">
-                    </a>
-                  </div>
-                </div>
 
               </div>
               <div class="modal-footer">
