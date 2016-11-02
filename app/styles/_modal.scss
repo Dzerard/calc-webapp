@@ -1,3 +1,92 @@
 .modal {
   color: $color-black;
+  z-index: 1070;
+}
+
+.modal-content  {
+  background: $color-body-background;
+  color: $color-white;
+}
+
+.modal-header {
+  border-color: $color-white;
+
+  .close {
+    color: $color-white;
+    opacity: .7;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.modal-footer {
+  border-color: $color-white;
+}
+
+
+.modal-body {
+
+  .row {
+
+    > div {
+      margin-bottom: 30px;
+    }
+  }
+
+  .color-pick-item {
+    display: block;
+    position: relative;
+    transition: all .2s ease-in-out;
+
+    &:before,
+    &:after {
+      transition: all .2s ease-in-out;
+      content: '';
+      opacity: 0;
+    }
+
+    img {
+      border: 1px solid $color-white;
+    }
+
+    &.active {
+
+      img {
+        border-color: transparent;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: 3px solid $color-active;
+        opacity: 1;
+      }
+
+      &:after {
+        transition: all .2s ease-in-out;
+        position: absolute;
+        background: $color-active;
+        border-radius: 50%;
+        font-size: 20px;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        line-height: 30px;
+        content: "\f00c";
+        font-family: $font-icons;
+        color:  $color-white;
+        border: 1px solid $color-white;
+        right: 7px;
+        bottom: 7px;
+        box-shadow: 0 0 2px $color-white;
+        opacity: 1;
+      }
+    }
+  }
 }

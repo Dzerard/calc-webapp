@@ -157,7 +157,7 @@ body section {
   width: 100%;
 }
 
-.btn-success{
+.btn-success {
   background: #ffae00;
   background: -moz-linear-gradient(top,  #ffae00 0%, #ff9501 90%, #ff7b11 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffae00), color-stop(90%,#ff9501), color-stop(100%,#ff7b11));
@@ -174,7 +174,12 @@ body section {
   box-shadow: inset 0px 1px 0px 0px rgba(255,243,121,0.75), 0px 6px 10px -4px rgba(0,0,0,0.2);
 }
 
-.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:active:hover, .btn-success:active:focus, .btn-success:active.focus, .btn-success.active:hover, .btn-success.active:focus, .btn-success.active.focus, .open > .btn-success.dropdown-toggle:hover, .open > .btn-success.dropdown-toggle:focus, .open > .btn-success.dropdown-toggle.focus {
+.btn-success[disabled] {
+  border: 1px solid #cc6922;
+  background: darken(#ff9501, 5%);
+}
+
+.btn-success[disabled]:hover, .btn-success[disabled]:focus, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:active:hover, .btn-success:active:focus, .btn-success:active.focus, .btn-success.active:hover, .btn-success.active:focus, .btn-success.active.focus, .open > .btn-success.dropdown-toggle:hover, .open > .btn-success.dropdown-toggle:focus, .open > .btn-success.dropdown-toggle.focus {
   background: darken(#ff9501, 5%);
   border: 1px solid #cc6922;
   -webkit-box-shadow: none;

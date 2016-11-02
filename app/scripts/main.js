@@ -23,6 +23,7 @@ var app = {
     this.bindFunctions();
     this.validForom();
     this.step2Form();
+    this.modalMethods();
   },
 
   /* Przeliczanie wartości całego zamówienia */
@@ -121,7 +122,7 @@ var app = {
       var width = this.itemWidth.val();
       var height = this.itemHeight.val();
       var amount = this.countItems.val();
-      var color = $('#dropdownColor b').text();
+      var color =   this.colorPicker.data('item');
       var setItemWithPrice = null;
       var gapNumber = 1;
 
@@ -230,7 +231,7 @@ var app = {
     this.step1         = $('.flow-step-1');
     this.orderButton   = $('#orderFormButton');
     this.step2         = $('.flow-step-2');
-    this.colorPicker   = $('.dropdown-colorpicker');
+    this.colorPicker   = $('#colorPick');
     this.backToCalculator = $('#backToCalculator');
     this.rabateTag     = $('#topPriceRabate');
     this.itemChain     = $('#itemChain');
@@ -242,93 +243,187 @@ var app = {
   setMaxHeight: function (height) {
     this.itemHeight.attr('max', height);
   },
+  removeError: function($item, $parent) {
+    $item.tooltip('destroy');
+    $parent.parent().removeClass('has-error');
+  },
   checkIfItemSelect: function () {
     var itemSet = this.dropdown.find('button').attr('data-item-set');
-    var colorSet = this.colorPicker.parent().find('button').attr('data-item-set');
+    var colorSet = this.colorPicker.attr('data-item-set');
+    var self = this;
 
-    //console.log(colorSet);
-
-    if (colorSet === 'false') {
-
-      this.colorPicker.parent().find('button').attr('data-original-title', 'Wybierz kolor');
-      this.colorPicker.parent().parent().addClass('has-error');
-      this.colorPicker.parent().find('button').tooltip('show');
-
-      // return false;
+    //kolor
+    if (colorSet === 'false' && !self.colorPicker.attr('disabled')) {
+      this.colorPicker.attr('data-original-title', 'Wybierz kolor');
+      this.colorPicker.parent().addClass('has-error');
+      this.colorPicker.tooltip('show');
     } else {
-      this.colorPicker.parent().find('button').tooltip('destroy');
-      this.colorPicker.parent().parent().removeClass('has-error');
-
-      // return true;
+      self.removeError(self.colorPicker, self.colorPicker);
     }
 
+    //przedmiot
     if (itemSet === 'false') {
-
       this.dropdown.find('button').attr('data-original-title', 'Wybierz produkt');
       this.dropdown.parent().addClass('has-error');
       this.dropdown.find('button').tooltip('show');
+    } else {
+      self.removeError(self.dropdown.find('button'), self.dropdown);
+    }
 
+    if(itemSet === 'false' || colorSet === 'false') {
       return false;
     } else {
-      this.dropdown.find('button').tooltip('destroy');
-      this.dropdown.parent().removeClass('has-error');
-
       return true;
     }
+  },
+  modalMethods: function() {
+    var $colorModal = $('#colorModal'),
+        $items = $colorModal.find('.modal-body a'),
+        $ok = $colorModal.find('.btn-success'),
+        self = this;
+
+    function unlockOk() {
+      if($colorModal.find('.modal-body a.active').length > 0) {
+        $ok.attr('disabled', false);
+      } else {
+        $ok.attr('disabled', true);
+      }
+    }
+
+    $items.tooltip();
+
+    $items.on('click', function() {
+
+      $items.removeClass('active');
+      $(this).addClass('active');
+      unlockOk();
+
+      return false;
+    });
+
+    $ok.on('click', function() {
+      var activeItem = $colorModal.find('.modal-body a.active').first();
+
+      self.colorPicker.data('item', activeItem.attr('data-original-title'));
+      self.colorPicker.attr('data-item-set', 'true');
+      self.colorPicker.find('b').text(activeItem.attr('data-original-title'));
+      $colorModal.modal('hide');
+      self.removeError(self.colorPicker, self.colorPicker);
+
+      return false;
+    });
+
+    $colorModal.on('show.bs.modal', function (e) {
+      var $button = $(e.relatedTarget);
+      var colorScheme = $button.data('colors'); //currentItem
+
+
+
+
+
+      console.log($button);
+
+      // if($button.exists()) {
+      //   url = $button.attr('data-url');
+      //   type = !$button.attr('data-system') ? null : $button.attr('data-system');
+      // } else {
+      //   url = systemData.url;
+      //   type = systemData.type;
+      //   method = 'GET';
+      //   $simpleModal.removeData();
+      // }
+      //
+      // $simpleModal.find('form').hide();
+      // $simpleModal.find('.modal-content').hide();
+      //
+      // if(url != undefined) {
+      //   //@todo register avialble methods var DEFINED_METHODS = ['login', 'register'];
+      //   if( type== 'FOS') {
+      //     self.FOSActions($simpleModal, $button, url);
+      //     return;
+      //   }
+      //
+      //   $.ajax({
+      //     type: method,
+      //     url: url,
+      //     dataType: 'json',
+      //     success: function (result) {
+      //       //validacja metod itd.
+      //       $simpleModal.find('.modal-content').html(result.html).show();
+      //       if(self[result.method] !== undefined) {
+      //         self[result.method]($simpleModal); //fire method in view
+      //       }
+      //     },
+      //     beforeSend: function() {
+      //       app.helpers.loader();
+      //     },
+      //     error: function(xhr, ajaxOptions, thrownError) {
+      //       toastr.error(translator.translate(thrownError));
+      //       app.helpers.removeLoader();
+      //     }
+      //   }).always(function() {
+      //     app.helpers.removeLoader();
+      //   });
+      //
+      // } else {
+      //   //betId for invite friends
+      //   $simpleModal.find('form').hide();
+      //   $simpleModal.find('[data-form="'+$button.attr('data-type')+'"]').show();
+      // }
+    });
+
+    //ladujemy kolorki :)
+    $.ajax({
+      type: 'POST',
+      url: 'admin/ajax.php',
+      dataType: 'json',
+      data: {
+        'getPics': true
+      },
+      success: function (result) {
+        var body = $colorModal.find('.modal-body');
+        var myTemplate = $("#picItem").html().trim();
+        var myTemplateClone = $(myTemplate);
+
+        $.each(result.schemes, function(key, item) {
+          var scheme = $('<div>');
+
+          if(item['pics']) {
+            $.each(item['pics'], function(key, item) {
+              scheme.append($(myTemplate).attr('data-key', item['pic_id']));
+            });
+          }
+          body.append(scheme);
+        });
+
+        console.log(result);
+        //validacja metod itd.
+        // $simpleModal.find('.modal-content').html(result.html).show();
+        // if(self[result.method] !== undefined) {
+        //   self[result.method]($simpleModal); //fire method in view
+        // }
+      },
+      beforeSend: function() {
+        // app.helpers.loader();
+      },
+      error: function(xhr, ajaxOptions, thrownError) {
+        console.log("can't load color schemes");
+        // toastr.error(translator.translate(thrownError));
+        // app.helpers.removeLoader();
+      }
+    }).always(function() {
+      //app.helpers.removeLoader();
+    });
   },
   bindFunctions: function () {
     var self = this;
 
     $('[data-color-tooltip]').tooltip();
+
     $('.select-2').select2({
       minimumResultsForSearch: Infinity,
       width: '100%'
     });
-
-    var colorItems = self.colorPicker.find('li a');
-
-    function updateCurrentColor() {
-      var dropdown = self.colorPicker.parent();
-      var color = dropdown.find('a.active').attr('data-color') ? dropdown.find('a.active').attr('data-color') : 'Wybierz kolor';
-
-      dropdown.find('button').attr('data-item-set', color !== 'Wybierz kolor');
-
-      dropdown.find('button b').text(color);
-    }
-
-    colorItems.on('click', function() {
-      var selfButton = $(this);
-
-      if(selfButton.hasClass('active')) {
-        selfButton.removeClass('active');
-      } else {
-        colorItems.removeClass('active');
-        selfButton.addClass('active');
-      }
-
-      updateCurrentColor();
-
-      return false;
-    });
-
-//    window.ParsleyValidator.addValidator('phone', function (value, requirement) {
-//      if (value != '') {
-//        var emailTab = value.split(','),
-//                emailTabValid = [];
-//
-//        for (var i = 0; i < emailTab.length; i++) {
-//          emailTabValid[i] = validateEmail(emailTab[i]);
-//        }
-//
-//        if (emailTabValid.indexOf(false) === -1) {
-//          return true;
-//        }
-//
-//        return false;
-//      }
-//
-//      return 0;
-//    }, 32);
 
     //akcja do przeliczania formularza
     this.button.on('click', function () {
@@ -357,6 +452,22 @@ var app = {
       });
     }
 
+    function setDataToColorButton() {
+      self.colorPicker.attr('disabled', false);
+
+      if(self.currentItem.images === null) {
+        self.colorPicker.find('b').text('Brak kolorów');
+        self.colorPicker.attr('data-item-set', true);
+        self.colorPicker.removeAttr('data-colors');
+        self.colorPicker.attr('disabled', true);
+        self.colorPicker.data('item', '-');
+      } else {
+        self.colorPicker.find('b').text('Wybierz kolor');
+        self.colorPicker.attr('data-item-set', false);
+        self.colorPicker.attr('data-colors', self.currentItem.images);
+      }
+    }
+
     this.orderButton.on('click', showStep);
     this.backToCalculator.on('click', showStep);
 
@@ -366,26 +477,25 @@ var app = {
       self.dropdown.find('li').removeClass('active');
       $dropdownElement.addClass('active');
       self.currentItem = products[$dropdownElement.find('a').data('product-id')];
-      //@todo check if element exist
-      self.currentItem.currentID = $dropdownElement.find('a').data('product-id');
+      self.currentItem.currentID = $dropdownElement.find('a').data('product-id'); //@todo check if element exist
 
       self.dropdown.find('button b').text($dropdownElement.find('a').text());
       self.dropdown.find('button').attr('data-item-set', true);
       self.setMaxAmount(self.currentItem.amount);
       self.setMaxHeight(self.currentItem.maxHeight);
+
+      setDataToColorButton();
+
+      self.removeError(self.dropdown.find('button'), self.dropdown);
     });
 
     this.countItems.on('keyup', function () {
-
       self.checkIfItemSelect();
-      // console.log(self.currentItem);
     });
 
     this.productList.find('.remove-item').on('click', function () {
-
       var $this = $(this);
       self.removeRowAction($this);
-
       return false;
     });
   },

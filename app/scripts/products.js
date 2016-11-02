@@ -4,6 +4,10 @@ var products = {
   '001': {
     'price': '400',
     'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta Dzień i Noc',
+    'images': 'C',
     'rabate': {
       3: 5,
       10: 10
@@ -28,14 +32,15 @@ var products = {
         'priceCM': 1.5,
         'gap': 17.64
       }
-    ],
-    'amount': 50,
-    'maxHeight': 250,
-    'name': 'Roleta Dzień i Noc'
+    ]
   },
   '002': {
     'price': '400',
     'type': 'mini',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta ścienna',
+    'images': 'B',
     'rabate': {
       3: 5,
       10: 10
@@ -85,14 +90,15 @@ var products = {
         'priceCM': 1.2,
         'gap': 12.6
       }
-    ],
-    'amount': 50,
-    'maxHeight': 250,
-    'name': 'Roleta ścienna'
+    ]
   },
   '003': {
     'price': '400',
     'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta Mini',
+    'images': 'A',
     'rabate': {
       3: 5,
       10: 10
@@ -142,14 +148,15 @@ var products = {
         'priceCM': 1.2,
         'gap': 12.6
       }
-    ],
-    'amount': 50,
-    'maxHeight': 250,
-    'name': 'Roleta Mini'
+    ]
   },
   '004': {
     'price': '400',
     'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta Termo',
+    'images': null,
     'subtype': true,
     'rabate': {
       3: 5,
@@ -172,14 +179,15 @@ var products = {
         'priceMin': 66,
         'priceCM': 1.5
       }
-    ],
-    'amount': 50,
-    'maxHeight': 250,
-    'name': 'Roleta Termo'
+    ]
   },
   '005': {
     'price': '400',
     'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta Mini',
+    'images': 'A',
     'rabate': {
       3: 5,
       10: 10
@@ -204,14 +212,15 @@ var products = {
         'priceCM': 1.5,
         'gap': 17.64
       }
-    ],
-    'amount': 50,
-    'maxHeight': 250,
-    'name': 'Roleta Mini'
+    ]
   },
   '006': {
     'price': '400',
     'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Mini w Kasecie',
+    'images': 'A',
     'rabate': {
       3: 5,
       10: 10
@@ -236,10 +245,7 @@ var products = {
         'priceCM': 1.5,
         'gap': 17.64
       }
-    ],
-    'amount': 50,
-    'maxHeight': 250,
-    'name': 'Mini w Kasecie'
+    ]
   }
 };
 /*eslint-enable no-unused-vars*/

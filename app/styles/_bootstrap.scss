@@ -140,6 +140,11 @@
   }
 }
 
-.modal {
-  background: red;
+.btn-default[disabled] {
+  border-color: $color-white;
+
+  &:hover, &:focus {
+    border-color: $color-white;
+    background: transparent;
+  }
 }

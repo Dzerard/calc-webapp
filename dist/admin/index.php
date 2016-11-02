@@ -1,0 +1,1 @@
+<?php require_once("lib/_partials/admin_footer_location.phtml"); ?>
