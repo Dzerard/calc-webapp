@@ -7,7 +7,7 @@ var products = {
     'amount': 50,
     'maxHeight': 250,
     'name': 'Roleta Dzień i Noc',
-    'images': 'C',
+    'images': 'dzien_i_noc',
     'rabate': {
       3: 5,
       10: 10
@@ -40,7 +40,7 @@ var products = {
     'amount': 50,
     'maxHeight': 250,
     'name': 'Roleta ścienna',
-    'images': 'B',
+    'images': 'scienna',
     'rabate': {
       3: 5,
       10: 10
@@ -98,7 +98,7 @@ var products = {
     'amount': 50,
     'maxHeight': 250,
     'name': 'Roleta Mini',
-    'images': 'A',
+    'images': 'mini',
     'rabate': {
       3: 5,
       10: 10
@@ -156,7 +156,7 @@ var products = {
     'amount': 50,
     'maxHeight': 250,
     'name': 'Roleta Termo',
-    'images': null,
+    'images': 'termo',
     'subtype': true,
     'rabate': {
       3: 5,
@@ -186,8 +186,8 @@ var products = {
     'type': 'blind',
     'amount': 50,
     'maxHeight': 250,
-    'name': 'Roleta Mini',
-    'images': 'A',
+    'name': 'Karnisz kwadro',
+    'images': 'karnisz_kwadro',
     'rabate': {
       3: 5,
       10: 10
@@ -220,7 +220,7 @@ var products = {
     'amount': 50,
     'maxHeight': 250,
     'name': 'Mini w Kasecie',
-    'images': 'A',
+    'images': 'mini_kaseta',
     'rabate': {
       3: 5,
       10: 10
@@ -246,6 +246,72 @@ var products = {
         'gap': 17.64
       }
     ]
-  }
+  },
+  '007': {
+    'price': '400',
+    'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta Dzień i Noc Kaseta',
+    'images': 'dzien_noc_kaseta',
+    'rabate': {
+      3: 5,
+      10: 10
+    },
+    'gapDelimeter': 10,
+    'priceMeter': [
+      {
+        'minHeight': [1, 150],
+        'priceMin': 36,
+        'priceCM': 0.8,
+        'gap': 9
+      },
+      {
+        'minHeight': [151, 220],
+        'priceMin': 46,
+        'priceCM': 1.2,
+        'gap': 12.6
+      },
+      {
+        'minHeight': [221, 250],
+        'priceMin': 66,
+        'priceCM': 1.5,
+        'gap': 17.64
+      }
+    ]
+  },
+  '008': {
+    'price': '400',
+    'type': 'blind',
+    'amount': 50,
+    'maxHeight': 250,
+    'name': 'Roleta Dzień i Noc Natura',
+    'images': 'dzien_noc_natura',
+    'rabate': {
+      3: 5,
+      10: 10
+    },
+    'gapDelimeter': 10,
+    'priceMeter': [
+      {
+        'minHeight': [1, 150],
+        'priceMin': 36,
+        'priceCM': 0.8,
+        'gap': 9
+      },
+      {
+        'minHeight': [151, 220],
+        'priceMin': 46,
+        'priceCM': 1.2,
+        'gap': 12.6
+      },
+      {
+        'minHeight': [221, 250],
+        'priceMin': 66,
+        'priceCM': 1.5,
+        'gap': 17.64
+      }
+    ]
+  },
 };
 /*eslint-enable no-unused-vars*/
